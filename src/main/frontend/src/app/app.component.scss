@@ -1,0 +1,72 @@
+mat-drawer-container{
+  width: 100vw;
+  background: rgb(180,58,112);
+  background: linear-gradient(90deg, rgba(180,58,112,1) 0%, rgba(253,29,29,1) 36%, rgba(252,124,69,1) 100%);
+}
+
+mat-drawer{
+  width: 200px;
+  background: none;
+}
+
+.drawer-inner-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.logo{
+  display: flex;
+  height: 220px;
+}
+
+.logo-icon{
+  margin: auto;
+  font-size: 100px;
+  height: 100%;
+  width: fit-content;
+}
+
+.menu-wrapper{
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.menu-item{
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  text-decoration: none;
+  color: var(--text-primary-color);
+}
+
+.panel-wrapper{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-bar{
+  height: 60px;
+  padding: 10px;
+}
+
+.app-bar button{
+  background-color: white;
+  height: 40px;
+  width: 40px;
+  min-width: 0px;
+}
+
+.app-bar mat-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin: 0px;
+}
+
