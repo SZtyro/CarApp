@@ -16,10 +16,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EventComponent } from './components/event/event.component';
 import { TableComponent } from './tools/table/table.component';
 import { PortalModule} from '@angular/cdk/portal';
+import { GeneratorComponent } from './tools/generator/generator.component';
+import { BaseSearchComponent } from './tools/base-search/base-search.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, EventComponent, TableComponent],
+  declarations: [AppComponent, DashboardComponent, EventComponent, TableComponent, GeneratorComponent, BaseSearchComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -36,7 +39,8 @@ import { PortalModule} from '@angular/cdk/portal';
     MatCardModule,
     TranslateModule.forRoot(),
     MatTableModule,
-    PortalModule
+    PortalModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

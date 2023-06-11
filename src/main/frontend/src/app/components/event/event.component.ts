@@ -1,24 +1,21 @@
-import { ComponentPortal } from '@angular/cdk/portal';
-import { AfterViewInit, Component, Injector } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { TableComponent } from 'src/app/tools/table/table.component';
+import { Component } from '@angular/core';
+import { searchTemplatePath } from 'src/app/app.component';
+import { EventService } from 'src/app/services/event.service';
+import { BaseSearchComponent } from 'src/app/tools/base-search/base-search.component';
+import { Column } from 'src/app/tools/model/column';
 
 @Component({
   selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
+  templateUrl: `./../../${searchTemplatePath}`,
+  styleUrls: [],
 })
-export class EventComponent implements AfterViewInit{
-
-  portal: ComponentPortal<any> = null;
-
-  ngAfterViewInit(): void {
-   this.portal = new ComponentPortal(TableComponent, null, Injector.create({providers: [{provide: 'data', useValue: new MatTableDataSource([{test: 'xxx', value: 'test'}])}]}));
-   let prot: TableComponent = this.portal.component.prototype;
-   console.log(prot.testfn());
-  //  prot.testfn();
-  //  prot.dataSource =  new MatTableDataSource([{test: 'xxx', value: 'test'}]);
-   
-  }
-
+export class EventComponent extends BaseSearchComponent<any>{
+  
+  override service: EventService = this.injector.get(EventService);
+  override columns: Column[] = [
+    Column.fromPath('name'),
+    Column.fromPath('data'),
+    new Column({header: 'Marka', getValue: (e) => e.car.name}),
+    new Column({header: 'A', getValue: (e) => 'teeest'})
+  ]
 }
