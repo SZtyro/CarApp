@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { TableOptions } from '../model/tableOptions';
+import { Column } from '../model/column';
 
 @Component({
   selector: 'app-table',
@@ -8,27 +10,20 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TableComponent {
 
-  dataSource: MatTableDataSource<any> = new MatTableDataSource([{test: 'teeeest', value: 'test'}]);
-  columns: Array<string> = ['test'];
-  displayedColumns = ['test'];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  columns: Column[];
+  displayedColumns: string[];
+  options: TableOptions<any>;
 
-  constructor(@Inject('data') private data: any) {
-    console.log(data);
-    this.dataSource = data;
+  constructor(@Inject('data') private data: TableOptions<any>) {
+    this.options = data;
+    this.columns = data.columns;
+    this.displayedColumns = this.columns.map(e => e.header);
+    this.fetchData();
   }
 
-  getValueForColumn(column: any, element: any) {
-    if(column.setValue)
-      return column.setValue(element);
-    else{
-      //Default value
-      return element['test'];
-    }
-    //Mozliwosc innych pol jak data i checbox
-  }
-
-  testfn() {
-    return this.dataSource
+  fetchData(){
+    this.options.tableData.subscribe( e => this.dataSource.data = e);  
   }
 
 }
