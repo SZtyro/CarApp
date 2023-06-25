@@ -11,7 +11,7 @@ export class AppComponent {
   menu = [
     {name: 'Dashboard', icon: 'home', path: 'dashboard'},
     {name: 'Cars', icon: 'directions_car', path: 'cars'},
-    {name: 'Events', icon: 'logs', path: 'events'},
+    {name: 'Events', icon: 'list_alt', path: 'events'},
     {name: 'Settings', icon: 'settings'},
   ]
 }

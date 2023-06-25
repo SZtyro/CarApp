@@ -1,31 +1,38 @@
 <mat-drawer-container autosize>
-  <mat-drawer #drawer opened mode="side">
+  <mat-drawer #drawer opened mode="side" >
     <div class="panel-wrapper">
-      <div class="logo">
-        <mat-icon class="logo-icon">directions_car</mat-icon>
+      <div>
+        <!-- <mat-icon class="logo-icon">directions_car</mat-icon> -->
       </div>
       <div class="drawer-inner-container">
         <div class="menu-wrapper">
           <a href="{{item.path}}" class="menu-item" *ngFor="let item of menu" matRipple>
-            <h5>{{item.name}}</h5>
+            <!-- <h5>{{item.name}}</h5> -->
             <mat-icon>{{item.icon}}</mat-icon>
           </a>
         </div>
-        <div class="bottom-menu">
-          Lower panel
-        </div>
+        
+      </div>
+      <div class="bottom-menu">
+        Lower panel
       </div>
     </div>
   </mat-drawer>
 
-  <div>
+  <div class="d-flex flex-column h-100">
     <div class="app-bar container">
       <button mat-button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon>apps</mat-icon>
       </button>
     </div>
 
-    <router-outlet></router-outlet>
+    <div class="h-100">
+      <router-outlet></router-outlet>
+    </div>
+
+    <div style="height: 60px;">
+
+    </div>
   </div>
 
 </mat-drawer-container>

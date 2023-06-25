@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { BaseService } from '../model/baseService';
-import { Column } from '../model/column';
 import { Table } from '../model/table';
+import { TableOptions } from '../model/tableOptions';
 
 @Component({
   selector: 'app-base-search',
@@ -11,15 +11,15 @@ import { Table } from '../model/table';
 export class BaseSearchComponent<T> implements OnInit {
   tableField;
   service: BaseService<T>;
-  columns: Column[] = null;
+  tableOptions: TableOptions<T> = null;
 
   constructor(protected injector: Injector) {}
 
   ngOnInit(): void {
-    if (this.columns != null) {
+    if (this.tableOptions != null) {
       this.tableField = new Table<any>({
-        columns: this.columns,
-        tableData: this.service.getAll(),
+        ...{tableData: this.service.getAll()},
+        ...this.tableOptions
       });
     }
   }

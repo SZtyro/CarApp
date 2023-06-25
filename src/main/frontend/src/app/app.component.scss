@@ -5,15 +5,19 @@ mat-drawer-container{
 }
 
 mat-drawer{
-  width: 200px;
+  width: 50px;
   background: none;
+  border-right: 1px solid  rgba($color: #222, $alpha: 0.1);
+}
+
+mat-drawer:hover{
+  background-color: var(--bs-body-bg);
 }
 
 .drawer-inner-container{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
 }
 
 .logo{
@@ -24,30 +28,34 @@ mat-drawer{
 .logo-icon{
   margin: auto;
   font-size: 100px;
-  height: 100%;
   width: fit-content;
 }
 
 .menu-wrapper{
   display: flex;
   gap: 5px;
+  padding: 0 5px;
+  align-items: center;
   flex-direction: column;
 }
 
 .menu-item{
-  height: 35px;
+  height: 40px;
+  width: 40px;
+  border-radius: 6px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 0 10px;
   text-decoration: none;
   color: var(--text-primary-color);
+  background-color: rgba($color: #222, $alpha: 0.1);
 }
 
 .panel-wrapper{
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .app-bar{
