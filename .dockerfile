@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy the pom.xml and source code into the container
 COPY pom.xml .
 COPY src ./src
+COPY .m2 .
 
 # Build the WAR file using Maven
 RUN apt-get update && apt-get install -y maven
