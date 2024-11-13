@@ -1,0 +1,67 @@
+{
+  "Save": "Zapisz",
+  "Delete": "Usuń",
+  "Close": "Zamknij",
+  "Add": "Dodaj",
+  "Select": "Wybierz",
+  "Filter": "Filtr",
+  "Not available": "Nie dostępne",
+  "None": "Brak",
+  "Successfully saved": "Pomyślnie zapisano",
+  "Error": "Błąd",
+  "User has no edit privilege": "Użytkownik nie może edytować zasobu",
+  "ERR_CODE": {
+    "required": "Wymagany" 
+  },
+  "pl": {
+    "sztyro":{
+      "core": {
+        "model": {
+          "Role": {
+            "HEADER":"Rola",
+            "HEADER$plural": "Role",
+            "name": "Nazwa",
+            "description": "Opis",
+            "members": "Członkowie"
+          }
+        }
+      },
+      "carapp": {
+        "model": {
+          "Car": {
+            "HEADER": "Samochód",
+            "HEADER$plural": "Samochody",
+            "name": "Nazwa",
+            "lastInspection": "Ostatni przegląd",
+            "productionYear": "Rok produkcji"
+          },
+          "CarEvent": {
+            "HEADER": "Wpis",
+            "HEADER$plural": "Wpisy",
+            "mileage": "Przebieg",
+            "amountOfFuel": "Ilość",
+            "date": "Data",
+            "car": "Samochód",
+            "type": "Typ",
+            "remarks": "Uwagi",
+            "previousEvent": "Poprzedni wpis",
+            "nextEvent": "Następny wpis",
+            "price": "Cena"
+          }
+        }
+      }
+    }
+  },
+  "Service": "Usługa",
+  "Refuel": "Tankowanie",
+  "TireChange": "Wymiana opon",
+  "Repair": "Naprawa",
+  "PartChange": "Wymiana części",
+  "Insurance": "Ubezpieczenie",
+  "Inspection": "Przegląd",
+  "Incident": "Zdarzenie",
+  "Other": "Inne",
+  "Incoming events": "Nadchodzące",
+  "Dashboard": "Start",
+  "Required to calculate next inspection date.": "Potrzebny do obliczenia następnej daty przeglądu."
+}

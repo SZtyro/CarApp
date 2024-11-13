@@ -1,0 +1,50 @@
+
+.tile{
+ padding: 10px;
+ border-radius: 12px;
+ background-color: var(--sys-surface-container)
+}
+
+.header{
+    color: var(--sys-on-surface);
+    font-size: x-large;
+}
+
+.icon-wrapper {
+    background-color: var(--sys-secondary-container);
+    color: var(--sys-on-secondary-container);
+    padding: 4px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-icon{
+    color: var(--sys-primary);
+}
+
+.logo-wrapper{
+    align-items: center;
+    display: flex;
+    padding: 0 5px;
+}
+
+.icon-section{
+    background-color: var(--sys-surface-dim);
+    border-radius: 60% 12px 12px 60%;
+}
+
+.item{
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--sys-surface-dim);
+}
+
+.content{
+    gap: 6px;
+    display: flex;
+    flex-direction: column;
+}

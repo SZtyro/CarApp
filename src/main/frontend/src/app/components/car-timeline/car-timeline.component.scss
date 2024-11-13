@@ -1,0 +1,38 @@
+.axis {
+  width: 100%;
+  height: 4px;
+  background-color: var(--sys-primary);
+  margin-top: 10px;
+}
+
+.event-bar {
+  height: 8px;
+  width: 4px;
+  background-color: var(--sys-primary);
+}
+
+.event {
+  padding: 0 10px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-wrapper {
+  background-color: var(--sys-secondary-container);
+  color: var(--sys-on-secondary-container);
+  padding: 4px;
+  margin: 2px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-wrapper{
+  font-size: small;
+  font-weight: 500;
+  color: var(--sys-primary);
+}

@@ -1,0 +1,48 @@
+<div style="margin-bottom: 20px; width: 100%;">
+    <div *ngIf="!options.isHidden(formRef.object)" class="wrapper" >
+        <div class="section">
+            <h3>{{'Fuel consumption' | translate}}</h3>
+            <div class="d-flex justify-content-center h-100">
+                <div class="output">
+                    {{calculate()}}
+                </div>
+                <div class="unit">
+                    <div>L/100km</div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h3>{{'Distance traveled' | translate}}</h3>
+            <div class="d-flex justify-content-center h-100">
+                <div class="output">
+                    {{formRef.object.mileage - formRef.object.previousEvent?.mileage}}
+                </div>
+                <div class="unit">
+                    <div>km</div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h3>{{'Price per 100km' | translate}}</h3>
+            <div class="d-flex justify-content-center h-100">
+                <div class="output">
+                    {{getPricePer100()}}
+                </div>
+                <div class="unit">
+                    <div>zł</div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h3>{{'From last refueling' | translate}}</h3>
+            <div class="d-flex justify-content-center h-100">
+                <div class="output">
+                    {{getDaysFromRefueling()}}
+                </div>
+                <div class="unit">
+                    <div>{{'days' | translate}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

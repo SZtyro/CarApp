@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--sys-surface-container-highest);
+  border-radius: 10px;
+}
+
+.output {
+  font-size: xxx-large;
+  font-weight: 600;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+
+.lower-index{
+  align-items: end;
+  display: flex;
+}
+
+.section{
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  color: var(--sys-on-surface-variant);
+}
+
+.unit{
+  display: flex;
+  align-items: end;
+  padding: 14px 2px;
+}
+
+.unit>div{
+  background-color: var(--sys-on-surface-variant);
+  color: var(--sys-surface-variant);
+  border-radius: 5px;
+  padding: 3px;
+}
