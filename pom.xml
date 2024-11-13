@@ -54,6 +54,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
+                    <warName>${project.name}</warName>
                     <packagingExcludes>frontend/**</packagingExcludes>
                 </configuration>
             </plugin>
