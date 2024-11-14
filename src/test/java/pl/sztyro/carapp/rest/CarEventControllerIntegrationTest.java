@@ -186,6 +186,7 @@ public class CarEventControllerIntegrationTest {
         CarEvent carEvent = new CarEvent();
         carEvent.setMileage(123);
         carEvent.setType(CarEventType.Insurance);
+        carEvent.setCar(cars.findOneByName("Toyota"));
 
         CarEvent body = controller.create(carEvent).getBody();
         assertThat(body.getType()).isEqualTo(CarEventType.Insurance);
