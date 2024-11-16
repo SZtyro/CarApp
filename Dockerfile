@@ -13,7 +13,7 @@ ENV MAVEN_URL=${MAVEN_URL}
 ENV NPM_URL=${NPM_URL}
 
 COPY pom.xml .
-COPY .npmrc /app/.npmrc
+COPY .npmrc .
 COPY src ./src
 COPY .m2/settings.xml /root/.m2/settings.xml
 
