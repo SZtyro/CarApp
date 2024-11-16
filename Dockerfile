@@ -15,7 +15,7 @@ ENV NPM_URL=${NPM_URL}
 COPY pom.xml .
 COPY src ./src
 COPY .m2/settings.xml /root/.m2/settings.xml
-RUN echo "//${NPM_URL}/:_authToken=${MAVEN_PASSWORD}" > /app/src/main/frontend/.npmrc
+RUN echo "//npm.pkg.github.com/:_authToken=${MAVEN_PASSWORD}" > /app/src/main/frontend/.npmrc
 
 RUN apt-get update && apt-get install -y maven
 RUN mvn clean install -Dmaven.test.skip=true
