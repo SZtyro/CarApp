@@ -24,7 +24,7 @@
           "options": {
             "preserveSymlinks": true,
             "outputPath": {
-              "base": "../resources/static/"
+              "base": "../webapp/"
             },
             "index": "src/index.html",
             "polyfills": [

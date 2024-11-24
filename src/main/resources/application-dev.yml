@@ -7,10 +7,10 @@ spring:
         import: optional:file:.env[.properties]
     datasource:
         driver-class-name: org.postgresql.Driver
-        password: ${DATABASE_PASSWORD}
+        password: local
         platform: postgres
-        url: jdbc:${DATABASE_URL}
-        username: ${DATABASE_USER}
+        url: jdbc:postgresql://127.0.0.1:5432/carApp
+        username: local
     jackson:
         deserialization:
             use_java_array_for_json_array: true
