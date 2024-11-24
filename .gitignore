@@ -38,3 +38,6 @@ static
 node
 ./src/main/webapp
 .env
+
+/src/main/webapp/
+build.bat

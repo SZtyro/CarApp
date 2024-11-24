@@ -30,6 +30,7 @@ export class CarTimelineComponent extends Field<CarTimelineProperties> {
 
 
   override ngOnInit(): void {
+    super.ngOnInit();
     this.events.getAll({'car.id' : this.options.carId, size: 8}).subscribe(events => {
       this._carEvents = events.results.reverse();
     })
