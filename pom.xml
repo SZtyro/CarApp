@@ -67,14 +67,14 @@
                 <version>1.11.3</version>
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>generate-resources</phase>
                         <id>install node and npm</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <phase>install</phase>
+                        <phase>generate-resources</phase>
                         <id>npm install</id>
                         <goals>
                             <goal>npm</goal>
@@ -88,7 +88,7 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <phase>install</phase>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <arguments>run build</arguments>
                         </configuration>
