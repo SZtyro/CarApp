@@ -25,7 +25,7 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@popperjs/core": "^2.11.7",
-    "@sztyro/core": "^0.1.2",
+    "@sztyro/core": "^0.1.3",
     "bootstrap": "^5.2.3",
     "lodash": "^4.17.21",
     "ngx-translate": "^0.0.1-security",

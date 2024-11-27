@@ -17,21 +17,26 @@ export class CarFormComponent extends BaseFormComponent<any> {
   override resource: BaseRestService<any> = this.injector.get(CarService);
   private events: BaseRestService<any> = this.injector.get(EventService);
 
-  override fields = [
-    Div.create('row',
-      Div.create("col-md-6",
-        InputField.create({path: 'name'}),
-        DateField.create({path: 'productionYear', options: {startView: 'multi-year', hint: 'Required to calculate next inspection date.'}}),
-        ChipsField.create({path: 'lastInspection',options: { restpicker: Object.assign(this.events.defaultRestpickerOptions, {
-          showValue: e => new Date(e.date).toLocaleDateString(),
-          customMethod: params => this.events.getAll({...params, ...{type: 'Inspection'}})
-        })}})
-      ),
-      TileSelect.create({path: 'engineType', options:{class: 'col-md-6', selectOptions: this.resource.getEnum('pl.sztyro.carapp.enums.EngineType')}}),
-      CarTimelineComponent.create({path: null, options: {carId: this.object.id}})
-    )
-      
-  ]
+   
+
+  override onModelChange(): void {
+      super.onModelChange();
+      this.fields = [
+        Div.create('row',
+          Div.create("col-md-6",
+            InputField.create({path: 'name', options: {isRequired: () => true}}),
+            DateField.create({path: 'productionYear', options: {startView: 'multi-year', hint: 'Required to calculate next inspection date.'}}),
+            ChipsField.create({path: 'lastInspection',options: { restpicker: Object.assign(this.events.defaultRestpickerOptions, {
+              showValue: e => new Date(e.date).toLocaleDateString(),
+              customMethod: params => this.events.getAll({...params, ...{type: 'Inspection'}})
+            })}})
+          ),
+          TileSelect.create({path: 'engineType', options:{class: 'col-md-6', selectOptions: this.resource.getEnum('pl.sztyro.carapp.enums.EngineType')}}),
+          CarTimelineComponent.create({path: null, options: {carId: this.object.id}})
+        )
+          
+      ]
+  }
 
 
 }
