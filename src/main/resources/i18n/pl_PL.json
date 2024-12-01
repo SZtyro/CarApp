@@ -47,6 +47,26 @@
             "previousEvent": "Poprzedni wpis",
             "nextEvent": "Następny wpis",
             "price": "Cena"
+          },
+          "RefuelEvent": {
+            "HEADER": "Tankowanie"
+          },
+          "RepairEvent": {
+            "HEADER": "Naprawa"
+          },
+          "InsuranceEvent": {
+            "HEADER": "Ubezpieczenie",
+            "company": "Firma ubezpieczeniowa"
+          },
+          "TireChangeEvent": {
+            "HEADER": "Zmiana opon"
+          },
+          "InsuranceCompany": {
+            "HEADER": "Firma ubezpieczeniowa",
+            "HEADER$plural": "Firmy ubezpieczeniowe",
+            "name": "Nazwa",
+            "enabled": "Aktywny",
+            "logoUrl": "Url loga"
           }
         }
       }

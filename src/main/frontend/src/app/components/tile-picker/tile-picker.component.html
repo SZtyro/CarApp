@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <h3>{{data.title | translate}}</h3>
+    <div class="row">
+        <div *ngFor="let tile of tiles"
+            (click)="select(tile)" 
+            class="tile col-6 col-xl-3" 
+            matRipple>
+            <span class="material-symbols-rounded">
+                {{tile.icon}}
+            </span>
+            <span translate>{{tile.name}}</span>
+        </div>
+    </div>
+</div>

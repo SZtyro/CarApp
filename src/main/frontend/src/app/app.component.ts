@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
     {name: 'pl.sztyro.carapp.model.Car.HEADER$plural', icon: 'directions_car', path: 'Cars'},
     {name: 'pl.sztyro.carapp.model.CarEvent.HEADER$plural', icon: 'list_alt', path: 'Events'},
     // {name: 'Settings', icon: 'settings'},
+    {name: 'pl.sztyro.carapp.model.InsuranceCompany.HEADER$plural', icon: 'apartment', path: 'InsuranceCompanies'},
     {name: 'pl.sztyro.core.model.Role.HEADER$plural', icon: 'settings', path: 'Roles'},
   ]
 

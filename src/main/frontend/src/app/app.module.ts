@@ -41,6 +41,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CoreModule } from '@sztyro/core'
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { EventComponent } from './components/forms/event-form/event.component';
+import { TilePickerComponent } from './components/tile-picker/tile-picker.component';
+import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
 
 export let AppInjector: Injector;
 
@@ -70,10 +73,12 @@ export const MY_DATE_FORMATS = {
   declarations: [
     AppComponent,
     DashboardComponent,
+    EventComponent,
     EventFormComponent,
     FuelSummary,
     CarFormComponent, 
-    CarTimelineComponent,
+    CarTimelineComponent, TilePickerComponent, InsuranceCompanyComponent,
+
   ],
   bootstrap: [AppComponent],
   imports: [

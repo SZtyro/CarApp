@@ -1,0 +1,29 @@
+* {
+    color: var(--sys-on-secondary-container);;
+}
+
+h3{
+    margin-top: 20px
+}
+
+.container-fluid{
+    background-color: var(--sys-secondary-container);
+}
+
+.row{
+    margin: 20px;
+}
+
+.tile{
+    cursor: pointer;
+    border-radius: 8px;
+    // background-color: var(--sys-primary-container);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.material-symbols-rounded{
+    font-size: 32px;
+}
