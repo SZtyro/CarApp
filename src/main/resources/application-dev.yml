@@ -9,7 +9,7 @@ spring:
         driver-class-name: org.postgresql.Driver
         password: local
         platform: postgres
-        url: jdbc:postgresql://127.0.0.1:5432/carApp
+        url: jdbc:postgresql://localhost:5432/carApp
         username: local
     jackson:
         deserialization:
