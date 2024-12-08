@@ -26,7 +26,8 @@ export class CarTimelineComponent extends Field<CarTimelineProperties> {
 
   _carEvents?: any[];
   _today?: number = new Date().getTime();
-  _carEventTypes?: any[];
+
+  private carEventTypes:{type: string, icon: string}[] = []
 
 
   override ngOnInit(): void {
@@ -35,13 +36,12 @@ export class CarTimelineComponent extends Field<CarTimelineProperties> {
       this._carEvents = events.results.reverse();
     })
 
-    this.events.getEnum('pl.sztyro.carapp.enums.CarEventType').subscribe(events => {
-      this._carEventTypes = events;
-      
+    this.events.getEventTypes().subscribe(events => {
+      Object.keys(events).forEach(key => this.carEventTypes.push({type: key, icon: events[key]}));
     })
   }
 
   _getIconFor?(type){
-    return this._carEventTypes?.find(e => e.name == type)?.icon;
+    return this.carEventTypes?.find(e => e.type == type)?.icon;
   }
 }

@@ -42,3 +42,8 @@
   background-color: rgb(135, 191, 240)  !important;
   color: rgb(9, 72, 128) !important;
 }
+
+
+::ng-deep .insurance-tile{
+  background-color: var(--sys-surface-container-low) !important;
+}

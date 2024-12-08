@@ -6,7 +6,7 @@
           <div class="menu-wrapper">
             <a href="{{item.path}}" class="menu-item" *ngFor="let item of menu" matRipple [ngClass]="{selected: getCurrentPath() == item.path}">
               <mat-icon>{{item.icon}}</mat-icon>
-              <span>{{item.name | translate}}</span>
+              <span class="menu-btn-label">{{item.name | translate}}</span>
             </a>
           </div>
         

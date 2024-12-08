@@ -44,6 +44,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EventComponent } from './components/forms/event-form/event.component';
 import { TilePickerComponent } from './components/tile-picker/tile-picker.component';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
+import { InsuranceSummaryComponent } from './components/insurance-summary/insurance-summary.component';
 
 export let AppInjector: Injector;
 
@@ -77,7 +78,7 @@ export const MY_DATE_FORMATS = {
     EventFormComponent,
     FuelSummary,
     CarFormComponent, 
-    CarTimelineComponent, TilePickerComponent, InsuranceCompanyComponent,
+    CarTimelineComponent, TilePickerComponent, InsuranceCompanyComponent, InsuranceSummaryComponent,
 
   ],
   bootstrap: [AppComponent],

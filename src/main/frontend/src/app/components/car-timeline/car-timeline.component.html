@@ -1,18 +1,20 @@
-<div class="axis"></div>
-<div class="d-flex justify-content-between overflow-auto">
-
-    <div class="event" *ngFor="let event of _carEvents">
-        <div class="event-bar"></div>
-        <a class="icon-wrapper" matRipple style="cursor: pointer;" href="/pl.sztyro.carapp.model.CarEvent/{{event.id}}" [title]="event.remarks">
-            <mat-icon>{{_getIconFor(event.type)}}</mat-icon>
-        </a>
-        <div class="date-wrapper">{{event.date | date}}</div>
-    </div>
-    <div class="event">
-        <div class="event-bar"></div>
-        <div class="icon-wrapper" style="background-color: var(--sys-tertiary-container);">
-            <mat-icon>today</mat-icon>
+<div class="wrapper">
+    <div class="axis"></div>
+    <div class="content">
+    
+        <div class="event" *ngFor="let event of _carEvents">
+            <div class="event-bar"></div>
+            <a class="icon-wrapper" matRipple style="cursor: pointer;" href="/pl.sztyro.carapp.model.CarEvent/{{event.id}}" [title]="event.remarks">
+                <mat-icon>{{_getIconFor(event.entityType)}}</mat-icon>
+            </a>
+            <div class="date-wrapper">{{event.date | date}}</div>
         </div>
-        <div class="date-wrapper">{{_today | date}}</div>
+        <div class="event">
+            <div class="event-bar"></div>
+            <div class="icon-wrapper" style="background-color: var(--sys-tertiary-container);">
+                <mat-icon>today</mat-icon>
+            </div>
+            <div class="date-wrapper">{{_today | date}}</div>
+        </div>
     </div>
 </div>
