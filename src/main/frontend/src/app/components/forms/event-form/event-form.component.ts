@@ -17,8 +17,8 @@ export class EventFormComponent extends BaseFormComponent<any>{
   private insuranceCompanies: InsuranceCompanyService = this.injector.get(InsuranceCompanyService);
 
   override fields = [
-    Div.create( 'container-fluid',
-      Div.create('row',
+    // Div.create( 'container-fluid',
+      Div.tile(null, 'row',
         Div.create(() => {return {"col-md-6": this.isRefuelEvent()}},
           Div.create("row",
             InputField.create({ path: 'mileage', options: { 
@@ -26,7 +26,12 @@ export class EventFormComponent extends BaseFormComponent<any>{
               isRequired: () => !this.isDateInFuture(),
               label: 'pl.sztyro.carapp.model.CarEvent.mileage'
             }}),
-            InputField.create({ path: 'amountOfFuel', options: {suffix:'l' , type: 'number', isRequired: () => this.isRefuelEvent(), class: () => {return {'col-lg-6' : this.isRefuelEvent(), 'd-none': !this.isRefuelEvent()}}} }),
+            InputField.create({ path: 'amountOfFuel', options: {
+              suffix:'l' ,
+              type: 'number',
+              isRequired: () => this.isRefuelEvent(),
+              class: () => {return {'col-lg-6' : this.isRefuelEvent(), 'd-none': !this.isRefuelEvent()}}} 
+            }),
             InputField.create({ path: 'price', options: {
               suffix:'zł',
               type: 'number',
@@ -40,9 +45,14 @@ export class EventFormComponent extends BaseFormComponent<any>{
               label: 'pl.sztyro.carapp.model.CarEvent.date'
             }}),
             ChipsField.restPicker(this.insuranceCompanies,{path: "company", options: {
-              class: 'col-md-6'
+              class: 'col-md-6',
+              isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
             }}),
-            ImageField.create({path: 'company.logoUrl', options: { class: 'col-md-6'}}),
+            ImageField.create({path: 'company.logoUrl', options: { 
+              class: 'col-md-6',
+              height: '82',
+              isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
+            }}),
             ChipsField.restPicker(this.cars,{path: "car", options: {
               class: 'col-12',
               label: 'pl.sztyro.carapp.model.CarEvent.car'
@@ -73,7 +83,7 @@ export class EventFormComponent extends BaseFormComponent<any>{
           )
         )
       )
-    ),
+    // ),
   ]
 
 

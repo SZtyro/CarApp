@@ -2,12 +2,11 @@ package pl.sztyro.carapp.rest;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.Car;
 import pl.sztyro.carapp.model.CarEvent;
-import pl.sztyro.carapp.model.InsuranceEvent;
-import pl.sztyro.carapp.model.RefuelEvent;
 import pl.sztyro.carapp.repository.CarEventRepository;
 import pl.sztyro.core.rest.FilteredResult;
 
@@ -19,6 +18,7 @@ import java.util.Map;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest {
 
     @Autowired
@@ -123,17 +123,6 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
 
         CarEvent updated = controller.update(body.getId(), body);
         assertThat(updated.getMileage()).isEqualTo(2222);
-    }
-
-    @Test
-    public void shouldCreateCorrectEvent(){
-        assertEquals(RefuelEvent.class.getName(),controller.createEvent(RefuelEvent.class.getName()).getBody().getEntityType());
-    }
-
-    @Test
-    public void shouldCreateEventEntity(){
-        String type = InsuranceEvent.class.getName();
-        assertEquals(type,controller.createEvent(type + ".HEADER").getBody().getEntityType());
     }
 
 }

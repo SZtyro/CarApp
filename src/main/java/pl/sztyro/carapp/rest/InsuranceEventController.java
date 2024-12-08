@@ -27,8 +27,14 @@ public class InsuranceEventController extends BaseController<InsuranceEvent> {
         Map<String, String> params = new HashMap<>();
         params.put("previousEvent.id", String.valueOf(updatedEntity.getId()));
         List<InsuranceEvent> results = this.getAll(params).getResults();
+        Calendar c = Calendar.getInstance();
+        int currentYear = c.get(Calendar.YEAR);
+        c.setTime(updatedEntity.getDate());
+        boolean shouldGenerate = currentYear - c.get(Calendar.YEAR) == 0;
+
         //There is no next event (entity with parent id)
-        if (results.isEmpty()) {
+        //Prevent generate next events for future years
+        if (results.isEmpty() && shouldGenerate) {
             InsuranceEvent nextEvent = new InsuranceEvent();
             Date date = updatedEntity.getDate();
             Calendar calendar = Calendar.getInstance();

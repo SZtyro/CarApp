@@ -2,6 +2,7 @@ package pl.sztyro.carapp.rest;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.sztyro.carapp.model.InsuranceEvent;
 import pl.sztyro.core.rest.FilteredResult;
@@ -13,6 +14,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class InsuranceEventControllerIntegrationTest extends BaseEventIntegrationTest{
     
     @Autowired
@@ -32,7 +34,6 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.MONTH, 3);
-        calendar.set(Calendar.YEAR, 2020);
 
         newEntity.setDate(calendar.getTime());
 
@@ -51,7 +52,7 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
         c.setTime(nextEvent.getDate());
         assertEquals(31,c.get(Calendar.DAY_OF_MONTH));
         assertEquals(2,c.get(Calendar.MONTH));
-        assertEquals(2021, c.get(Calendar.YEAR));
+        assertEquals(calendar.get(Calendar.YEAR) + 1, c.get(Calendar.YEAR));
 
         assertNotNull(nextEvent.getAuthor());
         assertNotNull(nextEvent.getCar());

@@ -13,14 +13,16 @@ public class BaseEventIntegrationTest extends BaseIntegrationTest{
     public void init() {
         super.init();
 
-        Car toyota = new Car();
-        toyota.setName("Toyota");
-        toyota.setDraft(false);
-        cars.save(toyota);
+        if(cars.count() == 0) {
+            Car toyota = new Car();
+            toyota.setName("Toyota");
+            toyota.setDraft(false);
+            cars.save(toyota);
 
-        Car mercedes = new Car();
-        mercedes.setName("Mercedes");
-        mercedes.setDraft(false);
-        cars.save(mercedes);
+            Car mercedes = new Car();
+            mercedes.setName("Mercedes");
+            mercedes.setDraft(false);
+            cars.save(mercedes);
+        }
     }
 }
