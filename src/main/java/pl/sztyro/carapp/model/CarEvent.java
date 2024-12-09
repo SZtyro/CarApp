@@ -21,7 +21,7 @@ public class CarEvent extends BaseEntity {
     @FrontendSearch
     private Date date = new Date();
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @FrontendSearch(path = "name")
     @JsonIgnoreProperties({"lastInspection"})
     private Car car;
@@ -40,6 +40,9 @@ public class CarEvent extends BaseEntity {
     @Column
     @Type(type = "org.hibernate.type.TextType")
     private String remarks;
+
+    @Column
+    private Double price;
 
 
     public Date getDate() {
@@ -97,5 +100,13 @@ public class CarEvent extends BaseEntity {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

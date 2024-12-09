@@ -40,11 +40,14 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
         newEntity.setCar(cars.findOneByName("Toyota"));
         assertEquals("Toyota",newEntity.getCar().getName());
 
+        //Save entity and generate next event
         newEntity = controller.update(newEntity.getId(), newEntity);
+        //Next event should have reference to previous event
         FilteredResult<InsuranceEvent> events = controller.getAll(Map.of("previousEvent.id", String.valueOf(newEntity.getId())));
         assertEquals(1 , events.getResults().size());
 
         InsuranceEvent nextEvent = events.getResults().get(0);
+        assertNotNull(nextEvent.getPreviousEvent());
         assertEquals(newEntity.getId(), nextEvent.getPreviousEvent().getId());
         assertEquals(newEntity.getNextEvent().getId(), nextEvent.getId());
 

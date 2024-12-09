@@ -9,6 +9,8 @@ import pl.sztyro.carapp.model.*;
 import pl.sztyro.core.rest.BaseController;
 import pl.sztyro.core.rest.FilteredResult;
 
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +73,11 @@ public class CarEventController extends BaseController<CarEvent> {
         }
 
         super.beforeUpdateEntity(dbEntity, changes);
+    }
+
+    @Override
+    protected void getAllFetch(Root<CarEvent> root) {
+        root.fetch(CarEvent_.car, JoinType.LEFT);
     }
 
     @GetMapping("/types")
