@@ -1,8 +1,15 @@
 <h4>{{'Insurance' | translate}}</h4>
-<div *ngIf="currentInsurance">
-    <img [src]="currentInsurance.company.logoUrl">
+<div *ngIf="currentInsurance; else noInsurance" class="d-flex flex-column align-content-center">
+    <img [src]="currentInsurance.company.logoUrl" height="170">
     <div class="detail-wrapper">
         <span style="font-weight: 500;">{{currentInsurance.company.name}}</span>
-        <span>({{'To'| translate}}:&nbsp;{{nextEvent?.date | date:'dd.MM.yyyy'}})</span>
+        <span>({{'To'| translate}}:&nbsp;{{currentInsurance?.nextEvent?.date | date:'dd.MM.yyyy'}})</span>
     </div>
 </div>
+<ng-template #noInsurance>
+    <div class="no-insurance">
+        <span class="material-symbols-rounded">
+            add
+        </span>
+    </div>
+</ng-template>

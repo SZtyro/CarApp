@@ -19,7 +19,6 @@ export class InsuranceSummaryComponent extends Field<InsuranceSummaryProperties>
   events = this.injector.get(EventService);
 
   currentInsurance:any = null;
-  nextEvent:any = null;
 
   static override create(options:InstanceProperties<InsuranceSummaryProperties>): GeneratorProperties<InsuranceSummaryProperties>{
     return {
@@ -30,17 +29,10 @@ export class InsuranceSummaryComponent extends Field<InsuranceSummaryProperties>
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.events.getAll({
-        'car.id' : this.options.carId,
-        size: 1,
-        entityType: 'pl.sztyro.carapp.model.InsuranceEvent',
-        'nextEvent.id': '!null'
-      }).subscribe(events => {
-        if(events.results.length > 0)
-          this.currentInsurance = events.results[0];
-
-        this.events.get(this.currentInsurance.nextEvent.id).subscribe(event => this.nextEvent = event)
+    this.events.getCurrentInsurance(this.options.carId).subscribe(event => {  
+      this.currentInsurance = event;
     })
+    
   }
 
 }

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { BaseSearchComponent, Column, InteractionService } from '@sztyro/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { BaseSearchComponent, Column, Field, InteractionService, TableField } from '@sztyro/core';
 import { TilePickerComponent } from '../../tile-picker/tile-picker.component';
 import { EventService } from 'src/app/services/event.service';
 import { map } from 'rxjs';
@@ -13,6 +13,14 @@ export class EventComponent extends BaseSearchComponent {
 
   interaction = this.injector.get(InteractionService);
   override resource: EventService = this.injector.get(EventService);
+
+  override onInstancesReady(instances: Field<any>[]): void {
+    let table = instances[0] as TableField;
+    if(table != null)
+      table.options.onRowClick = row => {
+        this.router.navigate(['Events', row.entityType, row.id])
+      }
+  }
 
   override create(): void {
     

@@ -2,3 +2,19 @@
     display: flex;
     justify-content: space-between;
 }
+
+img{
+    margin: 20px;
+}
+
+.no-insurance{
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.no-insurance > span{
+    font-size: 60px;
+}

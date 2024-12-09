@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { BaseRestService, RestpickerOptions, DateColumn, Column, FilteredResult } from '@sztyro/core';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,8 @@ export class EventService extends BaseRestService<any> {
     columns: [new DateColumn('date'), new Column('mileage')]
   };
 
-  createEvent(initialValues:any, type: Partial<{name: string}>): Observable<any> {
-    return this.http.post(`${this.endpoint}/${this.getTypeRouting(type.name)}`, initialValues)
+  override resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return this.getEvent(route.params['id'], route.params['type']);
   }
 
   override update(id: number, data: any): Observable<any> {
@@ -26,8 +27,46 @@ export class EventService extends BaseRestService<any> {
     return this.http.get<FilteredResult>(`${this.endpoint}/${this.getTypeRouting(type)}`, {params: params})
   }
 
+  override getEditPath(element: any): string {
+    return `Events/${element.entityType}/${element.id}`;
+  }
+
+  createEvent(initialValues:any, type: Partial<{name: string}>): Observable<any> {
+    return this.http.post(`${this.endpoint}/${this.getTypeRouting(type.name)}`, initialValues)
+  }
+
+  getEvent(id: number, type: string): Observable<any> {
+    return this.http.get(`${this.endpoint}/${this.getTypeRouting(type)}/${id}`)
+  }
+
   getEventTypes(): Observable<object>{
     return this.http.get(`${this.endpoint}/types`)
+  }
+
+  getCurrentInsurance(carId: number): Observable<any>{
+    return this.getAll({
+      'car.id' : carId,
+      size: 1,
+      entityType: 'pl.sztyro.carapp.model.InsuranceEvent',
+      'nextEvent.id': '!null'
+    }).pipe(
+      switchMap(events => {
+        if(events.results.length > 0)
+          return this.getEvent(events.results[0].id, 'pl.sztyro.carapp.model.InsuranceEvent')
+        else return of(null);
+      })
+    )
+  }
+
+  openCurrentInsurance(carId: number): void{
+    this.getCurrentInsurance(carId).subscribe(insurance => {
+      if(insurance != null)
+        this.router.navigate([this.getEditPath(insurance)])
+      else
+        this.createEvent({car: {id: carId}}, {name: 'pl.sztyro.carapp.model.InsuranceEvent'}).subscribe(elem => {
+          this.router.navigate([this.getEditPath(elem)])
+      });
+    })
   }
 
   private getTypeRouting(entityType, addDash?:boolean): string{

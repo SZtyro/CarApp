@@ -16,7 +16,7 @@ import { InsuranceSummaryComponent } from '../../insurance-summary/insurance-sum
 export class CarFormComponent extends BaseFormComponent<any> {
 
   override resource: BaseRestService<any> = this.injector.get(CarService);
-  private events: BaseRestService<any> = this.injector.get(EventService);
+  private events: EventService = this.injector.get(EventService);
 
    
 
@@ -24,7 +24,6 @@ export class CarFormComponent extends BaseFormComponent<any> {
       super.onModelChange();
       this.fields = [
         Div.create('row',
-          // Div.create("col-",)
           Div.create("col-xl-9 col-xxl-10 p-0",
             Div.create('row m-0',
               Div.tile('col-12', null,
@@ -39,10 +38,10 @@ export class CarFormComponent extends BaseFormComponent<any> {
                 TileSelect.create({path: 'engineType', options:{class: 'col-md-6', selectOptions: this.resource.getEnum('pl.sztyro.carapp.enums.EngineType')}}),
               ),
               
-              Div.tile('col-md-6 col-lg-4 col-xll-3', 'insurance-tile',
-                InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id}}),
-              ),
-              Div.tile('col-sm-6', null,
+              Div.tile('col-md-6 col-lg-4 col-xll-3', 'insurance-tile ripple',
+                InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100'}}),
+              ).onClick(e => this.events.openCurrentInsurance(this.object.id)),
+              Div.tile('col-sm-8', null,
                 InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id}}),
               ),
 

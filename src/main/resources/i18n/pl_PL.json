@@ -9,6 +9,8 @@
   "None": "Brak",
   "Successfully saved": "Pomyślnie zapisano",
   "Error": "Błąd",
+  "To": "Do",
+  "Access": "Dostęp",
   "User has no edit privilege": "Użytkownik nie może edytować zasobu",
   "ERR_CODE": {
     "required": "Wymagany" 
