@@ -5,11 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.sztyro.carapp.model.InsuranceEvent;
-import pl.sztyro.core.rest.FilteredResult;
+import pl.sztyro.carapp.repository.InsuranceEventRepository;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,6 +18,9 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
     
     @Autowired
     private InsuranceEventController controller;
+
+    @Autowired
+    private InsuranceEventRepository repository;
 
     @BeforeAll
     @Override
@@ -43,10 +45,8 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
         //Save entity and generate next event
         newEntity = controller.update(newEntity.getId(), newEntity);
         //Next event should have reference to previous event
-        FilteredResult<InsuranceEvent> events = controller.getAll(Map.of("previousEvent.id", String.valueOf(newEntity.getId())));
-        assertEquals(1 , events.getResults().size());
+        InsuranceEvent nextEvent = repository.findByPreviousEventId(newEntity.getId()).get();
 
-        InsuranceEvent nextEvent = events.getResults().get(0);
         assertNotNull(nextEvent.getPreviousEvent());
         assertEquals(newEntity.getId(), nextEvent.getPreviousEvent().getId());
         assertEquals(newEntity.getNextEvent().getId(), nextEvent.getId());

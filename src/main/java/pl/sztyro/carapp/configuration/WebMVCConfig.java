@@ -29,7 +29,9 @@ public class WebMVCConfig implements WebMvcConfigurer {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {
                         Resource requestedResource = location.createRelative(resourcePath);
-                        List<String> list = Arrays.stream(env.getActiveProfiles()).filter("dev"::equals).toList();
+                        List<String> list = Arrays.stream(env.getActiveProfiles())
+                                .filter(profile -> "dev".equals(profile) || "test".equals(profile))
+                                .toList();
                         String path = null;
                         if(list.size() == 1)
                             path = "src/main/webapp/browser/index.html";

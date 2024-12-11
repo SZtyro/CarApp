@@ -3,12 +3,14 @@ package pl.sztyro.carapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.sztyro.carapp.enums.EngineType;
 import pl.sztyro.core.annotation.FrontendSearch;
+import pl.sztyro.core.annotation.Secure;
 import pl.sztyro.core.model.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Secure(read = "", write = "")
 public class Car extends BaseEntity {
 
     @Column

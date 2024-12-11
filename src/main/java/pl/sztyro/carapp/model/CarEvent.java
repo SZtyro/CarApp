@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import org.hibernate.annotations.Type;
 import pl.sztyro.core.annotation.FrontendSearch;
+import pl.sztyro.core.annotation.Secure;
 import pl.sztyro.core.model.BaseEntity;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Secure(read = "", write = "")
 public class CarEvent extends BaseEntity {
 
     @Column

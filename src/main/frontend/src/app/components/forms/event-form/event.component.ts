@@ -40,7 +40,7 @@ export class EventComponent extends BaseSearchComponent {
           )
       }
     }).subscribe(selected => {
-      this.resource.createEvent(null, selected).subscribe(created => this.router.navigate(["Events", created.id]));
+      this.resource.createEvent(null, selected).subscribe(created => this.resource.redirectToEvent(created));
     });
       
   }

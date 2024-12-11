@@ -1,11 +1,13 @@
 package pl.sztyro.carapp.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.InsuranceEvent;
 import pl.sztyro.core.rest.BaseController;
+import pl.sztyro.core.service.UserService;
 
 import java.io.IOException;
 import java.util.*;
@@ -13,6 +15,9 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/events/type/insurance")
 public class InsuranceEventController extends BaseController<InsuranceEvent> {
+
+    @Autowired
+    private UserService userService;
 
     public InsuranceEventController(){
         super(InsuranceEventController.class, InsuranceEvent.class);
@@ -51,6 +56,7 @@ public class InsuranceEventController extends BaseController<InsuranceEvent> {
             calendar.add(Calendar.YEAR, 1);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             nextEvent.setDraft(false);
+            nextEvent.setAuthor(userService.getCurrent());
             nextEvent.setCar(updatedEntity.getCar());
             nextEvent.setDate(calendar.getTime());
             nextEvent.setPreviousEvent(this.repository.save(updatedEntity));

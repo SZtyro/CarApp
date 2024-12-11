@@ -10,6 +10,9 @@ import java.util.Optional;
 @Repository
 public interface InsuranceEventRepository extends BaseRepository<InsuranceEvent> {
     @Override
-    @EntityGraph(attributePaths = {"car", "nextEvent", "previousEvent", "company"})
+    @EntityGraph(attributePaths = {"car", "nextEvent", "previousEvent", "company", "author", "access"})
     Optional<InsuranceEvent> findById(Long aLong);
+
+    @EntityGraph(attributePaths = {"car", "nextEvent", "previousEvent", "company", "author", "access"})
+    Optional<InsuranceEvent> findByPreviousEventId(Long previousEventId);
 }

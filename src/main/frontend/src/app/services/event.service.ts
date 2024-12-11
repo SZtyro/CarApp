@@ -69,6 +69,10 @@ export class EventService extends BaseRestService<any> {
     })
   }
 
+  redirectToEvent(event: any): void{
+    this.router.navigate([this.getEditPath(event)]);
+  }
+
   private getTypeRouting(entityType, addDash?:boolean): string{
     let type: string = "";
     if(entityType != null){
