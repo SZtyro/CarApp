@@ -1,0 +1,60 @@
+<div class="w-100 h-100 d-flex flex-column">
+    <h4>{{'Tires' | translate}}</h4>
+    
+    <div class="d-flex flex-column h-100">
+        <div>
+            <div class="row info-wrapper">
+                <div class="col-4">
+                    <div>
+                        <span>{{'Season' | translate}}:&nbsp;&nbsp;</span>
+                        <span class="material-symbols-rounded icon" [class]="summary?.type">{{getIconForSummary(summary)}}</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div>
+                        <span>{{'Mileage' | translate}}:&nbsp;&nbsp;</span>
+                        <span >{{summary?.mileage}}</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div>
+                        <span>{{'Age' | translate}}:&nbsp;&nbsp;</span>
+                        <span >{{summary?.age}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="p-1 d-flex">
+                <div class="w-100" *ngFor="let set of summary.tireSets">
+                    <div class="placement-wrapper">
+                        <span *ngFor="let placement of set.placement" class="placement">{{placement}}</span>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center h-100"><img  [src]="set.logo" width="100%"></div>
+                </div>
+            </div> -->
+            
+        </div>
+        <div class="d-flex flex-column h-100 justify-content-center" style="margin-bottom: 12px;">
+        
+            <div class="d-flex w-100">
+                <div *ngIf="lastEvents.length > 0 && lastEvents[0].date > yearAgo" [style.width.%]="calculateNewCarOffset(lastEvents[0])"></div>
+                <div *ngFor="let event of lastEvents; let index = index" [style.width.%]="calculateEventWidth(event, index)">
+                    <div>
+                        <span class="material-symbols-rounded event-icon">{{tireChangeIcon$ | async}}</span>
+                    </div>
+                    <div *ngFor="let tire of event.tires" class="tire-timeline" [class]="tire.type"></div>
+                </div>
+            </div>
+            <div class="d-flex flex-column">
+                <canvas #axis style="width: 100%;" height="20"></canvas>
+                <div class="d-flex">
+                    <div *ngFor="let month of getMonthsBetween(); let monthIndex = index" class="month-label" [style.left.px]="(monthsOffsets[monthIndex]) ?? 0">
+                        {{month | date: 'MMM'}}
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+</div>

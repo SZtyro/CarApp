@@ -1,0 +1,70 @@
+.tire-timeline {
+  height: 6px;
+  margin: 2px 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.tire-timeline:hover{
+    height: 16px;
+    margin: 0px;
+    
+}
+
+.icon.Summer{
+    color: lightyellow;
+}
+
+.icon.Winter{
+    color: lightblue;
+}
+
+
+.tire-timeline.Summer{
+    background-color: lightyellow;
+}
+
+.tire-timeline.Winter{
+    background-color: lightblue;
+}
+
+.month-label{
+    width: 32px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+}
+
+.info-wrapper > div {
+    padding-right: calc(var(--bs-gutter-x)* 0.2);
+    padding-left: calc(var(--bs-gutter-x)* 0.2);
+}
+
+.info-wrapper > div > div{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--sys-secondary-container);
+    color: var(--sys-on-secondary-container);
+}
+
+.placement-wrapper{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 2px 0;
+}
+
+.placement{
+    background-color: var(--sys-tertiary-container);
+    color: var(--sys-on-tertiary-container);
+    padding: 0 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.event-icon{
+    position: relative;
+    left: -12px;
+}
