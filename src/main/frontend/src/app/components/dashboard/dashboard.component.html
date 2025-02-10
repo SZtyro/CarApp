@@ -9,7 +9,7 @@
             <div *ngFor="let event of (incomingEvents$ | async)?.results" class="item d-flex w-100 ">
               <div class="d-flex justify-content-center icon-section">
                 <div class="icon-wrapper">
-                  <mat-icon>{{getIconFor(event.type)}}</mat-icon>
+                  <mat-icon>{{getIconFor(event.entityType)}}</mat-icon>
                 </div>
               </div>
               <div class="d-flex justify-content-between w-100 " style="padding-left: 12px;">

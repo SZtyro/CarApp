@@ -4,6 +4,7 @@ import { CarService } from 'src/app/services/car.service';
 import { EventService } from 'src/app/services/event.service';
 import { CarTimelineComponent } from '../../car-timeline/car-timeline.component';
 import { InsuranceSummaryComponent } from '../../insurance-summary/insurance-summary.component';
+import { TireSummaryComponent } from '../../tire-summary/tire-summary.component';
 
 @Component({
   selector: 'app-car-form',
@@ -41,8 +42,8 @@ export class CarFormComponent extends BaseFormComponent<any> {
               Div.tile('col-md-6 col-lg-4 col-xll-3', 'insurance-tile ripple',
                 InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100'}}),
               ).onClick(e => this.events.openCurrentInsurance(this.object.id)),
-              Div.tile('col-sm-8', null,
-                InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id}}),
+              Div.tile('col-sm-8', '',
+                TireSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100 h-100'}}),
               ),
 
             ),

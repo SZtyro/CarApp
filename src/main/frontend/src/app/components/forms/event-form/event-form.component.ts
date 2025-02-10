@@ -5,6 +5,7 @@ import { Validators } from '@angular/forms';
 import { FuelSummary } from '../../fuel-summary/fuel-summary.component';
 import { BaseFormComponent, BaseRestService, Div, TileSelect, InputField, DateField, ChipsField, TextareaField, ImageField } from '@sztyro/core';
 import { InsuranceCompanyService } from 'src/app/services/insurance-company.service';
+import { TireService } from '../tire/tire.service';
 
 @Component({
   selector: 'app-event-form',
@@ -14,6 +15,7 @@ import { InsuranceCompanyService } from 'src/app/services/insurance-company.serv
 export class EventFormComponent extends BaseFormComponent<any>{
   override resource: BaseRestService<any> = this.injector.get(EventService);
   private cars: CarService = this.injector.get(CarService);
+  private tires: TireService = this.injector.get(TireService);
   private insuranceCompanies: InsuranceCompanyService = this.injector.get(InsuranceCompanyService);
 
   override fields = [
@@ -54,8 +56,10 @@ export class EventFormComponent extends BaseFormComponent<any>{
               isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
             }}),
             ChipsField.restPicker(this.cars,{path: "car", options: {
-              class: 'col-12',
               label: 'pl.sztyro.carapp.model.CarEvent.car'
+            }}),
+            ChipsField.restPicker(this.tires,{path: "tires", options: {
+              
             }}),
           )
         ),

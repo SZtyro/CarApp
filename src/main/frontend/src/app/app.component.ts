@@ -23,6 +23,9 @@ export class AppComponent implements OnInit {
     {name: 'pl.sztyro.carapp.model.CarEvent.HEADER$plural', icon: 'list_alt', path: 'Events'},
     // {name: 'Settings', icon: 'settings'},
     {name: 'pl.sztyro.carapp.model.InsuranceCompany.HEADER$plural', icon: 'apartment', path: 'InsuranceCompanies'},
+    {name: 'pl.sztyro.carapp.model.TireCompany.HEADER$plural', icon: 'emoji_transportation', path: 'TireCompanies'},
+    {name: 'pl.sztyro.carapp.model.TireModel.HEADER$plural', icon: 'stars', path: 'TireModels'},
+    {name: 'pl.sztyro.carapp.model.Tire.HEADER$plural', icon: 'radio_button_unchecked', path: 'Tires'},
     {name: 'pl.sztyro.core.model.Role.HEADER$plural', icon: 'settings', path: 'Roles'},
   ]
 

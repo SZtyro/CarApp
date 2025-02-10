@@ -10,7 +10,7 @@ import { FilteredResult, RoleService } from '@sztyro/core'
 export class DashboardComponent implements OnInit {
 
 
-  private carEventTypes: any[];
+  private carEventTypes: object;
 
   constructor(private events: EventService, private roles: RoleService) { }
 
@@ -25,13 +25,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.roles.current().subscribe(console.log)
-    this.events.getEnum('pl.sztyro.carapp.enums.CarEventType').subscribe(events => {
-      this.carEventTypes = events;
-
+    this.events.getEventTypes().subscribe(types => {
+      this.carEventTypes = types;
     })
   }
 
   getIconFor?(type){
-    return this.carEventTypes?.find(e => e.name == type)?.icon;
+    return this.carEventTypes[type];
   }
 }

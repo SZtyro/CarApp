@@ -1,4 +1,4 @@
-import { Injector, NgModule } from '@angular/core';
+import { Injector, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,15 +38,23 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CoreModule } from '@sztyro/core'
+import { CoreModule } from '@sztyro/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EventComponent } from './components/forms/event-form/event.component';
 import { TilePickerComponent } from './components/tile-picker/tile-picker.component';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
 import { InsuranceSummaryComponent } from './components/insurance-summary/insurance-summary.component';
+import { TireCompanyFormComponent } from './components/forms/tire-company-form/tire-company-form.component';
+import { TireSummaryComponent } from './components/tire-summary/tire-summary.component';
+import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
+import { TireComponent } from './components/forms/tire/tire.component';
+import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
 
 export let AppInjector: Injector;
+
+registerLocaleData(localePl);
 
 class AppTranslateLoader {
   getTranslation(lang: string) {
@@ -77,9 +85,15 @@ export const MY_DATE_FORMATS = {
     EventComponent,
     EventFormComponent,
     FuelSummary,
-    CarFormComponent, 
-    CarTimelineComponent, TilePickerComponent, InsuranceCompanyComponent, InsuranceSummaryComponent,
-
+    CarFormComponent,
+    CarTimelineComponent,
+    TilePickerComponent,
+    InsuranceCompanyComponent,
+    InsuranceSummaryComponent,
+    TireCompanyFormComponent,
+    TireSummaryComponent,
+    TireComponent,
+    TireModelComponent
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -101,7 +115,7 @@ export const MY_DATE_FORMATS = {
         deps: [HttpClient],
       },
       defaultLanguage: 'pl_PL',
-    }), 
+    }),
     MatTableModule,
     PortalModule,
     MatInputModule,
@@ -119,7 +133,7 @@ export const MY_DATE_FORMATS = {
     MatSnackBarModule,
   ],
   providers: [
-    // { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
+    { provide: LOCALE_ID, useValue: 'pl' },
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -132,7 +146,5 @@ export const MY_DATE_FORMATS = {
   ],
 })
 export class AppModule {
-  constructor(private injector: Injector) {
-  
-  }
+  constructor(private injector: Injector) {}
 }

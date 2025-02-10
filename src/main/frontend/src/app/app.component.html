@@ -4,7 +4,7 @@
       <div class="panel">
         <div class="drawer-inner-container">
           <div class="menu-wrapper">
-            <a href="{{item.path}}" class="menu-item" *ngFor="let item of menu" matRipple [ngClass]="{selected: getCurrentPath() == item.path}">
+            <a routerLink="{{item.path}}" class="menu-item" *ngFor="let item of menu" matRipple [ngClass]="{selected: getCurrentPath() == item.path}">
               <mat-icon>{{item.icon}}</mat-icon>
               <span class="menu-btn-label">{{item.name | translate}}</span>
             </a>

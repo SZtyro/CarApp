@@ -1,5 +1,5 @@
 import { NgModule, Type } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EventFormComponent } from './components/forms/event-form/event-form.component';
 import { EventService } from './services/event.service';
@@ -9,6 +9,12 @@ import { BaseFormComponent, BaseRestService, BaseSearchComponent, RESOURCE, Role
 import { EventComponent } from './components/forms/event-form/event.component';
 import { InsuranceCompanyService } from './services/insurance-company.service';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
+import { TireCompanyFormComponent } from './components/forms/tire-company-form/tire-company-form.component';
+import { TireCompanyService } from './services/tire-company.service';
+import { TireComponent } from './components/forms/tire/tire.component';
+import { TireService } from './components/forms/tire/tire.service';
+import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
+import { TireModelService } from './components/forms/tire-model/tire-model.service';
 
 
 
@@ -32,6 +38,15 @@ let getChildren = (
   ];
 };
 
+let standard = (path: string, form: Type<BaseFormComponent<any>>, service: Type<BaseRestService<any>>, override?: Partial<Route>): Route => {
+  let elem = {
+    path: path,
+    children: getChildren(form,service)
+  }
+
+  return {...elem, ...override}
+}
+
 const routes: Routes = [
   {
     path: '',
@@ -52,6 +67,9 @@ const routes: Routes = [
       { path: 'Cars', children: getChildren(CarFormComponent, CarService) },
       { path: 'Roles', children: getChildren(RoleComponent, RoleService) },
       { path: 'InsuranceCompanies', children: getChildren(InsuranceCompanyComponent, InsuranceCompanyService) },
+      { path: 'TireCompanies', children: getChildren(TireCompanyFormComponent, TireCompanyService) },
+      standard('Tires', TireComponent, TireService),
+      standard('TireModels', TireModelComponent, TireModelService),
       {
         path: '',
         redirectTo: '/dashboard',
