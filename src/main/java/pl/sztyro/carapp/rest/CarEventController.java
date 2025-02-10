@@ -35,7 +35,7 @@ public class CarEventController extends BaseController<CarEvent> {
     @Override
     public CarEvent createEntity(CarEvent init) {
         if(init == null)
-            init = new CarEvent();
+            init = CarEvent.builder().build();
         return init;
     }
 

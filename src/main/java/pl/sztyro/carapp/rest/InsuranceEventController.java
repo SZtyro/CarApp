@@ -26,7 +26,7 @@ public class InsuranceEventController extends BaseController<InsuranceEvent> {
     @Override
     public InsuranceEvent createEntity(InsuranceEvent init) {
         if(init != null) return init;
-        return new InsuranceEvent();
+        return InsuranceEvent.builder().build();
     }
 
     @Override
@@ -49,17 +49,19 @@ public class InsuranceEventController extends BaseController<InsuranceEvent> {
         //There is no next event (entity with parent id)
         //Prevent generate next events for future years
         if (results.isEmpty() && shouldGenerate) {
-            InsuranceEvent nextEvent = new InsuranceEvent();
+
             Date date = updatedEntity.getDate();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             calendar.add(Calendar.YEAR, 1);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
-            nextEvent.setDraft(false);
-            nextEvent.setAuthor(userService.getCurrent());
-            nextEvent.setCar(updatedEntity.getCar());
-            nextEvent.setDate(calendar.getTime());
-            nextEvent.setPreviousEvent(this.repository.save(updatedEntity));
+            InsuranceEvent nextEvent = InsuranceEvent.builder()
+                    .draft(false)
+                    .author(userService.getCurrent())
+                    .car(updatedEntity.getCar())
+                    .date(calendar.getTime())
+                    .previousEvent(this.repository.save(updatedEntity))
+                    .build();
 
             nextEvent = create(nextEvent).getBody();
             updatedEntity.setNextEvent(nextEvent);

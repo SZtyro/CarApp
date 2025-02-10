@@ -16,10 +16,11 @@ public class CarController extends BaseController<Car> {
     @Override
     public Car createEntity(Car init) {
         if(init == null){
-            init = new Car();
+            init = Car.builder().build();
         }
         return init;
     }
+
 
 
 }

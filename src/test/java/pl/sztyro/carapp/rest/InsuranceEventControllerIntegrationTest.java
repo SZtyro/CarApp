@@ -30,7 +30,7 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
 
     @Test
     public void shouldCreateNextInsuranceEvent() throws IOException {
-        InsuranceEvent newEntity = new InsuranceEvent();
+        InsuranceEvent newEntity = InsuranceEvent.builder().build();
         newEntity = controller.create(newEntity).getBody();
 
         Calendar calendar = Calendar.getInstance();

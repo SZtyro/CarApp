@@ -14,15 +14,8 @@ public class BaseEventIntegrationTest extends BaseIntegrationTest{
         super.init();
 
         if(cars.count() == 0) {
-            Car toyota = new Car();
-            toyota.setName("Toyota");
-            toyota.setDraft(false);
-            cars.save(toyota);
-
-            Car mercedes = new Car();
-            mercedes.setName("Mercedes");
-            mercedes.setDraft(false);
-            cars.save(mercedes);
+            cars.save(Car.builder().name("Toyota").draft(false).build());
+            cars.save(Car.builder().name("Mercedes").draft(false).build());
         }
     }
 }

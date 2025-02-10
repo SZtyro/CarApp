@@ -64,14 +64,18 @@ public class InsuranceCompanyControllerIntegrationTest {
         anotherUser.setEmail(anotherUserEmail);
         users.save(anotherUser);
 
-        InsuranceCompany pzu = new InsuranceCompany("PZU");
-        pzu.setAuthor(anotherUser);
-        repository.save(pzu);
-
-        InsuranceCompany warta = new InsuranceCompany("Warta");
-        warta.setAuthor(anotherUser);
-        repository.save(warta);
-
+        repository.save(InsuranceCompany
+                .builder()
+                .author(anotherUser)
+                .name("PZU")
+                .build()
+        );
+        repository.save(InsuranceCompany
+                .builder()
+                .author(anotherUser)
+                .name("Warta")
+                .build()
+        );
 
     }
 

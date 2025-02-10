@@ -20,7 +20,7 @@ public class RepairEventController extends BaseController<RepairEvent> {
     @Override
     public RepairEvent createEntity(RepairEvent init) {
         if(init != null) return init;
-        return new RepairEvent();
+        return RepairEvent.builder().build();
     }
 
     @Override

@@ -1,6 +1,10 @@
 package pl.sztyro.carapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import pl.sztyro.carapp.enums.EngineType;
 import pl.sztyro.core.annotation.FrontendSearch;
 import pl.sztyro.core.annotation.Secure;
@@ -11,6 +15,10 @@ import java.util.Date;
 
 @Entity
 @Secure(read = "", write = "")
+@SuperBuilder(toBuilder = true)
+@Getter
+@Setter
+@NoArgsConstructor
 public class Car extends BaseEntity {
 
     @Column
@@ -28,36 +36,4 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "last_inspection")
     @JsonIgnoreProperties({"car"})
     private CarEvent lastInspection;
-
-    public Date getProductionYear() {
-        return productionYear;
-    }
-
-    public void setProductionYear(Date productionYear) {
-        this.productionYear = productionYear;
-    }
-
-    public CarEvent getLastInspection() {
-        return lastInspection;
-    }
-
-    public void setLastInspection(CarEvent lastInspection) {
-        this.lastInspection = lastInspection;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public EngineType getEngineType() {
-        return engineType;
-    }
-
-    public void setEngineType(EngineType engineType) {
-        this.engineType = engineType;
-    }
 }

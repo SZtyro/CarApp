@@ -2,6 +2,10 @@ package pl.sztyro.carapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Type;
 import pl.sztyro.core.annotation.FrontendSearch;
 import pl.sztyro.core.annotation.Secure;
@@ -13,6 +17,10 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Secure(read = "", write = "")
+@SuperBuilder(toBuilder = true)
+@Getter
+@Setter
+@NoArgsConstructor
 public class CarEvent extends BaseEntity {
 
     @Column
@@ -47,46 +55,6 @@ public class CarEvent extends BaseEntity {
     private Double price;
 
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Integer getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Integer mileage) {
-        this.mileage = mileage;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public CarEvent getPreviousEvent() {
-        return previousEvent;
-    }
-
-    public void setPreviousEvent(CarEvent previousEvent) {
-        this.previousEvent = previousEvent;
-    }
-
-    public CarEvent getNextEvent() {
-        return nextEvent;
-    }
-
-    public void setNextEvent(CarEvent nextEvent) {
-        this.nextEvent = nextEvent;
-    }
-
     @Override
     public String toString() {
         return "CarEvent{" +
@@ -95,20 +63,4 @@ public class CarEvent extends BaseEntity {
                 '}';
     }
 
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 }

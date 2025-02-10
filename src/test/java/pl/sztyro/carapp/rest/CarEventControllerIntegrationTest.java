@@ -39,18 +39,14 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
         Car toyota = cars.findOneByName("Toyota");
         Car mercedes = cars.findOneByName("Mercedes");
 
-        CarEvent previous = new CarEvent();
-        previous.setDraft(false);
-        previous.setCar(toyota);
-        previous.setDate(new Date(2024,Calendar.JANUARY,3));
+        CarEvent previous = CarEvent.builder()
+                .draft(false)
+                .car(toyota)
+                .date(new Date(2024,Calendar.JANUARY,3))
+                .build();
+
         previous = controller.create(previous).getBody();
-
-
-        CarEvent badEntity = new CarEvent();
-        badEntity.setDraft(false);
-        badEntity.setCar(mercedes);
-        badEntity.setDate(new Date(2024,Calendar.JANUARY,5));
-        badEntity = controller.create(previous).getBody();
+        controller.create(previous).getBody();
 
         CarEvent next = controller.create(null).getBody();
         next.setCar(toyota);

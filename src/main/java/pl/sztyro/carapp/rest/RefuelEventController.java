@@ -20,7 +20,7 @@ public class RefuelEventController extends BaseController<RefuelEvent> {
     @Override
     public RefuelEvent createEntity(RefuelEvent init) {
         if(init != null) return init;
-        return new RefuelEvent();
+        return RefuelEvent.builder().build();
     }
 
     @Override

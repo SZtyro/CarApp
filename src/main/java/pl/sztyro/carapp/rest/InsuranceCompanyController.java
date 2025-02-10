@@ -20,7 +20,7 @@ public class InsuranceCompanyController extends BaseController<InsuranceCompany>
     @Override
     public InsuranceCompany createEntity(InsuranceCompany init) {
         if(init != null) return init;
-        else return new InsuranceCompany();
+        else return InsuranceCompany.builder().build();
     }
 
     @Override

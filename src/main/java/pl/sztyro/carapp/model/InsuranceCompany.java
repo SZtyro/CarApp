@@ -1,5 +1,9 @@
 package pl.sztyro.carapp.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import pl.sztyro.core.annotation.Secure;
 import pl.sztyro.core.model.BaseDictionary;
 
@@ -8,23 +12,13 @@ import javax.persistence.Entity;
 
 @Entity
 @Secure()
+@Getter
+@Setter
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor
 public class InsuranceCompany extends BaseDictionary {
 
     @Column
     private String logoUrl;
-
-    public InsuranceCompany(String name) {
-        super(name);
-    }
-
-    public InsuranceCompany(){super();}
-
-    public String getLogoUrl() {
-        return logoUrl;
-    }
-
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
-    }
 
 }
