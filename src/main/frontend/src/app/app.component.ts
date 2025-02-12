@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 export const searchTemplatePath = './tools/base-search/base-search.component.html'
 
@@ -11,6 +12,9 @@ export class AppComponent implements OnInit {
 
 
   mobileView:boolean = false;
+  hideMenu:boolean = true;
+
+  constructor(private translate: TranslateService){}
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -30,7 +34,18 @@ export class AppComponent implements OnInit {
   ]
 
   ngOnInit(): void {
+
+    let lang = localStorage.getItem('language')
+    if(lang == null) lang =  navigator.language.replace("-","_"); 
+
+    this.translate.use(lang);
+
+    this.translate.onLangChange.subscribe(v => {
+      localStorage.setItem('language', v.lang);
+    })
+
     this.mobileView = window.innerWidth > 576;
+    this.hideMenu = window.location.pathname === '/home';
   }
 
   getCurrentPath(): string{

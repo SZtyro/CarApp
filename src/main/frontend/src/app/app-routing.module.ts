@@ -15,6 +15,7 @@ import { TireComponent } from './components/forms/tire/tire.component';
 import { TireService } from './components/forms/tire/tire.service';
 import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
 import { TireModelService } from './components/forms/tire-model/tire-model.service';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -48,6 +49,7 @@ let standard = (path: string, form: Type<BaseFormComponent<any>>, service: Type<
 }
 
 const routes: Routes = [
+  { path: 'home', component: HomeComponent},
   {
     path: '',
     resolve: { profile: ProfileService },
@@ -72,7 +74,7 @@ const routes: Routes = [
       standard('TireModels', TireModelComponent, TireModelService),
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/home',
         pathMatch: 'full',
       },
     ],

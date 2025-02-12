@@ -51,6 +51,7 @@ import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
 import { TireComponent } from './components/forms/tire/tire.component';
 import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
+import { HomeComponent } from './components/home/home.component';
 
 export let AppInjector: Injector;
 
@@ -63,7 +64,7 @@ class AppTranslateLoader {
 }
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'api/translations/', '');
+  return new TranslateHttpLoader(http, '/api/public/translations/', '');
 }
 
 export const MY_DATE_FORMATS = {
@@ -93,7 +94,8 @@ export const MY_DATE_FORMATS = {
     TireCompanyFormComponent,
     TireSummaryComponent,
     TireComponent,
-    TireModelComponent
+    TireModelComponent,
+    HomeComponent
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -114,7 +116,7 @@ export const MY_DATE_FORMATS = {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-      defaultLanguage: 'pl_PL',
+      defaultLanguage: 'en_US',
     }),
     MatTableModule,
     PortalModule,

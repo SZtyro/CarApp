@@ -1,4 +1,6 @@
 {
+  "en_US": "Angielski",
+  "pl_PL": "Polski",
   "Save": "Zapisz",
   "Delete": "Usuń",
   "Close": "Zamknij",
@@ -14,6 +16,10 @@
   "User has no edit privilege": "Użytkownik nie może edytować zasobu",
   "ERR_CODE": {
     "required": "Wymagany" 
+  },
+  "WELCOME":{
+    "DESCRIPTION": "Ta strona nie ma jeszcze nawet wymyślnej nazwy. To piaskownica, w której testuję swoje pomysły. Możesz zalogować się za pomocą konta Google, ale jeśli jesteś tu tylko po to, aby zobaczyć, jak to działa, śmiało skorzystaj z tymczasowego konta.",
+    "WHAT_DOES_IT_DO": "To prosta aplikacja do prowadzenia dziennika samochodowego, podobna do wielu innych. Jednak jej prostota pozwala mi udostępniać ją publicznie na GitHubie. Pracuję nad tym projektem w wolnym czasie. Poniżej znajduje się mapa drogowa funkcji, które planuję dodać w przyszłości.Kafelki z wstążkami będą częścią mojej własnej biblioteki i zostaną udostępnione we wszystkich moich aplikacjach."
   },
   "pl": {
     "sztyro":{
@@ -61,7 +67,8 @@
             "company": "Firma ubezpieczeniowa"
           },
           "TireChangeEvent": {
-            "HEADER": "Zmiana opon"
+            "HEADER": "Zmiana opon",
+            "tires": "Opony"
           },
           "InsuranceCompany": {
             "HEADER": "Firma ubezpieczeniowa",
@@ -69,6 +76,33 @@
             "name": "Nazwa",
             "enabled": "Aktywny",
             "logoUrl": "Url loga"
+          },
+          "TireCompany": {
+            "HEADER": "Producent opony",
+            "HEADER$plural": "Producenci opon",
+            "name": "Nazwa",
+            "enabled": "Aktywny",
+            "logoUrl": "Url loga"
+          },
+          "TireModel": {
+            "HEADER": "Model opony",
+            "HEADER$plural": "Modele opon",
+            "company": "Producent",
+            "type": "Typ",
+            "name": "Nazwa",
+            "enabled": "Aktywny"
+          },
+          "Tire": {
+            "HEADER": "Opona",
+            "HEADER$plural": "Opony",
+            "placement": "Umiejscowienie",
+            "model": "Model",
+            "date": "Data",
+            "tireWidth": "Szerokość",
+            "aspectRatio": "Profil",
+            "diameter": "Średnica",
+            "loadRating": "Indeks nośności",
+            "speedRating": "Indeks prędkości"
           }
         }
       }
@@ -85,5 +119,33 @@
   "Other": "Inne",
   "Incoming events": "Nadchodzące",
   "Dashboard": "Start",
-  "Required to calculate next inspection date.": "Potrzebny do obliczenia następnej daty przeglądu."
+  "Summer": "Letnie",
+  "Winter": "Zimowe",
+  "AllSeason": "Całoroczne",
+  "Required to calculate next inspection date.": "Potrzebny do obliczenia następnej daty przeglądu.",
+  "Generate others": "Generuj popzostałe",
+  "Site under construction": "Strona w budowie",
+  "What does it do?": "Co to robi?",
+  "Log in with Google": "Zaloguj z Google",
+  "I'll use a temporary account": "Użyję tymczasowego konta",
+  "Roadmap": "Etapy",
+  "Technologies": "Technologie",
+  "Github repository": "Repozytorium Github",
+  "Library": "Biblioteka",
+  "Events": "Wpisy",
+  "Form builder, core utilities, fields": "Budowanie formularzy, główne funkcje, pola",
+  "Refueling, cost summary, repairs, insurance": "Tankowanie, podsumowanie kosztów, naprawy, ubezpieczenie",
+  "Tires": "Opony",
+  "Tire changes, brands, models": "Zmiany opon, marki, modele",
+  "App dashboard": "Pulpit",
+  "Detailed statistics and insights": "Szczegółowe statystyki i wgląd",
+  "Expandable menu with a tree structure": "Menu w formie drzewa",
+  "Welcome page": "Strona powitalna",
+  "Public page for non-logged users": "Strona dla niezalogowanych użytkowników",
+  "Task system": "System zadań",
+  "Bug reporting and development tracking": "Zgłaszanie błędów i śledzenie rozwoju",
+  "Rating": "System ocen",
+  "Tire rating and reviews": "Oceny i opinie opon",
+  "Community": "Społeczność",
+  "User forums": "Fora użytkowników"
 }

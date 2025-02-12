@@ -1,0 +1,95 @@
+#github{
+    background-color: #2B3137;
+    color: #ebebeb;
+}
+
+#linkedIn{
+    color: #ebebeb;
+    background: #0a66c2;
+}
+
+#wakatime{
+    color: #ebebeb;
+    background: #030711;
+}
+
+.tile{
+    background-color: var(--sys-surface-container-high);
+    color: var(--sys-on-surface);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.tile .material-symbols-rounded{
+    color: rgb(177, 115, 115);
+}
+
+.tile .material-symbols-rounded.done{
+    color: #79a171;
+}
+
+.tile h5, .tile p{
+    margin: 0;
+}
+
+.tile .material-symbols-rounded{
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.ribbon{
+    position: absolute;
+    right: -30px;
+    top: 12px;
+    background-color: #8585c1;
+    rotate: 45deg;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    height: 18px;
+    font-weight: 500;
+}
+
+::ng-deep mat-chip span,
+::ng-deep .mdc-evolution-chip__action--primary::before{
+    border-color: inherit !important;
+    color: inherit !important
+}
+
+::ng-deep mat-chip img {
+    border-radius: 0px !important;
+}
+
+button{
+    display: flex;
+    align-items: center;
+}
+
+button img{
+    padding-right: 4px;
+}
+
+button svg{
+    width: 20px;
+    height: 20px;
+    padding-right: 4px;
+}
+
+.btn-label{
+    height: 19px;
+    display: flex;
+}
+
+::ng-deep .mdc-button__label{
+    display: flex;
+}
+
+a{
+    text-decoration: none;
+}

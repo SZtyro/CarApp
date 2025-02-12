@@ -1,0 +1,8 @@
+{
+    "pl_PL": "Polish",
+    "en_US": "English",
+    "WELCOME":{
+        "DESCRIPTION": "This site doesn't even have a fancy name yet. It's a sandbox where I test my ideas. You can log in using a Google account, but if you're just here to see how it works, feel free to use a temporary account.",
+        "WHAT_DOES_IT_DO": "It's a simple car logbook app, similar to many others. However, its simplicity allows me to share it  publicly on GitHub. I work on this project in my free time. Below is a roadmap of features I plan to add in the future. Tiles with ribbons will be part of my own library and will be shared across all my applications."
+    }
+}
