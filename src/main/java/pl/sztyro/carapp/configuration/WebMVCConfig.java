@@ -11,7 +11,6 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 
@@ -22,25 +21,33 @@ public class WebMVCConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String resourceLocation;
+        String fallbackIndex;
+
+        if (Arrays.asList(env.getActiveProfiles()).contains("dev")) {
+            resourceLocation = "file:src/main/webapp/browser/";
+            fallbackIndex = "src/main/webapp/browser/index.html";
+        } else {
+            resourceLocation = "file:webapps/ROOT/browser/";
+            fallbackIndex = "webapps/ROOT/browser/index.html";
+        }
+
         registry.addResourceHandler("/**/*")
-                .addResourceLocations("file:webapps/ROOT/browser/")
+                .addResourceLocations(resourceLocation)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {
                         Resource requestedResource = location.createRelative(resourcePath);
-                        List<String> list = Arrays.stream(env.getActiveProfiles())
-                                .filter(profile -> "dev".equals(profile) || "test".equals(profile))
-                                .toList();
-                        String path = null;
-                        if(list.size() == 1)
-                            path = "src/main/webapp/browser/index.html";
-                        else
-                            path = "webapps/ROOT/browser/index.html";
-                        return requestedResource.exists() && requestedResource.isReadable()
-                                ? requestedResource
-                                : new FileSystemResource(path);
+
+                        if (requestedResource.exists() && requestedResource.isReadable()) {
+                            return requestedResource;
+                        }
+
+                        Resource indexResource = new FileSystemResource(fallbackIndex);
+                        return indexResource.exists() && indexResource.isReadable() ? indexResource : null;
                     }
                 });
     }
+
 }
