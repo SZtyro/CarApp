@@ -10,12 +10,14 @@ import { InsuranceCompanyService } from 'src/app/services/insurance-company.serv
 export class InsuranceCompanyComponent extends BaseFormComponent {
   override resource: InsuranceCompanyService = this.injector.get(InsuranceCompanyService);
 
-  override fields: GeneratorProperties<any>[] = [
-    Div.tile('', 'row',
-      InputField.create({path: 'name', options: {class: 'col-md-6'}}),
-      // CheckboxField.create({path: 'enabled', options: {class: 'col-md-6'}})
-      InputField.create({path: 'logoUrl', options: {class: 'col-12'}})
-    )
-    
-  ];
+  override getProperties(): GeneratorProperties<any>[] {
+    return [
+      Div.tile('', 'row',
+        InputField.create({path: 'name', options: {class: 'col-md-6'}}),
+        // CheckboxField.create({path: 'enabled', options: {class: 'col-md-6'}})
+        InputField.create({path: 'logoUrl', options: {class: 'col-12'}})
+      )
+      
+    ];
+  }
 }

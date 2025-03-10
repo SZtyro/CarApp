@@ -8,7 +8,7 @@ import pl.sztyro.core.annotation.Secure;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity
@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class TireChangeEvent extends CarEvent {
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Tire> tires;
 
 }

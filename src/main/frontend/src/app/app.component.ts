@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 export const searchTemplatePath = './tools/base-search/base-search.component.html'
@@ -13,8 +14,12 @@ export class AppComponent implements OnInit {
 
   mobileView:boolean = false;
   hideMenu:boolean = true;
+  hideMennuPaths: string[] = ['/home', '/login'];
 
-  constructor(private translate: TranslateService){}
+  constructor(
+    private router: Router,
+    private translate: TranslateService
+  ){}
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -45,7 +50,11 @@ export class AppComponent implements OnInit {
     })
 
     this.mobileView = window.innerWidth > 576;
-    this.hideMenu = window.location.pathname === '/home';
+
+    
+    this.router.events.subscribe(event => {
+      this.hideMenu = this.hideMennuPaths.find(elem =>  elem === window.location.pathname) != null ;
+    })
   }
 
   getCurrentPath(): string{

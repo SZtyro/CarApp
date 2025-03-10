@@ -43,3 +43,16 @@ spring:
                         client-secret: ${GOOGLE_CLIENT_SECRET}
             resource:
                 user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: ${SMTP_USERNAME}
+        password: ${SMTP_PASSWORD}
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                    ssl.protocols: TLSv1.2
+app.mail.info.recipient: ${INFO_RECIPIENT}

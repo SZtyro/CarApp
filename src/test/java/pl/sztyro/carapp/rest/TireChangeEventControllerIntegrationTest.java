@@ -19,7 +19,10 @@ import pl.sztyro.core.service.DateService;
 import pl.sztyro.core.service.UserService;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
@@ -76,24 +79,6 @@ class TireChangeEventControllerIntegrationTest extends BaseIntegrationTest {
                 .logoUrl("pirelliLogo")
                 .build()
         );
-        TireModel pilotAlpin = modelRepository.save(TireModel.builder()
-                .company(michelin)
-                .name("Pilot alpin 5")
-                .type(TireType.Winter)
-                .build()
-        );
-        TireModel pilotSport = modelRepository.save(TireModel.builder()
-                .company(michelin)
-                .name("Pilot sport 5")
-                .type(TireType.Summer)
-                .build()
-        );
-        TireModel winterSottozero = modelRepository.save(TireModel.builder()
-                .company(pirelli)
-                .name("Winter Sottozero 3")
-                .type(TireType.Winter)
-                .build()
-        );
 
         carRepository.save(Car.builder().name("Toyota").author(getTester()).build());
 
@@ -106,33 +91,74 @@ class TireChangeEventControllerIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    public void shouldAttachPreviousAndNextEvent() throws IOException {
+        Car toyota = carRepository.findOneByName("Toyota");
+        TireChangeEvent firstChange = controller.create(
+                TireChangeEvent.builder()
+                        .car(toyota)
+                        .date(dateService.from(2023, 1, 10))
+                        .build()
+        ).getBody();
+
+        firstChange.setMileage(123);
+        controller.update(firstChange.getId(), firstChange);
+
+        TireChangeEvent secondChange = controller.create(
+                TireChangeEvent.builder()
+                        .car(toyota)
+                        .date(dateService.from(2023, 10, 20))
+                        .build()
+        ).getBody();
+
+        secondChange.setMileage(234);
+        secondChange = controller.update(secondChange.getId(), secondChange);
+        firstChange = controller.get(firstChange.getId()).getBody();
+
+        assertEquals(firstChange.getId(), secondChange.getPreviousEvent().getId());
+        assertEquals(secondChange.getId(), firstChange.getNextEvent().getId());
+    }
+
+    @Test
     public void shouldReturnStandardTireSummary() throws IOException {
 
         doReturn(dateService.from(2024, 4, 10)).when(dateService).now();
 
         Car toyota = carRepository.findOneByName("Toyota");
-        controller.create(createEventFor(
-                "Pilot sport 5",
-                toyota,
-                new Calendar.Builder().setDate(2023,3, 25).build().getTime(),
-                0
-        ));
-        controller.create(createEventFor(
-                "Winter Sottozero 3",
-                toyota,
-                new Calendar.Builder().setDate(2023,10, 1).build().getTime(),
-                500
-        ));
-        controller.create(createEventFor(
-                "Pilot sport 5",
-                toyota,
-                new Calendar.Builder().setDate(2024,4, 1).build().getTime(),
-                1000
-        ));
+        TireModel pilot = tireModelController.create(TireModel.builder().name("Pilot sport 5").type(TireType.Summer).build()).getBody();
+        TireModel sottozero = tireModelController.create(TireModel.builder().name("Winter Sottozero 3").type(TireType.Winter).build()).getBody();
 
-        Date eventDate = dateService.from(2023, 8, 10);
+        Set<Tire> summerSet = createTiresFor(pilot);
+        Set<Tire> winterSet = createTiresFor(sottozero);
+
+        TireChangeEvent firstChange = controller.create(TireChangeEvent.builder()
+                .mileage(0)
+                .tires(summerSet)
+                .car(toyota)
+                .date(dateService.from(2023, 1,1))
+                .build()).getBody();
+        controller.update(firstChange.getId(),firstChange);
+
+        TireChangeEvent secondChange = controller.create(TireChangeEvent.builder()
+                .mileage(500)
+                .tires(winterSet)
+                .car(toyota)
+                .date(dateService.from(2023, 10, 1))
+                .build()
+        ).getBody();
+        controller.update(secondChange.getId(), secondChange);
+
+        TireChangeEvent thirdChange = controller.create(TireChangeEvent.builder()
+                .mileage(1000)
+                .tires(summerSet)
+                .car(toyota)
+                .date(dateService.from(2024, 3, 1))
+                .build()
+        ).getBody();
+        controller.update(thirdChange.getId(), thirdChange);
+
+        Date eventDate = dateService.from(2023, 1, 10);
         int milage = 0;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 16; i++) {
             milage += 100;
             refuelEventRepository.save(RefuelEvent.builder()
                     .mileage(milage)
@@ -150,7 +176,8 @@ class TireChangeEventControllerIntegrationTest extends BaseIntegrationTest {
         TireChangeEventController.CarTiresSummary summary = controller.getTiresSummary(toyota.getId());
         assertEquals(TireType.Summer, summary.getType());
         assertEquals("1.9", summary.getAge());
-        assertEquals("1200", summary.getMileage());
+        //First change at 500 mileage, second at 1000. Last event mileage 1600
+        assertEquals("1100", summary.getMileage());
     }
 
     private Set<Tire> createTiresFor(TireModel model) throws IOException {
@@ -168,12 +195,5 @@ class TireChangeEventControllerIntegrationTest extends BaseIntegrationTest {
         return tires;
     }
 
-    private TireChangeEvent createEventFor(String modelName, Car car, Date date, int mileage ) throws IOException {
-        return TireChangeEvent.builder()
-                .tires(createTiresFor(modelRepository.findByName(modelName)))
-                .car(car)
-                .date(date)
-                .mileage(mileage)
-                .build();
-    }
+
 }

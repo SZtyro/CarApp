@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfileService } from '@sztyro/core';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomeComponent {
 
-  constructor(public translate: TranslateService){
+  constructor(
+    public profile: ProfileService,
+    public translate: TranslateService){
 
   }
 
@@ -40,9 +43,7 @@ export class HomeComponent {
     { title: 'Linux', logo: 'https://www.svgrepo.com/show/452122/ubuntu.svg', background: '#e95420'},
   ]
 
-  changeLanguage(){
-    let l = this.translate.currentLang;
-    if(l == 'en_US') this.translate.use('pl_PL');
-    else this.translate.use('en_US');
-  }
+
+
+  
 }

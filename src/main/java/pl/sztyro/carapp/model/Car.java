@@ -36,4 +36,10 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "last_inspection")
     @JsonIgnoreProperties({"car"})
     private CarEvent lastInspection;
+
+    @Column
+    private Double lowestConsumption;
+
+    @Column
+    private Double highestConsumption;
 }

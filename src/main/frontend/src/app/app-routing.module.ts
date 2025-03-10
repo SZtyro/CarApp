@@ -5,7 +5,7 @@ import { EventFormComponent } from './components/forms/event-form/event-form.com
 import { EventService } from './services/event.service';
 import { CarService } from './services/car.service';
 import { CarFormComponent } from './components/forms/car-form/car-form.component';
-import { BaseFormComponent, BaseRestService, BaseSearchComponent, RESOURCE, RoleComponent, RoleService, ProfileService} from '@sztyro/core';
+import { BaseFormComponent, BaseRestService, BaseSearchComponent, RESOURCE, RoleComponent, RoleService, ProfileService, LoginComponent} from '@sztyro/core';
 import { EventComponent } from './components/forms/event-form/event.component';
 import { InsuranceCompanyService } from './services/insurance-company.service';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
@@ -28,6 +28,7 @@ let getChildren = (
     {
       path: '',
       component: BaseSearchComponent,
+      resolve: { metadata: service },
       providers: [{ provide: RESOURCE, useClass: service }],
     },
     {
@@ -50,25 +51,29 @@ let standard = (path: string, form: Type<BaseFormComponent<any>>, service: Type<
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
+  { path: 'login', component: LoginComponent},
   {
     path: '',
     resolve: { profile: ProfileService },
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'Events', children: [
-        { path: "", component: EventComponent, providers: [{ provide: RESOURCE, useClass: EventService }] },
+        { path: "", component: EventComponent, providers: [{ provide: RESOURCE, useClass: EventService }], resolve: { metadata: EventService} },
         { path: ":type/:id", component: EventFormComponent, resolve: { model: EventService} },
       ]},
       { path: 'pl.sztyro.carapp.model.CarEvent', redirectTo: 'Events' },
       { path: 'pl.sztyro.carapp.model.TireChangeEvent', redirectTo: 'Events' },
       { path: 'pl.sztyro.carapp.model.RepairEvent', redirectTo: 'Events' },
       { path: 'pl.sztyro.carapp.model.InsuranceEvent', redirectTo: 'Events' },
-      { path: 'pl.sztyro.carapp.model.InsuranceEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.InsuranceEvent/:id' },
+      { path: 'pl.sztyro.carapp.model.RepairEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.RepairEvent/:id', resolve: {model: EventService} },
+      { path: 'pl.sztyro.carapp.model.TireChangeEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.TireChangeEvent/:id', resolve: {model: EventService} },
+      { path: 'pl.sztyro.carapp.model.InsuranceEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.InsuranceEvent/:id', resolve: {model: EventService} },
+      { path: 'pl.sztyro.carapp.model.RefuelEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.RefuelEvent/:id', resolve: {model: EventService} },
       { path: 'pl.sztyro.carapp.model.InsuranceCompany/:id', redirectTo: 'InsuranceCompanies/:id' },
       { path: 'pl.sztyro.carapp.model.Car', redirectTo: 'Cars' },
       { path: 'Cars', children: getChildren(CarFormComponent, CarService) },
       { path: 'Roles', children: getChildren(RoleComponent, RoleService) },
-      { path: 'InsuranceCompanies', children: getChildren(InsuranceCompanyComponent, InsuranceCompanyService) },
+      { path: 'InsuranceCompanies', children: getChildren(InsuranceCompanyComponent, InsuranceCompanyService)},
       { path: 'TireCompanies', children: getChildren(TireCompanyFormComponent, TireCompanyService) },
       standard('Tires', TireComponent, TireService),
       standard('TireModels', TireModelComponent, TireModelService),

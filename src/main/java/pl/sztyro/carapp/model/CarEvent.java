@@ -1,7 +1,8 @@
 package pl.sztyro.carapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +22,14 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CarEvent extends BaseEntity {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "entityType")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RefuelEvent.class, name = "pl.sztyro.carapp.model.RefuelEvent"),
+        @JsonSubTypes.Type(value = TireChangeEvent.class, name = "pl.sztyro.carapp.model.TireChangeEvent"),
+        @JsonSubTypes.Type(value = InsuranceEvent.class, name = "pl.sztyro.carapp.model.InsuranceEvent"),
+        @JsonSubTypes.Type(value = RepairEvent.class, name = "pl.sztyro.carapp.model.RepairEvent"),
+})
+public abstract class CarEvent extends BaseEntity {
 
     @Column
     @FrontendSearch
@@ -38,12 +46,12 @@ public class CarEvent extends BaseEntity {
 
     @JoinColumn(name = "previous_id", referencedColumnName = "id")
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonIncludeProperties({"id", "date", "version", "type", "entityType"})
+    @JsonIgnoreProperties({"previousEvent", "nextEvent",})
     private CarEvent previousEvent;
 
     @JoinColumn(name = "next_id", referencedColumnName = "id")
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonIncludeProperties({"id", "date", "version", "type", "entityType"})
+    @JsonIgnoreProperties({"previousEvent", "nextEvent",})
     private CarEvent nextEvent;
 
     @Lob

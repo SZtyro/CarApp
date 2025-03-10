@@ -1,48 +1,65 @@
 <div style="margin-bottom: 20px; width: 100%;">
-    <div *ngIf="!options.isHidden(formRef.object)" class="wrapper" >
+    <!-- <div *ngIf="!options.isHidden(formRef.object)" class="wrapper" > -->
         <div class="section">
-            <h3>{{'Fuel consumption' | translate}}</h3>
-            <div class="d-flex justify-content-center h-100">
-                <div class="output">
-                    {{calculate()}}
+            
+            <div class="d-flex flex-column h-100 w-100">
+                <div class="d-flex justify-content-between">
+                    <h5>{{'Fuel consumption' | translate}}</h5>
+                    <div class="output">
+                        <span>{{calculate()}}</span>&nbsp; l/100km
+                    </div>
+                   
                 </div>
-                <div class="unit">
-                    <div>L/100km</div>
+                <div class="bar">
+                    <div class="bar-pin" [style.left]="getProgress()">
+                        <div class="w-100 h-100" [floating]="details"></div>
+                        <div #details class="details" [style]="getFloatingOffset()">
+                            <span>{{'pl.sztyro.carapp.model.Car.lowestConsumption' | translate}}
+                                <span><strong>{{formRef?.object?.car?.lowestConsumption}}</strong>&nbsp;l/100km</span>
+                            </span>
+                            <span>{{'pl.sztyro.carapp.model.Car.highestConsumption' | translate}}
+                                <span><strong>{{formRef?.object?.car?.highestConsumption}}</strong>&nbsp;l/100km</span>
+                            </span>
+                         
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>
         <div class="section">
-            <h3>{{'Distance traveled' | translate}}</h3>
-            <div class="d-flex justify-content-center h-100">
-                <div class="output">
-                    {{formRef.object.mileage - formRef.object.previousEvent?.mileage}}
-                </div>
-                <div class="unit">
-                    <div>km</div>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <h3>{{'Price per 100km' | translate}}</h3>
-            <div class="d-flex justify-content-center h-100">
-                <div class="output">
-                    {{getPricePer100()}}
-                </div>
-                <div class="unit">
-                    <div>zł</div>
+            
+            <div class="d-flex flex-column h-100">
+                <div class="d-flex justify-content-between">
+                    <h5>{{'Distance traveled' | translate}}</h5>
+                    <div class="output">
+                        <span>{{getDistanceTraveled()}}</span>&nbsp;km
+                    </div>
                 </div>
             </div>
         </div>
         <div class="section">
-            <h3>{{'From last refueling' | translate}}</h3>
-            <div class="d-flex justify-content-center h-100">
-                <div class="output">
-                    {{getDaysFromRefueling()}}
+           
+            <div class="d-flex flex-column h-100">
+                <div class="d-flex justify-content-between">
+                    <h5>{{'Price per 100km' | translate}}</h5>
+                    <div class="output">
+                        <span>{{getPricePer100()}}</span>&nbsp;zł
+                    </div>
                 </div>
-                <div class="unit">
-                    <div>{{'days' | translate}}</div>
+               
+            </div>
+        </div>
+        <div class="section">
+           
+            <div class="d-flex flex-column h-100">
+                <div class="d-flex justify-content-between">
+                    <h5>{{'From last refueling' | translate}}</h5>
+                    <div class="output">
+                        <span>{{getDaysFromRefueling()}}</span>&nbsp;{{'Days' | translate}}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>

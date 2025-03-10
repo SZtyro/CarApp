@@ -41,13 +41,15 @@
             "HEADER$plural": "Samochody",
             "name": "Nazwa",
             "lastInspection": "Ostatni przegląd",
-            "productionYear": "Rok produkcji"
+            "productionYear": "Rok produkcji",
+            "engineType": "Typ silnika",
+            "lowestConsumption": "Najniższe spalanie",
+            "highestConsumption": "Najwyższe spalanie"
           },
           "CarEvent": {
             "HEADER": "Wpis",
             "HEADER$plural": "Wpisy",
             "mileage": "Przebieg",
-            "amountOfFuel": "Ilość",
             "date": "Data",
             "car": "Samochód",
             "type": "Typ",
@@ -57,7 +59,8 @@
             "price": "Cena"
           },
           "RefuelEvent": {
-            "HEADER": "Tankowanie"
+            "HEADER": "Tankowanie",
+            "amountOfFuel": "Ilość"
           },
           "RepairEvent": {
             "HEADER": "Naprawa"
@@ -147,5 +150,16 @@
   "Rating": "System ocen",
   "Tire rating and reviews": "Oceny i opinie opon",
   "Community": "Społeczność",
-  "User forums": "Fora użytkowników"
+  "User forums": "Fora użytkowników",
+  "RF": "PP",
+  "RR": "PT",
+  "LF": "LP",
+  "LR": "LT",
+  "Fuel consumption": "Zużycie paliwa",
+  "Distance traveled": "Pokonany dystans",
+  "Price per 100km": "Cena za 100km",
+  "From last refueling": "Od ostatniego tankowania",
+  "Season": "Sezon",
+  "Mileage": "Przebieg",
+  "Age": "Wiek"
 }

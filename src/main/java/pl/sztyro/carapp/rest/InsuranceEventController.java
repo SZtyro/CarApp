@@ -1,12 +1,9 @@
 package pl.sztyro.carapp.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.InsuranceEvent;
-import pl.sztyro.core.rest.BaseController;
 import pl.sztyro.core.service.UserService;
 
 import java.io.IOException;
@@ -14,7 +11,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/events/type/insurance")
-public class InsuranceEventController extends BaseController<InsuranceEvent> {
+public class InsuranceEventController extends BaseCarEventController<InsuranceEvent> {
 
     @Autowired
     private UserService userService;
@@ -23,18 +20,6 @@ public class InsuranceEventController extends BaseController<InsuranceEvent> {
         super(InsuranceEventController.class, InsuranceEvent.class);
     }
 
-    @Override
-    public InsuranceEvent createEntity(InsuranceEvent init) {
-        if(init != null) return init;
-        return InsuranceEvent.builder().build();
-    }
-
-    @Override
-    public void beforeUpdateEntity(InsuranceEvent dbEntity, InsuranceEvent changes) throws IOException {
-        if(changes.getCar() == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Set car.");
-        super.beforeUpdateEntity(dbEntity, changes);
-    }
 
     @Override
     public void afterUpdateEntity(InsuranceEvent updatedEntity) throws IOException {

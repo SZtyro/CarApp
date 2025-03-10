@@ -6,8 +6,8 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.Car;
-import pl.sztyro.carapp.model.CarEvent;
-import pl.sztyro.carapp.repository.CarEventRepository;
+import pl.sztyro.carapp.model.RefuelEvent;
+import pl.sztyro.carapp.repository.RefuelEventRepository;
 import pl.sztyro.core.rest.FilteredResult;
 
 import java.io.IOException;
@@ -22,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest {
 
     @Autowired
-    private CarEventController controller;
+    private RefuelEventController controller;
 
     @Autowired
-    private CarEventRepository repository;
+    private RefuelEventRepository repository;
 
     @BeforeAll
     @Override
@@ -39,7 +39,7 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
         Car toyota = cars.findOneByName("Toyota");
         Car mercedes = cars.findOneByName("Mercedes");
 
-        CarEvent previous = CarEvent.builder()
+        RefuelEvent previous = RefuelEvent.builder()
                 .draft(false)
                 .car(toyota)
                 .date(new Date(2024,Calendar.JANUARY,3))
@@ -48,7 +48,7 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
         previous = controller.create(previous).getBody();
         controller.create(previous).getBody();
 
-        CarEvent next = controller.create(null).getBody();
+        RefuelEvent next = controller.create(null).getBody();
         next.setCar(toyota);
         next.setDate(new Date(2024,Calendar.JANUARY,25));
 
@@ -61,7 +61,7 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
     }
 
     private void testGenerationFor() throws IOException {
-        CarEvent newEntity = new CarEvent();
+        RefuelEvent newEntity = new RefuelEvent();
         newEntity = controller.create(newEntity).getBody();
 
         Calendar calendar = Calendar.getInstance();
@@ -75,10 +75,10 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
         assertEquals("Toyota",newEntity.getCar().getName());
 
         newEntity = controller.update(newEntity.getId(), newEntity);
-        FilteredResult<CarEvent> events = controller.getAll(Map.of("previousEvent.id", String.valueOf(newEntity.getId())));
+        FilteredResult<RefuelEvent> events = controller.getAll(Map.of("previousEvent.id", String.valueOf(newEntity.getId())));
         assertEquals(1 , events.getResults().size());
 
-        CarEvent nextEvent = events.getResults().get(0);
+        RefuelEvent nextEvent = events.getResults().get(0);
         assertEquals(newEntity.getId(), nextEvent.getPreviousEvent().getId());
         assertEquals(newEntity.getNextEvent().getId(), nextEvent.getId());
 
@@ -97,7 +97,7 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
     public void shouldThrowBadRequestWithoutCar() throws IOException {
 
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class, () -> {
-            CarEvent event = new CarEvent();
+            RefuelEvent event = new RefuelEvent();
             event = controller.create(event).getBody();
             event.setMileage(2233);
             controller.update(event.getId(), event);
@@ -107,17 +107,17 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
 
     @Test
     public void shouldCreateAndUpdateEntity() throws IOException {
-        CarEvent carEvent = new CarEvent();
-        carEvent.setMileage(123);
-        carEvent.setCar(cars.findOneByName("Toyota"));
+        RefuelEvent RefuelEvent = new RefuelEvent();
+        RefuelEvent.setMileage(123);
+        RefuelEvent.setCar(cars.findOneByName("Toyota"));
 
-        CarEvent body = controller.create(carEvent).getBody();
-        assertThat(body.getMileage()).isEqualTo(carEvent.getMileage());
+        RefuelEvent body = controller.create(RefuelEvent).getBody();
+        assertThat(body.getMileage()).isEqualTo(RefuelEvent.getMileage());
         assertThat(body.getId()).isNotNull();
 
         body.setMileage(2222);
 
-        CarEvent updated = controller.update(body.getId(), body);
+        RefuelEvent updated = controller.update(body.getId(), body);
         assertThat(updated.getMileage()).isEqualTo(2222);
     }
 

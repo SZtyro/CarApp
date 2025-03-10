@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.sztyro.carapp.enums.TirePlacement;
 import pl.sztyro.core.annotation.FrontendSearch;
+import pl.sztyro.core.annotation.Secure;
 import pl.sztyro.core.model.BaseEntity;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import java.util.Date;
 @SuperBuilder(toBuilder = true)
 @Entity
 @NoArgsConstructor
-
+@Secure(read = "")
 public class Tire extends BaseEntity {
 
     @Column

@@ -12,15 +12,4 @@ public class CarController extends BaseController<Car> {
     public CarController() {
         super(CarController.class, Car.class);
     }
-
-    @Override
-    public Car createEntity(Car init) {
-        if(init == null){
-            init = Car.builder().build();
-        }
-        return init;
-    }
-
-
-
 }

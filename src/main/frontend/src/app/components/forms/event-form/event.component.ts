@@ -46,13 +46,14 @@ export class EventComponent extends BaseSearchComponent {
   }
 
   override getColumns(metadata: any): any[] {
-    let columns = super.getColumns(metadata);
-    columns.push(new Column('entityType', {
-      header: 'pl.sztyro.carapp.model.CarEvent.type',
-      isSortingDisabled: () => true,
-      getValue: elem => this.translate.instant(`${elem.entityType}.HEADER`)
-    }))
-    return columns;
+    return [
+      ...super.getColumns(metadata),
+      new Column('entityType', {
+        header: 'pl.sztyro.carapp.model.CarEvent.type',
+        isSortingDisabled: () => true,
+        getValue: elem => this.translate.instant(`${elem.entityType}.HEADER`)
+      })
+    ];
   }
 
 }

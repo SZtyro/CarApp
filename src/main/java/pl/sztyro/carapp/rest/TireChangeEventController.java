@@ -14,21 +14,22 @@ import pl.sztyro.carapp.model.*;
 import pl.sztyro.carapp.repository.CarRepository;
 import pl.sztyro.carapp.service.TireService;
 import pl.sztyro.core.enums.PermissionType;
-import pl.sztyro.core.rest.BaseController;
+import pl.sztyro.core.model.BaseEntity;
 import pl.sztyro.core.rest.FilteredResult;
 
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/api/events/type/tireChange")
-public class TireChangeEventController extends BaseController<TireChangeEvent> {
+public class TireChangeEventController extends BaseCarEventController<TireChangeEvent> {
 
     @Autowired
     private CarRepository carRepository;
@@ -44,16 +45,11 @@ public class TireChangeEventController extends BaseController<TireChangeEvent> {
     }
 
     @Override
-    public TireChangeEvent createEntity(TireChangeEvent init) {
-        if(init != null) return init;
-        return TireChangeEvent.builder().build();
-    }
-
-    @Override
-    public void beforeUpdateEntity(TireChangeEvent dbEntity, TireChangeEvent changes) throws IOException {
-        if(changes.getCar() == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Set car.");
-        super.beforeUpdateEntity(dbEntity, changes);
+    protected void getFetch(Root<TireChangeEvent> root) {
+        root.fetch(TireChangeEvent_.car, JoinType.LEFT);
+        root.fetch(TireChangeEvent_.tires, JoinType.LEFT);
+        root.fetch(TireChangeEvent_.nextEvent, JoinType.LEFT);
+        root.fetch(TireChangeEvent_.previousEvent, JoinType.LEFT);
     }
 
     @GetMapping("/summary/{id}")
@@ -65,33 +61,48 @@ public class TireChangeEventController extends BaseController<TireChangeEvent> {
 
         if(permissionService.hasPrivilege(car.get(), PermissionType.Read)) {
 
-            List<TireChangeEvent> results = queryBuilder()
-                    .and("car.id", String.valueOf(carId))
-                    .dateFrom("date", dateService.builder().add(Calendar.YEAR, -1).build())
-                    .dateTo("date", dateService.now())
-                    .queryAll((Root<TireChangeEvent> root) -> {
-                        root.fetch(TireChangeEvent_.tires, JoinType.LEFT).fetch(Tire_.model, JoinType.LEFT);
-                    })
-                    .getResults();
+            List<TireChangeEvent> results = getLastTireChanges(carId);
 
             if(!results.isEmpty()) {
                 TireChangeEvent lastChange = results.get(0);
-                FilteredResult<RefuelEvent> latestEvent = refuelEventController.queryBuilder()
+                FilteredResult<RefuelEvent> lastRefueling = refuelEventController.queryBuilder()
                         .and("car.id", String.valueOf(carId))
                         .dateFrom("date", lastChange.getDate())
                         .size(1)
                         .queryAllIgnorePermissions();
-                String tiresMileage = String.valueOf(lastChange.getMileage());
-                if (!latestEvent.getResults().isEmpty())
-                    tiresMileage = String.valueOf(latestEvent.getResults().get(0).getMileage());
 
-                //Current tires
-                Set<Tire> tires = lastChange.getTires();
+                int fromLastChangeToLastEvent = 0;
+                if (!lastRefueling.getResults().isEmpty())
+                    fromLastChangeToLastEvent = Math.abs(lastRefueling.getResults().get(0).getMileage() - lastChange.getMileage());
+
+                Set<Tire> currentTires = lastChange.getTires();
+                Set<Long> currentTiresIds = currentTires.stream().map(BaseEntity::getId).collect(Collectors.toSet());
+
+                List<TireChangeEvent> previousChanges = queryBuilder()
+                        .and("car.id", String.valueOf(carId))
+                        .sortAsc("mileage")
+                        .queryAll(root -> {
+                            root.fetch(TireChangeEvent_.nextEvent, JoinType.LEFT);
+                            root.fetch(TireChangeEvent_.tires, JoinType.LEFT);
+                        })
+                        .getResults();
+
+                int mileage = fromLastChangeToLastEvent;
+
+
+                for (TireChangeEvent change : previousChanges) {
+                    Set<Long> changeTireIds = change.getTires().stream().map(BaseEntity::getId).collect(Collectors.toSet());
+                    if(changeTireIds.equals(currentTiresIds)){
+                        if(change.getNextEvent() != null) mileage = mileage + change.getNextEvent().getMileage();
+                    }
+                }
+
 
                 return CarTiresSummary.builder()
-                        .age(tireService.getTiresAge(tires))
-                        .type(tireService.getTiresType(tires))
-                        .mileage(tiresMileage)
+                        .age(tireService.getTiresAge(currentTires))
+                        .type(tireService.getTiresType(currentTires))
+                        .mileage(String.valueOf(mileage))
+                        .events(results)
                         .build();
             }
             return null;
@@ -101,12 +112,39 @@ public class TireChangeEventController extends BaseController<TireChangeEvent> {
 
     }
 
+    private List<TireChangeEvent> getLastTireChanges(long carId) throws IOException {
+        return queryBuilder()
+            .and("car.id", String.valueOf(carId))
+            .dateFrom("date", dateService.builder().add(Calendar.YEAR, -1).build())
+            .dateTo("date", dateService.now())
+            .queryAll((Root<TireChangeEvent> root) -> {
+                root.fetch(TireChangeEvent_.tires, JoinType.LEFT).fetch(Tire_.model, JoinType.LEFT);
+            })
+            .getResults();
+    }
+
+    private List<TireChangeEvent> getAllChangesForTires(Set<Tire> tires) throws IOException {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<TireChangeEvent> query = cb.createQuery(TireChangeEvent.class);
+        Root<TireChangeEvent> from = query.from(TireChangeEvent.class);
+        @SuppressWarnings("unchecked")
+        Join<TireChangeEvent, Tire> fTires = (Join<TireChangeEvent, Tire>) from.fetch(TireChangeEvent_.tires, JoinType.LEFT);
+
+        query.where(fTires.in(tires));
+        query.orderBy(cb.desc(from.get(TireChangeEvent_.mileage)));
+
+        TypedQuery<TireChangeEvent> typedQuery = em.createQuery(query);
+
+        return typedQuery.getResultList();
+
+    }
+
     @Builder
     @Getter
     public static class CarTiresSummary{
         private TireType type;
         private String mileage,age;
-        private Set<Object> tireSets;
+        private List<TireChangeEvent> events;
 
     }
 }

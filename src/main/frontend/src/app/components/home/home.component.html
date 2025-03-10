@@ -1,6 +1,6 @@
 <div class="container h-100">
     <div class="d-flex justify-content-end">
-        <button mat-button (click)="changeLanguage()">{{translate.currentLang | translate}}</button>
+        <button mat-button (click)="profile.changeLanguage()">{{translate.currentLang | translate}}</button>
     </div>
     <div class="row h-100 align-items-center">
         <div>
@@ -10,8 +10,8 @@
                     WELCOME.DESCRIPTION
                 </p>
                 <div class="d-flex gap-2 justify-content-end">
-                    <button mat-flat-button routerLink="/dashboard">{{'Log in with Google' | translate}}</button>
-                    <button mat-button>{{"I'll use a temporary account"| translate}}</button>
+                    <a href="/oauth2/authorization/google"><button mat-flat-button>{{'Log in with Google' | translate}}</button></a>
+                    <button mat-button (click)="profile.temporaryLogin()">{{"I'll use a temporary account"| translate}}</button>
                 </div>
             </div>
             <div>

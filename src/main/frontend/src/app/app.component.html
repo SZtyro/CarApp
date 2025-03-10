@@ -26,7 +26,9 @@
     </div>
   </mat-drawer>
   <mat-drawer-content style="overflow-x: hidden; overflow-y: auto;">
-    <router-outlet></router-outlet>
+    <app-outlet-wrapper>
+      <router-outlet></router-outlet>
+    </app-outlet-wrapper>
   </mat-drawer-content>
   
 

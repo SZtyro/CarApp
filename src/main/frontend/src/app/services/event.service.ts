@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { BaseRestService, RestpickerOptions, DateColumn, Column, FilteredResult } from '@sztyro/core';
 import { Observable, of, switchMap } from 'rxjs';
+import { EventComponent } from '../components/forms/event-form/event.component';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class EventService extends BaseRestService<any> {
   };
 
   override resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if(route.component.name === EventComponent.name) return this.getMetadata()
     return this.getEvent(route.params['id'], route.params['type']);
   }
 

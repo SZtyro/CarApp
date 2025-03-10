@@ -1,6 +1,7 @@
 package pl.sztyro.carapp.rest;
 
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
@@ -9,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.test.context.ActiveProfiles;
 import pl.sztyro.core.model.User;
 import pl.sztyro.core.repository.UserRepository;
@@ -30,22 +31,27 @@ public abstract class BaseIntegrationTest {
 
     protected String testerMail = "user@example.com";
 
+    @BeforeAll
     public void init(){
         User user = new User();
         user.setEmail(testerMail);
         users.save(user);
+
+        System.out.println("Tester " + testerMail);
     }
 
     @BeforeEach
     public void setUp() {
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Authentication authentication = Mockito.mock(Authentication.class);
-        OidcUser oAuth2User = Mockito.mock(OidcUser.class);
+        OAuth2User oAuth2User = Mockito.mock(OAuth2User.class);
 
-        when(oAuth2User.getEmail()).thenReturn(testerMail);
+        when(oAuth2User.getAttribute("email")).thenReturn(testerMail);
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
+
+
     }
 
     protected User getTester(){

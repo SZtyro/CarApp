@@ -5,12 +5,6 @@
   cursor: pointer;
 }
 
-.tire-timeline:hover{
-    height: 16px;
-    margin: 0px;
-    
-}
-
 .icon.Summer{
     color: lightyellow;
 }
@@ -67,4 +61,17 @@
 .event-icon{
     position: relative;
     left: -12px;
+}
+
+.tire-details{
+    background-color: var(--sys-secondary-container);
+    padding: 12px;
+    border-radius: 8px;
+    top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tire-details img{
+    width: max-content;
 }

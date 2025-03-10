@@ -7,7 +7,7 @@
                 <div class="col-4">
                     <div>
                         <span>{{'Season' | translate}}:&nbsp;&nbsp;</span>
-                        <span class="material-symbols-rounded icon" [class]="summary?.type">{{getIconForSummary(summary)}}</span>
+                        <span class="material-symbols-rounded icon" [class]="summary?.type">{{getIconForSummary(summary?.type)}}</span>
                     </div>
                 </div>
                 <div class="col-4">
@@ -36,12 +36,22 @@
         <div class="d-flex flex-column h-100 justify-content-center" style="margin-bottom: 12px;">
         
             <div class="d-flex w-100">
-                <div *ngIf="lastEvents.length > 0 && lastEvents[0].date > yearAgo" [style.width.%]="calculateNewCarOffset(lastEvents[0])"></div>
-                <div *ngFor="let event of lastEvents; let index = index" [style.width.%]="calculateEventWidth(event, index)">
+                <div *ngIf="summary?.events?.length > 0 && summary?.events[0]?.date > yearAgo.getTime()" [style.width.%]="calculateNewCarOffset(summary?.events[0])"></div>
+                <div *ngFor="let event of summary?.events; let index = index" [style.width.%]="calculateEventWidth(event, index)">
                     <div>
                         <span class="material-symbols-rounded event-icon">{{tireChangeIcon$ | async}}</span>
                     </div>
-                    <div *ngFor="let tire of event.tires" class="tire-timeline" [class]="tire.type"></div>
+                    <div *ngFor="let tire of event.tires" class="tire-timeline" [class]="tire.model.type">
+                        <div class="w-100 h-100" style="z-index: 1000;" [floating]="tireDetails">
+                            <div #tireDetails class="tire-details">
+                                <div class="d-flex justify-content-between p-2">
+                                    <div class="d-flex flex-column justify-content-center h-100"><img  [src]="tire.model.company.logoUrl" height="30"></div>
+                                    <span class="material-symbols-rounded icon" [class]="tire.model?.type">{{getIconForSummary(tire.model.type)}}</span>
+                                </div>
+                                {{tire.entityDescription}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="d-flex flex-column">

@@ -1,35 +1,33 @@
-<app-outlet-wrapper>
-  <div class="container">
-    <div class="row" style="padding: 18px 0;">
+<div class="container">
+  <div class="row" style="padding: 18px 0;">
 
-      <div class="col-md-6 h-100">
-        <div class="tile">
-          <div class="header">{{'Incoming events' | translate}}</div>
-          <div class="content">
-            <div *ngFor="let event of (incomingEvents$ | async)?.results" class="item d-flex w-100 ">
-              <div class="d-flex justify-content-center icon-section">
-                <div class="icon-wrapper">
-                  <mat-icon>{{getIconFor(event.entityType)}}</mat-icon>
-                </div>
+    <div class="col-md-6 h-100">
+      <div class="tile">
+        <div class="header">{{'Incoming events' | translate}}</div>
+        <div class="content">
+          <div *ngFor="let event of (incomingEvents$ | async)?.results" class="item d-flex w-100 ">
+            <div class="d-flex justify-content-center icon-section">
+              <div class="icon-wrapper">
+                <mat-icon>{{getIconFor(event.entityType)}}</mat-icon>
               </div>
-              <div class="d-flex justify-content-between w-100 " style="padding-left: 12px;">
-                <div class="align-content-center">{{event.type | translate}} (<strong>{{event.car.name}}</strong>)</div>
-                <div class="align-content-center">{{event.date | date}}</div>
-              </div>
-             
             </div>
+            <div class="d-flex justify-content-between w-100 " style="padding-left: 12px;">
+              <div class="align-content-center">{{event.type | translate}} (<strong>{{event.car.name}}</strong>)</div>
+              <div class="align-content-center">{{event.date | date}}</div>
+            </div>
+            
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-6 h-100">
-        <div class="tile">
-          <div class="header">{{'News' | translate}}</div>
-        </div>
-
+    <div class="col-md-6 h-100">
+      <div class="tile">
+        <div class="header">{{'News' | translate}}</div>
       </div>
 
-
     </div>
+
+
   </div>
-</app-outlet-wrapper>
+</div>

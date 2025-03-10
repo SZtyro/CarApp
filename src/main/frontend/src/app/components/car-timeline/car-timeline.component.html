@@ -4,7 +4,7 @@
     
         <div class="event" *ngFor="let event of _carEvents">
             <div class="event-bar"></div>
-            <a class="icon-wrapper" matRipple style="cursor: pointer;" href="/pl.sztyro.carapp.model.CarEvent/{{event.id}}" [title]="event.remarks">
+            <a class="icon-wrapper" matRipple style="cursor: pointer;" href="/{{event.entityType}}/{{event.id}}" [title]="event.remarks">
                 <mat-icon>{{_getIconFor(event.entityType)}}</mat-icon>
             </a>
             <div class="date-wrapper">{{event.date | date}}</div>

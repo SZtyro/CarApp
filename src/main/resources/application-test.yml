@@ -37,8 +37,10 @@ spring:
             matching-strategy: ANT_PATH_MATCHER
 logging:
     level:
+        pl.sztyro: DEBUG
         org:
+            hibernate: ERROR
             springframework:
                 transaction: DEBUG
             orm:
-                jpa: DEBUG
+                jpa: ERROR

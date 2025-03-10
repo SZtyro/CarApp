@@ -42,86 +42,6 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
 
   tireCompanyLogo: string;
 
-  lastEvents = [
-    {
-      mileage: 0,
-      date: new Date('2024.06.21'),
-      tires: [
-        {
-          type: 'Summer',
-          side: 'RR',
-          company: {id: 99}
-        },
-        {
-          type: 'Summer',
-          side: 'RF',
-          company: {id: 99}
-        },
-        {
-          type: 'Summer',
-          side: 'LR',
-          company: {id: 99}
-        },
-        {
-          type: 'Summer',
-          side: 'LF',
-          company: {id: 99}
-        },
-      ]
-    },
-    {
-      mileage: 11000,
-      date: new Date('2024.11.01'),
-      tires: [
-        {
-          type: 'Winter',
-          side: 'RR',
-          company: {id: 98}
-        },
-        {
-          type: 'Winter',
-          side: 'RF',
-          company: {id: 98}
-        },
-        {
-          type: 'Winter',
-          side: 'LR',
-          company: {id: 98}
-        },
-        {
-          type: 'Winter',
-          side: 'LF',
-          company: {id: 98}
-        },
-      ]
-    },
-    {
-      mileage: 14000,
-      date: new Date('2025.04.21'),
-      tires: [
-        {
-          type: 'Summer',
-          side: 'RR',
-          company: {id: 99}
-        },
-        {
-          type: 'Summer',
-          side: 'RF',
-          company: {id: 99}
-        },
-        {
-          type: 'Summer',
-          side: 'LR',
-          company: {id: 99}
-        },
-        {
-          type: 'Summer',
-          side: 'LF',
-          company: {id: 99}
-        },
-      ]
-    },
-  ]
   summary
   readonly today: Date = new Date();
   readonly yearAgo = new Date(this.today.getFullYear() - 1, this.today.getMonth(), this.today.getDate());
@@ -130,30 +50,18 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
   ngAfterViewInit(): void {
     this.renderAxis();
     fromEvent(window,'resize').pipe(auditTime(500)).subscribe(() => this.renderAxis());
-    // this.getLogoFor(this.lastEvents[this.lastEvents.length - 2]?.tires[0]?.company.id).subscribe(logo => this.tireCompanyLogo = logo);
     this.events.getTireSummary(this.formRef.object.id).subscribe(
       summary => this.summary = summary,
       err => this.interaction.defaultError(err)
     )
   }
 
-  // getTiresSummary(): Summary{
-  //   return {
-  //     type: 'Summer',
-  //     mileage: '11122/1132',
-  //     age: '5.6/1.1',
-  //     tireSets: [
-  //       {
-  //         logo: this.tireCompanyLogo,
-  //         placement: ['LR', 'RR']
-  //       }
-  //     ]
-      
-  //   }
-  // }
 
-  getIconForSummary(summary){
-    switch(summary?.type){
+
+  getIconForSummary(type: string){
+    if(type == null) return 'question_mark'
+    type = type[0].toUpperCase() + type.slice(1);
+    switch(type){
       case 'Winter': return 'ac_unit';
       case 'Summer': return 'sunny';
       case 'All': return 'mode_dual';
@@ -163,14 +71,15 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
 
   calculateEventWidth(event, index){
     
-    let nextEventDate: Date = (index + 1) === this.lastEvents.length ? this.today : this.lastEvents[index + 1].date;
-    let width = (nextEventDate.getTime() - event.date.getTime()) / 1000 / 24 / 60 / 60; 
+    let nextEventDate: number = (index + 1) === this.summary.events.length ? this.today.getTime() : this.summary.events[index + 1].date;
+    let width = Math.abs(nextEventDate - event.date) / 1000 / 24 / 60 / 60; 
     
     return (width / 360) * 100;
+    
   }
 
   calculateNewCarOffset(event){
-    return (event.date.getTime() - this.yearAgo.getTime()) / 1000 / 24 / 60 / 60 / 360 * 100; 
+    return (event.date - this.yearAgo.getTime()) / 1000 / 24 / 60 / 60 / 360 * 100; 
   }
 
 

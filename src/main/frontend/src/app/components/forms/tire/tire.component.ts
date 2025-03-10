@@ -23,28 +23,30 @@ export class TireComponent extends BaseFormComponent {
     }))
   ];
 
-  override fields: GeneratorProperties<any>[] = [
-    Div.tile(null, 'row',
-      ChipsField.restPicker(this.models, {path: 'model', options: {}}),
-      InputField.create({path: 'tireWidth', options: {class: 'col-md-4'}}),
-      InputField.create({path: 'aspectRatio', options: {class: 'col-md-4'}}),
-      InputField.create({path: 'diameter', options: {class: 'col-md-4'}}),
-      InputField.create({path: 'loadRating', options: {class: 'col-md-4'}}),
-      InputField.create({path: 'speedRating', options: {class: 'col-md-4'}}),
-      DateField.create({path: 'date', options: {class: 'col-md-4'}}),
-      SelectField.create({path: 'placement', options: {
-        class: 'col-md-4', 
-        selectOptions: this.resource.getEnum("pl.sztyro.carapp.enums.TirePlacement").pipe(
-          map(e => e.map(x => new SelectOption(x.name)))
-        )
-      }}),
-    )
-  ];
-
   private createCopy(placement: string): Observable<any>{
     let body: any= {...this.object};
     body.placement = placement;
     delete body.id;
     return this.resource.create(body)
+  }
+
+  override getProperties(): GeneratorProperties<any>[] {
+    return [
+      Div.tile(null, 'row',
+        ChipsField.restPicker(this.models, {path: 'model', options: {}}),
+        InputField.create({path: 'tireWidth', options: {class: 'col-md-4'}}),
+        InputField.create({path: 'aspectRatio', options: {class: 'col-md-4'}}),
+        InputField.create({path: 'diameter', options: {class: 'col-md-4'}}),
+        InputField.create({path: 'loadRating', options: {class: 'col-md-4'}}),
+        InputField.create({path: 'speedRating', options: {class: 'col-md-4'}}),
+        DateField.create({path: 'date', options: {class: 'col-md-4'}}),
+        SelectField.create({path: 'placement', options: {
+          class: 'col-md-4', 
+          selectOptions: this.resource.getEnum("pl.sztyro.carapp.enums.TirePlacement").pipe(
+            map(e => e.map(x => new SelectOption(x.name)))
+          )
+        }}),
+      )
+    ]
   }
 }
