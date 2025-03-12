@@ -26,4 +26,11 @@ public class TireModelController extends BaseController<TireModel> {
     protected void getAllFetch(Root<TireModel> root) {
         root.fetch(TireModel_.company, JoinType.LEFT);
     }
+
+    @Override
+    protected void getFetch(Root<TireModel> root) {
+        root.fetch(TireModel_.company, JoinType.LEFT);
+    }
+
+
 }
