@@ -32,7 +32,7 @@ export class TireComponent extends BaseFormComponent {
 
   override getProperties(): GeneratorProperties<any>[] {
     return [
-      Div.tile(null, 'row',
+      Div.tileStandard(
         ChipsField.restPicker(this.models, {path: 'model', options: {}}),
         InputField.create({path: 'tireWidth', options: {class: 'col-md-4'}}),
         InputField.create({path: 'aspectRatio', options: {class: 'col-md-4'}}),

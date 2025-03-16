@@ -15,7 +15,7 @@ export class TireModelComponent extends BaseFormComponent<any>{
   private companies = this.injector.get(TireCompanyService);
   override getProperties(): GeneratorProperties<any>[] {
       return [
-        Div.tile(null, 'row', 
+        Div.tileStandard(
           InputField.create({path: 'name', options:{ class: 'col-md-6'}}),
           SelectField.create({path: 'type', options: {
             class: 'col-md-6',

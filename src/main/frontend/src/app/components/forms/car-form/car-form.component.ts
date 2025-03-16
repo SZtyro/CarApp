@@ -32,20 +32,18 @@ export class CarFormComponent extends BaseFormComponent<any> {
       Div.create('row',
         Div.create("col-xl-9 col-xxl-10 p-0",
           Div.create('row m-0',
-            Div.tile('col-12', 'row',
-              
+            Div.tileStandard(
               InputField.create({path: 'name', options: {isRequired: () => true, class: 'col-md-6'}}),
               SelectField.create({path: 'engineType', options: {
                 class: 'col-md-6',
                 selectOptions: this.resource.getEnum('pl.sztyro.carapp.enums.EngineType').pipe(map(e => e.map(type => new SelectOption(type.name))))
               }})
-              
             ),
             
-            Div.tile('col-md-6 col-lg-4 col-xll-3', 'insurance-tile ripple',
+            Div.tileWith('col-md-6 col-lg-4 col-xll-3', 'insurance-tile ripple',
               InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100'}}),
             ).onClick(e => this.events.openCurrentInsurance(this.object.id)),
-            Div.tile('col-sm-8', '',
+            Div.tileWith('col-sm-8', 'h-100',
               TireSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100 h-100'}}),
             ),
 
@@ -53,10 +51,9 @@ export class CarFormComponent extends BaseFormComponent<any> {
           
         ),
         
-        Div.create('col-xl-3 col-xxl-2',
-          Div.create('form-tile',
+        Div.tileWith('col-xl-3 col-xxl-2', '',
             CarTimelineComponent.create({path: null, options: {carId: this.object.id, class: 'w-100'}}),
-          ),
+          
         ),
       )
      

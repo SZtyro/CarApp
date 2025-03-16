@@ -11,11 +11,13 @@ export class TireCompanyFormComponent extends BaseFormComponent {
   override resource: TireCompanyService = this.injector.get(TireCompanyService);
   override getProperties(): GeneratorProperties<any>[] {
     return [
-      Div.tile('', 'row',
+      Div.tileStandard(
         InputField.create({path: 'name', options: {class: 'col-md-6'}}),
         // CheckboxField.create({path: 'enabled', options: {class: 'col-md-6'}})
         InputField.create({path: 'logoUrl', options: {class: 'col-12'}})
       )
+        
+      
       
     ]
   }

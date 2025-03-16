@@ -36,69 +36,71 @@ export class EventFormComponent extends BaseFormComponent<any>{
   override getProperties(): GeneratorProperties<any>[] {
     return [
       Div.create('row',
-        Div.tile({'col-md-6': this.isRefuelEvent()}, 'row',
-          InputField.create({
-            path: 'mileage', options: {
-              type: 'number',
-              isRequired: () => !this.isDateInFuture(),
-              label: 'pl.sztyro.carapp.model.CarEvent.mileage'
-            }
-          }),
-          InputField.create({
-            path: 'amountOfFuel', options: {
-              suffix: 'l',
-              type: 'number',
-              isHidden: () => !this.isRefuelEvent(),
-              isRequired: () => this.isRefuelEvent(),
-              class: () => { return { 'col-lg-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent() }; }
-            }
-          }),
-          InputField.create({
-            path: 'price', options: {
-              suffix: 'zł',
-              type: 'number',
-              isRequired: () => this.object.type == 'Refuel',
-              class: { 'col-lg-6': true },
-              label: 'pl.sztyro.carapp.model.CarEvent.price'
-            }
-          }),
-          DateField.create({
-            path: 'date', options: {
-              class: () => { return { 'col-md-6': !this.isRefuelEvent() }; },
-              validators: [Validators.required],
-              label: 'pl.sztyro.carapp.model.CarEvent.date'
-            }
-          }),
-          ChipsField.restPicker(this.insuranceCompanies, {
-            path: "company", options: {
-              class: 'col-md-6',
-              isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
-            }
-          }),
-          ImageField.create({
-            path: 'company.logoUrl', options: {
-              class: 'col-md-6',
-              height: '82',
-              isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
-            }
-          }),
-          ChipsField.restPicker(this.cars, {
-            path: "car", options: {
-              label: 'pl.sztyro.carapp.model.CarEvent.car',
-            }
-          }),
-          ChipsField.restPicker(this.tires, {
-            path: "tires", options: {
-              isHidden: () => this.object.entityType != 'pl.sztyro.carapp.model.TireChangeEvent'
-            }
-          })
+        Div.tileWith({'col-md-6': this.isRefuelEvent()}, '',
+          Div.create('row',
+            InputField.create({
+              path: 'mileage', options: {
+                type: 'number',
+                isRequired: () => !this.isDateInFuture(),
+                label: 'pl.sztyro.carapp.model.CarEvent.mileage'
+              }
+            }),
+            InputField.create({
+              path: 'amountOfFuel', options: {
+                suffix: 'l',
+                type: 'number',
+                isHidden: () => !this.isRefuelEvent(),
+                isRequired: () => this.isRefuelEvent(),
+                class: () => { return { 'col-lg-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent() }; }
+              }
+            }),
+            InputField.create({
+              path: 'price', options: {
+                suffix: 'zł',
+                type: 'number',
+                isRequired: () => this.object.type == 'Refuel',
+                class: { 'col-lg-6': true },
+                label: 'pl.sztyro.carapp.model.CarEvent.price'
+              }
+            }),
+            DateField.create({
+              path: 'date', options: {
+                class: () => { return { 'col-md-6': !this.isRefuelEvent() }; },
+                validators: [Validators.required],
+                label: 'pl.sztyro.carapp.model.CarEvent.date'
+              }
+            }),
+            ChipsField.restPicker(this.insuranceCompanies, {
+              path: "company", options: {
+                class: 'col-md-6',
+                isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
+              }
+            }),
+            ImageField.create({
+              path: 'company.logoUrl', options: {
+                class: 'col-md-6',
+                height: '82',
+                isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
+              }
+            }),
+            ChipsField.restPicker(this.cars, {
+              path: "car", options: {
+                label: 'pl.sztyro.carapp.model.CarEvent.car',
+              }
+            }),
+            ChipsField.restPicker(this.tires, {
+              path: "tires", options: {
+                isHidden: () => this.object.entityType != 'pl.sztyro.carapp.model.TireChangeEvent'
+              }
+            })
+          )
+         
         ),
-        Div.tile(  {'col-md-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent()} , '' ,
+        Div.tileWith({'col-md-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent()} , 'h-100' ,
           FuelSummary.create({ path: null, options: { class: 'w-100' } })
         ),
-        Div.tile("col-12", 'row',
+        Div.tileStandard(
           TextareaField.create({ path: 'remarks', options: { label: 'pl.sztyro.carapp.model.CarEvent.remarks' } }),
-
           ChipsField.create({
             path: "previousEvent", options: {
               class: 'col-6',
