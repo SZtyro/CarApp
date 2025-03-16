@@ -21,12 +21,6 @@ export class CarFormComponent extends BaseFormComponent<any> {
   private events: EventService = this.injector.get(EventService);
 
    
-
-  override onModelChange(): void {
-    super.onModelChange();
-      
-  }
-
   override getProperties(): GeneratorProperties<any>[] {
     return [
       Div.create('row',

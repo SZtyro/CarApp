@@ -61,8 +61,8 @@ export class AppComponent implements OnInit {
     return location.pathname.slice(1)
   }
 
-  isServeEnabled(): boolean{
-    return location.hostname === 'localhost' && location.port === '4200';
+  canRedirectToServe(): boolean{
+    return location.hostname === 'localhost' && location.port === '8080';
   }
 
   getDevelopHref(): string{
