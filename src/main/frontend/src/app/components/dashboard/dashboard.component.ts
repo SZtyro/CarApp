@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, merge, Observable, of, startWith, Subject, switchMap } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
-import { RoleService } from '@sztyro/core'
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { RoleService, Utils } from '@sztyro/core'
+import { TranslateService } from '@ngx-translate/core';
+import { Chart } from 'chart.js/auto';
+import { CarService } from './../../services/car.service';
 
 type DashboardEvent = {car: any, events: any[]}
 
@@ -11,7 +13,9 @@ type DashboardEvent = {car: any, events: any[]}
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('chart', { static: true }) chartRef!: ElementRef<HTMLCanvasElement>;
 
 
   private carEventTypes: object;
@@ -19,10 +23,14 @@ export class DashboardComponent implements OnInit {
   constructor(
     private events: EventService,
     private roles: RoleService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private cars: CarService
   ) { }
 
 
+  mainCar$: Observable<any> = this.cars.getAll().pipe(
+    map(cars => cars.results[0])
+  )
 
   today: Date = new Date();
   monthLater: Date = new Date(this.today.getFullYear(),this.today.getMonth() + 1, this.today.getDate());
@@ -64,6 +72,10 @@ export class DashboardComponent implements OnInit {
 
   
 
+  }
+
+  ngAfterViewInit(): void {
+    this.createChart();
   }
 
   getIconFor?(type){
@@ -137,4 +149,81 @@ export class DashboardComponent implements OnInit {
       map(news => news.filter(n => n.lang === lang && n.type === type.toString()))
     );
   }
+
+  createChart(): void {
+
+    const months = Array.from({ length: 12 }, (_, i) =>
+      new Intl.DateTimeFormat(this.translate.currentLang.split('_')[0], { month: 'long' }).format(new Date(2000, i))
+    ).map(month => month[0].toUpperCase() + month.slice(1));
+
+    const refuelings = [600, 550, 580, 620, 590, 610, 630, 600, 620, 580, 600, 590];
+    const repairs = [0, 0, 0, 0, 0, 0, 0, 1200, 0, 0, 0, 1500];
+    const others = [0, 0, 0, 200, 0, 0, 0, 0, 0, 300, 200, 1200];
+
+    this.translate.get([
+      'pl.sztyro.carapp.model.RefuelEvent.HEADER',
+      'pl.sztyro.carapp.model.RepairEvent.HEADER',
+      'Others'
+    ]).subscribe(translations => {
+      
+      new Chart(this.chartRef.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: translations['pl.sztyro.carapp.model.RefuelEvent.HEADER'],
+              data: refuelings,
+              backgroundColor: Utils.Style.hexAdjustBrightness(Utils.Style.getCssVariable('--sys-primary-fixed-dim'), 0.5),
+              borderRadius: 12,
+              stack: 'costs'
+            },
+            {
+              label: translations['pl.sztyro.carapp.model.RepairEvent.HEADER'],
+              data: repairs,
+              backgroundColor: Utils.Style.hexAdjustBrightness(Utils.Style.getCssVariable('--sys-primary-fixed-dim'), 0.6),
+              borderRadius: 12,
+              stack: 'costs'
+            },
+            {
+              label:  translations['Others'],
+              data: others,
+              backgroundColor: Utils.Style.hexAdjustBrightness(Utils.Style.getCssVariable('--sys-primary-fixed-dim'), 0.7),
+              borderRadius: 12,
+              stack: 'costs'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false, 
+          scales: {
+            y: { beginAtZero: true }
+          },
+          plugins: {
+            tooltip: {
+              enabled: true, 
+              backgroundColor: Utils.Style.getCssVariable('--sys-surface-dim'), 
+              titleColor: Utils.Style.getCssVariable('--sys-on-surface') , 
+              bodyColor: Utils.Style.getCssVariable('--sys-on-surface'), 
+              usePointStyle: true,
+              caretSize: 0,
+              cornerRadius: 8,
+              padding: 10,
+              displayColors: false,
+              callbacks: {
+                label: function (context) {
+                  
+                  return `${context.dataset.label}: ${context.raw} zł`; 
+                }
+              }
+            }
+          },
+        }
+      });
+    })
+    
+    
+  }
+
 }

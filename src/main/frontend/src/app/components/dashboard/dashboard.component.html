@@ -14,26 +14,18 @@
 
               <span class="material-symbols-rounded">{{getIconFor(event.entityType)}}</span>
             </div>
-
-
-            <!-- <div class="d-flex justify-content-center icon-section">
-              <div class="icon-wrapper">
-                <mat-icon>{{getIconFor(event.entityType)}}</mat-icon>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between w-100 " style="padding-left: 12px;">
-              <div class="align-content-center">{{event.type | translate}} (<strong>{{event.car.name}}</strong>)</div>
-              <div class="align-content-center">{{event.date | date}}</div>
-            </div> -->
             
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-md-6 quick-tile">
+    <div class="col-md-6 quick-tile" *ngIf="(mainCar$ | async) as car">
+      <div class="demo" style="margin-bottom: 12px">Demo</div>
       <div class="car-tile">
-        <h4 class="header">Tesla Model 3</h4>
+        <div class="header">
+          <h4>{{car.name}}</h4>
+        </div>
         <div class="btns">
           <button mat-button><span class="material-symbols-rounded">event</span></button>
           <button mat-button><span class="material-symbols-rounded">forum</span></button>
@@ -60,8 +52,8 @@
         <div class="header">{{'Costs' | translate}}</div>
         <div class="demo">Demo</div>
       </div>
-      <div class="content">
-
+      <div class="content p-3 d-flex">
+        <canvas #chart></canvas>
       </div>
           
     </div>
@@ -126,21 +118,6 @@
         
       </div>
     </div>
-
-    <!-- <div class="col-12 h-100">
-      <div class="tile">
-        <div class="header">{{'App updates' | translate}}</div>
-      </div>
-
-    </div>
-
-    <div class="col-12 h-100">
-      <div class="tile">
-        <div class="header">{{'Notifications' | translate}}</div>
-      </div>
-
-    </div> -->
-
 
   </div>
 </div>
