@@ -2,11 +2,21 @@
   <div class="row" style="padding: 18px 0;">
 
     <div class="col-md-6 h-100">
-      <div class="tile">
+      <div>
         <div class="header">{{'Incoming events' | translate}}</div>
         <div class="content">
-          <div *ngFor="let event of (incomingEvents$ | async)?.results" class="item d-flex w-100 ">
-            <div class="d-flex justify-content-center icon-section">
+          <div *ngFor="let elem of (incomingEvents$ | async)">
+            <div *ngFor="let event of elem.events" class="event w-100">
+              <div class="d-flex flex-column">
+                <span style="font-weight: 500;">{{event.entityType + '.HEADER' | translate }}&nbsp;{{event.date | date}}</span>
+                {{elem.car.name}}
+              </div>
+
+              <span class="material-symbols-rounded">{{getIconFor(event.entityType)}}</span>
+            </div>
+
+
+            <!-- <div class="d-flex justify-content-center icon-section">
               <div class="icon-wrapper">
                 <mat-icon>{{getIconFor(event.entityType)}}</mat-icon>
               </div>
@@ -14,19 +24,122 @@
             <div class="d-flex justify-content-between w-100 " style="padding-left: 12px;">
               <div class="align-content-center">{{event.type | translate}} (<strong>{{event.car.name}}</strong>)</div>
               <div class="align-content-center">{{event.date | date}}</div>
-            </div>
+            </div> -->
             
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-md-6 h-100">
-      <div class="tile">
+    <div class="col-md-6 quick-tile">
+      <div class="car-tile">
+        <h4 class="header">Tesla Model 3</h4>
+        <div class="btns">
+          <button mat-button><span class="material-symbols-rounded">event</span></button>
+          <button mat-button><span class="material-symbols-rounded">forum</span></button>
+          <button mat-button><span class="material-symbols-rounded">settings</span></button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6" >
+          <div class="left-tile" >
+          
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="right-tile" >
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 cost-tile">
+      <div class="d-flex">
+        <div class="header">{{'Costs' | translate}}</div>
+        <div class="demo">Demo</div>
+      </div>
+      <div class="content">
+
+      </div>
+          
+    </div>
+
+    <div class="col-12 h-100" style="padding-top: 24px;">
+      <div class="d-flex">
         <div class="header">{{'News' | translate}}</div>
+        <div class="demo">Demo</div>
+      </div>
+      <div class="d-flex">
+        <div class="news-subtile flex-column">
+          <button mat-button (click)="newsSwitch$.next('Article')"><span class="material-symbols-rounded" >news</span></button>
+          <button mat-button (click)="newsSwitch$.next('Changelog')"><span class="material-symbols-rounded" >code</span></button>
+          <button mat-button (click)="newsSwitch$.next('Voting')"><span class="material-symbols-rounded" matBadge="2" >how_to_vote</span></button>
+        </div>
+
+        <span [ngSwitch]="newsSwitch$ | async" class="w-100">
+          <div *ngSwitchCase="'Changelog'" class="d-flex flex-column gap-3">
+            <div class="tile p-3" *ngFor="let article of news" >
+              <div class="tile-header">
+                <span>[{{article.version}}]&nbsp;{{article.title}}</span>
+              </div>
+              <div class="tile-content changelog-content">
+                <div class="d-flex flex-column">
+                  <div *ngFor="let add of article.added" class="d-flex">
+                    <span class="material-symbols-rounded" style="color: #79a171;">add_circle</span>&nbsp;
+                    <span>{{add}}</span>
+                  </div>
+                  <div *ngFor="let fix of article.fixes" class="d-flex">
+                    <span class="material-symbols-rounded" style="color: rgb(108, 142, 187);">build_circle</span>&nbsp;
+                    <span>{{fix}}</span>
+                  </div>
+                  <div *ngFor="let deleted of article.deleted" class="d-flex">
+                    <span class="material-symbols-rounded" style="color: rgb(177, 115, 115);">cancel</span>&nbsp;
+                    <span>{{deleted}}</span>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p *ngSwitchCase="false">
+          
+          </p>
+          
+          <div *ngSwitchDefault class="d-flex flex-column gap-3">
+            <div class="tile p-3" *ngFor="let article of news">
+              <div class="tile-header">
+                <span>{{article.title}}</span>
+                <div class="d-flex">
+                  <span class="material-symbols-rounded">{{article.icon}}</span>
+                  <span>{{article.date | date:'dd.MM.yyyy'}}</span>
+                </div>
+              </div>
+              <div class="tile-content">
+                <p>{{article.preview }}</p>
+              </div>
+            </div>
+          </div>
+        </span>
+        
+      </div>
+    </div>
+
+    <!-- <div class="col-12 h-100">
+      <div class="tile">
+        <div class="header">{{'App updates' | translate}}</div>
       </div>
 
     </div>
+
+    <div class="col-12 h-100">
+      <div class="tile">
+        <div class="header">{{'Notifications' | translate}}</div>
+      </div>
+
+    </div> -->
 
 
   </div>

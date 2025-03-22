@@ -52,6 +52,7 @@ import localePl from '@angular/common/locales/pl';
 import { TireComponent } from './components/forms/tire/tire.component';
 import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
 import { HomeComponent } from './components/home/home.component';
+import {MatBadgeModule} from '@angular/material/badge'; 
 
 export let AppInjector: Injector;
 
@@ -133,6 +134,7 @@ export const MY_DATE_FORMATS = {
     MatDatepickerModule,
     MatMomentDateModule,
     MatSnackBarModule,
+    MatBadgeModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },

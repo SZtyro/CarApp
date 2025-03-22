@@ -1,13 +1,9 @@
 
-.tile{
- padding: 10px;
- border-radius: 12px;
- background-color: var(--sys-surface-container)
-}
-
 .header{
-    color: var(--sys-on-surface);
-    font-size: x-large;
+    color: var(--sys-secondary);
+    font-size: xx-large;
+    font-weight: 500;
+    margin: 6px 0;
 }
 
 .icon-wrapper {
@@ -37,14 +33,123 @@ mat-icon{
     border-radius: 60% 12px 12px 60%;
 }
 
-.item{
-    padding: 12px;
-    border-radius: 12px;
-    background-color: var(--sys-surface-dim);
+.mat-badge-content{
+    background: var(--sys-tertiary);
+    color: var(--sys-on-tertiary);
 }
 
 .content{
-    gap: 6px;
+    gap: 12px;
     display: flex;
     flex-direction: column;
+}
+
+.changelog-content{
+    & .material-symbols-rounded{
+        font-size: 18px;
+        align-items: center;
+    }
+}
+
+.demo{
+    background-color: var(--sys-tertiary-container);
+    color: var(--sys-on-tertiary-container);
+    padding: 0px 6px;
+    font-size: small;
+    margin: auto 8px;
+    border-radius: 6px;
+    display: flex;
+    height: fit-content;
+}
+
+.tile{
+    padding: 24px;
+    border-radius: 28px;
+    background-color: var(--sys-surface-container)
+}
+
+.tile-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--sys-on-surface);
+
+    & > span{
+        font-size: x-large;
+        font-weight: 500 ;
+    }
+}
+
+.event{
+    padding: 12px 24px;
+    border-radius: 42px;
+    background-color: var(--sys-surface-container-high);
+    color: var(--sys-on-surface-variant);
+    display: flex;
+    justify-content: space-between;
+
+    & .material-symbols-rounded{
+        font-size: 32px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.quick-tile{
+
+    & > div > div > div, & > .car-tile {
+        border-radius: 24px;
+        padding: 12px;
+        height: 114px;
+    }
+
+    & .car-tile {
+        background-color: var(--sys-primary-container);
+        color: var(--sys-on-primary-container);
+        margin-top: 60px;
+        margin-bottom: 6px;
+    
+        & .header{
+            font-style: italic;
+        }
+    
+        & .btns{
+            display: flex;
+            justify-content: center;
+        }
+    
+    }
+
+    & .left-tile {
+        background-color: var(--sys-surface-container-highest);
+        color: var(--sys-on-surface);
+        margin-top: 12px;
+    }
+
+    & .right-tile {
+        background-color: var(--sys-surface-container);
+        color: var(--sys-on-surface);
+        margin-top: 12px;
+    }
+}
+
+.cost-tile{
+    & .content{
+        background-color: var(--sys-surface-container-low);
+        height: 300px;
+        border-radius: 32px;
+    }
+}
+
+
+
+.news-subtile{
+    background-color: var(--sys-secondary-container);
+    color: var(--sys-on-secondary-container);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 42px;
+    height: 220px;
+    margin: auto 12px auto 0;
 }
