@@ -1,6 +1,5 @@
 package pl.sztyro.carapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +9,10 @@ import pl.sztyro.core.annotation.FrontendSearch;
 import pl.sztyro.core.annotation.Secure;
 import pl.sztyro.core.model.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Date;
 
 @Entity
@@ -31,11 +33,6 @@ public class Car extends BaseEntity {
 
     @Column
     private Date productionYear;
-
-    @ManyToOne
-    @JoinColumn(name = "last_inspection")
-    @JsonIgnoreProperties({"car"})
-    private CarEvent lastInspection;
 
     @Column
     private Double lowestConsumption;

@@ -73,7 +73,10 @@ public class TireChangeEventController extends BaseCarEventController<TireChange
 
                 int fromLastChangeToLastEvent = 0;
                 if (!lastRefueling.getResults().isEmpty())
-                    fromLastChangeToLastEvent = Math.abs(lastRefueling.getResults().get(0).getMileage() - lastChange.getMileage());
+                    fromLastChangeToLastEvent = Math.abs(
+                            Optional.ofNullable(lastRefueling.getResults().get(0).getMileage()).orElse(0) -
+                            Optional.ofNullable(lastChange.getMileage()).orElse(0)
+                    );
 
                 Set<Tire> currentTires = lastChange.getTires();
                 Set<Long> currentTiresIds = currentTires.stream().map(BaseEntity::getId).collect(Collectors.toSet());
