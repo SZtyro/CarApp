@@ -9,16 +9,6 @@ export class InsuranceSummaryProperties extends FieldProperties {
   carId: number;
 }
 
-type Summary = {
-  type: string;
-  mileage: string;
-  age: string;
-  tireSets: {
-    placement:string[],
-    logo:string
-  }[]
-}
-
 
 @Component({
   selector: 'app-tire-summary',
@@ -39,7 +29,7 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
   tireCompanies = this.injector.get(TireCompanyService);
   tireChangeIcon$: Observable<string>= this.events.getEventTypes().pipe(map(obj => obj['pl.sztyro.carapp.model.TireChangeEvent']));
   monthsOffsets: number[] = [];
-
+  monthsBetween: string[] = [];
   tireCompanyLogo: string;
 
   summary
@@ -83,16 +73,6 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
   }
 
 
-  getMonthsBetween(){
-    let between = [];
-    let startMonth = this.yearAgo.getMonth() + 1;
-    for(let i = startMonth; i < startMonth + 12; i++)
-      between.push(new Date(this.yearAgo.getFullYear(), i, 1)); 
-
-    between.reverse();
-    return between;
-  }
-
   renderAxis(){
     this.monthsOffsets = [];
     
@@ -135,6 +115,12 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
       lastDate = new Date(lastDate.setDate(0));
     }
     
+    let between = [];
+    let startMonth = this.yearAgo.getMonth() + 1;
+    for(let i = startMonth; i < startMonth + 12; i++)
+      between.push(new Date(this.yearAgo.getFullYear(), i, 1)); 
+
+    this.monthsBetween = between.reverse();
   }
   
   getLogoFor(companyId: number): Observable<string> {

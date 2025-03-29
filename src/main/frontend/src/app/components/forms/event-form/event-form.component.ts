@@ -20,8 +20,6 @@ export class EventFormComponent extends BaseFormComponent<any>{
 
 
   isRefuelEvent(){
-    // console.log(this.object.entityType === 'pl.sztyro.carapp.model.RefuelEvent');
-    
     return  this.object.entityType === 'pl.sztyro.carapp.model.RefuelEvent';
   }
 

@@ -15,10 +15,10 @@
                         <div class="w-100 h-100" [floating]="details"></div>
                         <div #details class="details" [style]="getFloatingOffset()">
                             <span>{{'pl.sztyro.carapp.model.Car.lowestConsumption' | translate}}
-                                <span><strong>{{formRef?.object?.car?.lowestConsumption}}</strong>&nbsp;l/100km</span>
+                                <span><strong>{{formRef?.object?.car?.lowestConsumption | number:'1.2-2'}}</strong>&nbsp;l/100km</span>
                             </span>
                             <span>{{'pl.sztyro.carapp.model.Car.highestConsumption' | translate}}
-                                <span><strong>{{formRef?.object?.car?.highestConsumption}}</strong>&nbsp;l/100km</span>
+                                <span><strong>{{formRef?.object?.car?.highestConsumption | number:'1.2-2'}}</strong>&nbsp;l/100km</span>
                             </span>
                          
                         </div>

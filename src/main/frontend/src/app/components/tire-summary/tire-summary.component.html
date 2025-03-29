@@ -23,14 +23,14 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="p-1 d-flex">
-                <div class="w-100" *ngFor="let set of summary.tireSets">
+            <div class="p-1 d-flex">
+                <div class="w-100" *ngFor="let set of summary?.tireSets">
                     <div class="placement-wrapper">
                         <span *ngFor="let placement of set.placement" class="placement">{{placement}}</span>
                     </div>
                     <div class="d-flex flex-column justify-content-center h-100"><img  [src]="set.logo" width="100%"></div>
                 </div>
-            </div> -->
+            </div>
             
         </div>
         <div class="d-flex flex-column h-100 justify-content-center" style="margin-bottom: 12px;">
@@ -57,7 +57,7 @@
             <div class="d-flex flex-column">
                 <canvas #axis style="width: 100%;" height="20"></canvas>
                 <div class="d-flex">
-                    <div *ngFor="let month of getMonthsBetween(); let monthIndex = index" class="month-label" [style.left.px]="(monthsOffsets[monthIndex]) ?? 0">
+                    <div *ngFor="let month of monthsBetween; let monthIndex = index" class="month-label" [style.left.px]="(monthsOffsets[monthIndex]) ?? 0">
                         {{month | date: 'MMM'}}
         
                     </div>

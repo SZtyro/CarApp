@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Field, InstanceProperties } from '@sztyro/core';
 import { GeneratorProperties } from '@sztyro/core';
 import { EventService } from 'src/app/services/event.service';
+import { EventFormComponent } from '../forms/event-form/event-form.component';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class FuelSummary extends Field<any>{
   getConsumptionResult(): string{
     let consumption = this.calculate();
     let car = this.formRef?.object.car;
-    if(car != null && consumption !== '?' && consumption != null && car.highestConsumption != null && car.highestConsumption != null){
+    if((this.formRef as EventFormComponent).isRefuelEvent() && car != null && consumption !== '?' && consumption != null && car.highestConsumption != null && car.highestConsumption != null){
       if(car.highestConsumption <= consumption) return '0%'
       else if (car.lowestConsumption >= consumption) return '100%'
       else {
@@ -61,7 +62,7 @@ export class FuelSummary extends Field<any>{
 
   getFloatingOffset(): string{
     let percent = Number(this.getConsumptionResult().replace('%',''));
-    if(percent > 50) return 'left: -200px';
+    if(percent > 50) return 'left: -300px';
     else return '';
     
   }

@@ -14,6 +14,8 @@
   "To": "Do",
   "Access": "Dostęp",
   "User has no edit privilege": "Użytkownik nie może edytować zasobu",
+  "Log out": "Wyloguj",
+  "Days": "Dni",
   "ERR_CODE": {
     "required": "Wymagany" 
   },
@@ -142,7 +144,7 @@
   "Tire changes, brands, models": "Zmiany opon, marki, modele",
   "App dashboard": "Pulpit",
   "Detailed statistics and insights": "Szczegółowe statystyki i wgląd",
-  "Expandable menu with a tree structure": "Menu w formie drzewa",
+  "Expandable menu with a tree structure. Mobile layout.": "Menu w formie drzewa. Dostosowanie do urządzeń mobilnych.",
   "Welcome page": "Strona powitalna",
   "Public page for non-logged users": "Strona dla niezalogowanych użytkowników",
   "Task system": "System zadań",

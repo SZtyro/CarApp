@@ -5,15 +5,15 @@
       <div>
         <div class="header">{{'Incoming events' | translate}}</div>
         <div class="content">
-          <div *ngFor="let elem of (incomingEvents$ | async)">
-            <div *ngFor="let event of elem.events" class="event w-100">
+          <div *ngFor="let elem of (incomingEvents$ | async)" >
+            <a [href]="event.entityType + '/' + event.id" *ngFor="let event of elem.events" class="event w-100" matRipple>
               <div class="d-flex flex-column">
                 <span style="font-weight: 500;">{{event.entityType + '.HEADER' | translate }}&nbsp;{{event.date | date}}</span>
-                {{elem.car.name}}
+                {{elem.car?.name}}
               </div>
 
               <span class="material-symbols-rounded">{{getIconFor(event.entityType)}}</span>
-            </div>
+            </a>
             
           </div>
         </div>
@@ -105,7 +105,7 @@
               <div class="tile-header">
                 <span>{{article.title}}</span>
                 <div class="d-flex">
-                  <span class="material-symbols-rounded">{{article.icon}}</span>
+                  <!-- <span class="material-symbols-rounded">{{article.icon}}</span> -->
                   <span>{{article.date | date:'dd.MM.yyyy'}}</span>
                 </div>
               </div>

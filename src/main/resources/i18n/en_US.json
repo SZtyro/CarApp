@@ -4,5 +4,95 @@
     "WELCOME":{
         "DESCRIPTION": "This site doesn't even have a fancy name yet. It's a sandbox where I test my ideas. You can log in using a Google account, but if you're just here to see how it works, feel free to use a temporary account.",
         "WHAT_DOES_IT_DO": "It's a simple car logbook app, similar to many others. However, its simplicity allows me to share it  publicly on GitHub. I work on this project in my free time. Below is a roadmap of features I plan to add in the future. Tiles with ribbons will be part of my own library and will be shared across all my applications."
+    },
+    "pl": {
+    "sztyro":{
+      "core": {
+        "model": {
+          "Role": {
+            "HEADER":"Role",
+            "HEADER$plural": "Roles",
+            "name": "Name",
+            "description": "Opis",
+            "members": "Członkowie"
+          }
+        }
+      },
+      "carapp": {
+        "model": {
+          "Car": {
+            "HEADER": "Samochód",
+            "HEADER$plural": "Samochody",
+            "name": "Name",
+            "lastInspection": "Last inspection",
+            "productionYear": "Production year",
+            "engineType": "Engine type",
+            "lowestConsumption": "Lowest consumption",
+            "highestConsumption": "Highest consumption"
+          },
+          "CarEvent": {
+            "HEADER": "Event",
+            "HEADER$plural": "Events",
+            "mileage": "Mileage",
+            "date": "Date",
+            "car": "Car",
+            "type": "Type",
+            "remarks": "Remarks",
+            "previousEvent": "Previous event",
+            "nextEvent": "Next event",
+            "price": "Price"
+          },
+          "RefuelEvent": {
+            "HEADER": "Refueling",
+            "amountOfFuel": "Cuantity"
+          },
+          "RepairEvent": {
+            "HEADER": "Repair"
+          },
+          "InsuranceEvent": {
+            "HEADER": "Insurance",
+            "company": "Insurance company"
+          },
+          "TireChangeEvent": {
+            "HEADER": "Tire change",
+            "tires": "Tires"
+          },
+          "InsuranceCompany": {
+            "HEADER": "Insurance company",
+            "HEADER$plural": "Insurance companies",
+            "name": "Name",
+            "enabled": "Enabled",
+            "logoUrl": "Logo url"
+          },
+          "TireCompany": {
+            "HEADER": "Tire manufacturer",
+            "HEADER$plural": "Tire manufactures",
+            "name": "Name",
+            "enabled": "Enabled",
+            "logoUrl": "Logo url"
+          },
+          "TireModel": {
+            "HEADER": "Tire model",
+            "HEADER$plural": "Tire models",
+            "company": "Manufacturer",
+            "type": "Type",
+            "name": "Name",
+            "enabled": "Enabled"
+          },
+          "Tire": {
+            "HEADER": "Tire",
+            "HEADER$plural": "Tires",
+            "placement": "Placement",
+            "model": "Model",
+            "date": "Date",
+            "tireWidth": "Width",
+            "aspectRatio": "Profile",
+            "diameter": "Diameter",
+            "loadRating": "Load rating",
+            "speedRating": "Speed rating"
+          }
+        }
+      }
     }
+  }
 }
