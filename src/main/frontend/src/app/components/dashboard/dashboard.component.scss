@@ -150,15 +150,29 @@ mat-icon{
     }
 }
 
+.news{
+    padding-top: calc(var(--bs-gutter-x)* .5); 
+    padding-bottom: calc(var(--bs-gutter-x)* .5);
 
-
-.news-subtile{
-    background-color: var(--sys-secondary-container);
-    color: var(--sys-on-secondary-container);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 42px;
-    height: 220px;
-    margin: auto 12px auto 0;
+    & .news-btns{
+        background-color: var(--sys-secondary-container);
+        color: var(--sys-on-secondary-container);
+        align-items: center;
+        border-radius: 42px;
+        
+    
+        &.desktop{
+            height: 220px;
+            margin: auto 12px auto 0;
+            justify-content: center;
+            
+        }
+    
+        &.mobile{
+            height: 44px !important;
+        }
+    }
 }
+
+
+

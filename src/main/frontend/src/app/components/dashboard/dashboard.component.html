@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row" style="padding: 18px 0;">
+  <div class="row">
 
     <div class="col-md-6 h-100">
       <div>
@@ -58,16 +58,19 @@
           
     </div>
 
-    <div class="col-12 h-100" style="padding-top: 24px;">
-      <div class="d-flex">
-        <div class="header">{{'News' | translate}}</div>
-        <div class="demo">Demo</div>
+    <div class="col-12 h-100 news">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex">
+          <div class="header">{{'News' | translate}}</div>
+          <div class="demo">Demo</div>
+        </div>
+        <div class="news-btns d-flex d-md-none mobile">
+          <button mat-button *ngFor="let btn of newsActions; let index = index" [hidden]="btn.action != (newsSwitch$ | async)" (click)="switchAction(index)"><span class="material-symbols-rounded" [matBadge]="btn.badge" >{{btn.icon}}</span></button>
+        </div>
       </div>
       <div class="d-flex">
-        <div class="news-subtile flex-column">
-          <button mat-button (click)="newsSwitch$.next('Article')"><span class="material-symbols-rounded" >news</span></button>
-          <button mat-button (click)="newsSwitch$.next('Changelog')"><span class="material-symbols-rounded" >code</span></button>
-          <button mat-button (click)="newsSwitch$.next('Voting')"><span class="material-symbols-rounded" matBadge="2" >how_to_vote</span></button>
+        <div class="news-btns flex-column d-none d-md-flex desktop">
+          <button mat-button *ngFor="let btn of newsActions" (click)="newsSwitch$.next(btn.action)"><span class="material-symbols-rounded" [matBadge]="btn.badge" >{{btn.icon}}</span></button>
         </div>
 
         <span [ngSwitch]="newsSwitch$ | async" class="w-100">
@@ -95,10 +98,6 @@
               </div>
             </div>
           </div>
-
-          <p *ngSwitchCase="false">
-          
-          </p>
           
           <div *ngSwitchDefault class="d-flex flex-column gap-3">
             <div class="tile p-3" *ngFor="let article of news">

@@ -93,3 +93,20 @@ button svg{
 a{
     text-decoration: none;
 }
+
+.sections-wrapper{
+    & > div {
+        padding: 0px 10px 40px 10px;
+
+        & > div{
+            padding-top: 20px;
+        }
+    }
+}
+
+#WHAT_DOES_IT_DO{
+    & button {
+        width: 100%;
+        margin: 4px 0;
+    }
+}

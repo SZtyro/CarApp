@@ -1,65 +1,48 @@
-<div style="margin-bottom: 20px; width: 100%;">
-    <!-- <div *ngIf="!options.isHidden(formRef.object)" class="wrapper" > -->
-        <div class="section">
-            
-            <div class="d-flex flex-column h-100 w-100">
-                <div class="d-flex justify-content-between">
-                    <h5>{{'Fuel consumption' | translate}}</h5>
+<div class="h-100 container p-0">
+    <div class="row">
+        <div class="col-12" *ngIf="{consumption: getConsumptionResult()} as result">
+            <div class="section" [ngClass]="{'good': result.consumption < 30, 'bad': result.consumption > 70}">
+                <div>
+                    <div class="header">{{'Fuel consumption' | translate}}</div>
                     <div class="output">
                         <span>{{calculate()}}</span>&nbsp; l/100km
                     </div>
-                   
                 </div>
-                <div class="bar">
-                    <div class="bar-pin" [style.left]="getProgress()">
-                        <div class="w-100 h-100" [floating]="details"></div>
-                        <div #details class="details" [style]="getFloatingOffset()">
-                            <span>{{'pl.sztyro.carapp.model.Car.lowestConsumption' | translate}}
-                                <span><strong>{{formRef?.object?.car?.lowestConsumption | number:'1.2-2'}}</strong>&nbsp;l/100km</span>
-                            </span>
-                            <span>{{'pl.sztyro.carapp.model.Car.highestConsumption' | translate}}
-                                <span><strong>{{formRef?.object?.car?.highestConsumption | number:'1.2-2'}}</strong>&nbsp;l/100km</span>
-                            </span>
-                         
-                        </div>
-                    </div>
-                   
-                </div>
+                <span class="material-symbols-rounded">swap_driving_apps_wheel</span>
             </div>
         </div>
-        <div class="section">
-            
-            <div class="d-flex flex-column h-100">
-                <div class="d-flex justify-content-between">
-                    <h5>{{'Distance traveled' | translate}}</h5>
+        <div class="col-12">
+            <div class="section">
+                <div>
+                    <div class="header">{{'Distance traveled' | translate}}</div>
                     <div class="output">
                         <span>{{getDistanceTraveled()}}</span>&nbsp;km
                     </div>
                 </div>
+                <span class="material-symbols-rounded">flyover</span>
             </div>
         </div>
-        <div class="section">
-           
-            <div class="d-flex flex-column h-100">
-                <div class="d-flex justify-content-between">
-                    <h5>{{'Price per 100km' | translate}}</h5>
+        <div class="col-12">
+            <div class="section">
+                <div>
+                    <div class="header">{{'Price per 100km' | translate}}</div>
                     <div class="output">
                         <span>{{getPricePer100()}}</span>&nbsp;zł
                     </div>
                 </div>
-               
+                <span class="material-symbols-rounded">paid</span>
             </div>
         </div>
-        <div class="section">
-           
-            <div class="d-flex flex-column h-100">
-                <div class="d-flex justify-content-between">
-                    <h5>{{'From last refueling' | translate}}</h5>
+        <div class="col-12">
+            <div class="section">
+                <div>
+                    <div class="header">{{'From last refueling' | translate}}</div>
                     <div class="output">
                         <span>{{getDaysFromRefueling()}}</span>&nbsp;{{'Days' | translate}}
                     </div>
                 </div>
+                <span class="material-symbols-rounded">event_repeat</span>
             </div>
         </div>
-    <!-- </div> -->
+    </div>
 </div>

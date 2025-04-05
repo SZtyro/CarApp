@@ -59,6 +59,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   newsSwitch$: Subject<'Article'| 'Changelog' | 'Voting'> = new BehaviorSubject('Article');
   news: any[] = [];
+  newsActions: any[] = [
+    {icon: 'news', action: 'Article'},
+    {icon: 'code', action: 'Changelog'},
+    {icon: 'how_to_vote', action: 'Voting', badge: 2},
+  ]
 
   ngOnInit(): void {
     
@@ -248,6 +253,12 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     
     
     }, err => console.error(err))
+  }
+
+  switchAction(index: number): void {
+    let next = index + 1;
+    if(this.newsActions.length === next) this.newsSwitch$.next(this.newsActions[0].action)
+    else this.newsSwitch$.next(this.newsActions[next].action)
   }
 
 }

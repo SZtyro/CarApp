@@ -1,3 +1,11 @@
+$bgBad: #6b4040;
+$bgBadLight: #c78e8e;
+$Bad: #ffc1c1;
+$bgGood: #4f634e;
+$bgGoodLight: #aebdac;
+$Good: #e5ffde;
+$GoodLight: #4b5f45;
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -6,23 +14,68 @@
   border-radius: 10px;
 }
 
-.output > span {
-  font-weight: 600;
-  
-}
-
-
 .lower-index{
   align-items: end;
   display: flex;
 }
 
-.section{
-  display: flex;
-  flex-direction: column;
-  color: var(--sys-on-surface-variant);
-  padding-top: 4px;
+.row {
+
+  gap: 12px;
+
+  & > div{
+
+    & .section{
+
+      @media (prefers-color-scheme: dark) {
+        &.good{
+          background-color: $bgGood;
+          color: $Good;
+        }
+  
+        &.bad{
+          background-color: $bgBad;
+          color: $Bad;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        &.good{
+          background-color: $bgGoodLight;
+          color: $GoodLight;
+        }
+  
+        &.bad{
+          background-color: $bgBadLight;
+          color: $bgBad;
+        }
+      }
+
+     
+
+      & .header{
+        font-weight: 500;
+        font-size: 18px;
+      }
+
+      & .material-symbols-rounded{
+        font-size: 32px;
+      }
+
+      height: 72px;
+      display: flex;
+      
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--sys-surface-variant);
+      color: var(--sys-on-surface-variant);
+      padding: 0 24px;
+      border-radius: 42px;
+    }
+
+  }
 }
+
+
 
 
 .bar{

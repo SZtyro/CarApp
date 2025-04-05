@@ -94,14 +94,14 @@ export class EventFormComponent extends BaseFormComponent<any>{
           )
          
         ),
-        Div.tileWith({'col-md-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent()} , 'h-100' ,
+        Div.create({'col-md-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent()} ,
           FuelSummary.create({ path: null, options: { class: 'w-100' } })
         ),
         Div.tileStandard(
           TextareaField.create({ path: 'remarks', options: { label: 'pl.sztyro.carapp.model.CarEvent.remarks' } }),
           ChipsField.create({
             path: "previousEvent", options: {
-              class: 'col-6',
+              class: 'col-md-6',
               restpicker: Object.assign(this.resource.defaultRestpickerOptions, {
                 showValue: e => new Date(e.date).toLocaleDateString()
               }),
@@ -110,7 +110,7 @@ export class EventFormComponent extends BaseFormComponent<any>{
           }),
           ChipsField.create({
             path: "nextEvent", options: {
-              class: 'col-6',
+              class: 'col-md-6',
               restpicker: Object.assign(this.resource.defaultRestpickerOptions, {
                 showValue: e => new Date(e.date).toLocaleDateString()
               }),

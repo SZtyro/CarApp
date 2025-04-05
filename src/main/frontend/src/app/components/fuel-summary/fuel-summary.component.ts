@@ -43,28 +43,16 @@ export class FuelSummary extends Field<any>{
     return (this.formRef?.object.mileage ?? 0) - (this.formRef?.object.previousEvent?.mileage ?? 0)
   }
 
-  getConsumptionResult(): string{
+  getConsumptionResult(): number{
     let consumption = this.calculate();
     let car = this.formRef?.object.car;
     if((this.formRef as EventFormComponent).isRefuelEvent() && car != null && consumption !== '?' && consumption != null && car.highestConsumption != null && car.highestConsumption != null){
-      if(car.highestConsumption <= consumption) return '0%'
-      else if (car.lowestConsumption >= consumption) return '100%'
+      if(car.highestConsumption <= consumption) return 0
+      else if (car.lowestConsumption >= consumption) return 100
       else {
-        let percentage = 100 - (Number(consumption) - car.lowestConsumption) / (car.highestConsumption - car.lowestConsumption) * 100
-        return percentage.toFixed(2) + '%'
+        return (Number(consumption) - car.lowestConsumption) / (car.highestConsumption - car.lowestConsumption) * 100;
       }
-    }else return '50%';
-  }
-
-  getProgress(): string{
-    return `calc(${this.getConsumptionResult()} - 6px)`
-  }
-
-  getFloatingOffset(): string{
-    let percent = Number(this.getConsumptionResult().replace('%',''));
-    if(percent > 50) return 'left: -300px';
-    else return '';
-    
+    }else return 50;
   }
 
 }
