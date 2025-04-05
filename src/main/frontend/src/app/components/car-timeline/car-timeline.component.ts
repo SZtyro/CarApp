@@ -32,7 +32,7 @@ export class CarTimelineComponent extends Field<CarTimelineProperties> {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.events.getAll({'car.id' : this.options.carId, size: 8}).subscribe(events => {
+    this.events.getAll({'car.id' : this.options.carId, size: 3}).subscribe(events => {
       this._carEvents = events.results.reverse();
     })
 
@@ -41,7 +41,7 @@ export class CarTimelineComponent extends Field<CarTimelineProperties> {
     })
   }
 
-  _getIconFor?(type){
+  getIconFor?(type){
     return this.carEventTypes?.find(e => e.type == type)?.icon;
   }
 }

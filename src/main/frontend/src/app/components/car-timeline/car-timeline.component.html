@@ -5,14 +5,14 @@
         <div class="event" *ngFor="let event of _carEvents">
             <div class="event-bar"></div>
             <a class="icon-wrapper" matRipple style="cursor: pointer;" href="/{{event.entityType}}/{{event.id}}" [title]="event.remarks">
-                <mat-icon>{{_getIconFor(event.entityType)}}</mat-icon>
+                <span class="material-symbols-rounded">{{getIconFor(event.entityType)}}</span>
             </a>
             <div class="date-wrapper">{{event.date | date}}</div>
         </div>
         <div class="event">
             <div class="event-bar"></div>
             <div class="icon-wrapper" style="background-color: var(--sys-tertiary-container);">
-                <mat-icon>today</mat-icon>
+                <span class="material-symbols-rounded">today</span>
             </div>
             <div class="date-wrapper">{{_today | date}}</div>
         </div>

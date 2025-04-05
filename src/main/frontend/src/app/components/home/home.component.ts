@@ -21,6 +21,7 @@ export class HomeComponent {
     { title: 'Tires', description: 'Tire changes, brands, models', done: true },
     { title: 'App dashboard', description: 'Detailed statistics and insights', done: true },
     { title: 'Menu', description: 'Expandable menu with a tree structure. Mobile layout.', done: false, library: true },
+    { title: 'Trips', description: "Splitting trip costs.", done: false },
     { title: 'Welcome page', description: 'Public page for non-logged users', done: false },
     { title: 'Task system', description: 'Bug reporting and development tracking', done: false, library: true },
     { title: 'Rating', description: 'Tire rating and reviews', done: false },

@@ -16,6 +16,9 @@
   "User has no edit privilege": "Użytkownik nie może edytować zasobu",
   "Log out": "Wyloguj",
   "Days": "Dni",
+  "New permission:": "Nowe uprawnienie",
+  "Target": "Element",
+  "Type": "Typ",
   "ERR_CODE": {
     "required": "Wymagany" 
   },
@@ -166,5 +169,7 @@
   "Age": "Wiek",
   "Costs": "Wydatki",
   "News": "Nowości",
-  "Others": "Inne"
+  "Others": "Inne",
+  "Trips": "Podróże",
+  "Splitting trip costs.": "Podział kosztów podróży"
 }
