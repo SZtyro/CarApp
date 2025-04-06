@@ -32,6 +32,12 @@ public class WebMVCConfig implements WebMvcConfigurer {
             fallbackIndex = "webapps/ROOT/browser/index.html";
         }
 
+        registry.addResourceHandler("/icons/**")
+                .addResourceLocations(resourceLocation + "icons/");
+
+        registry.addResourceHandler("/manifest.webmanifest")
+                .addResourceLocations(resourceLocation + "manifest.webmanifest");
+
         registry.addResourceHandler("/**/*")
                 .addResourceLocations(resourceLocation)
                 .resourceChain(true)
