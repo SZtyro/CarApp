@@ -52,6 +52,7 @@ import { TireComponent } from './components/forms/tire/tire.component';
 import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export let AppInjector: Injector;
 
@@ -133,6 +134,12 @@ export const MY_DATE_FORMATS = {
     MatMomentDateModule,
     MatSnackBarModule,
     MatBadgeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },
