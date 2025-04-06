@@ -15,9 +15,23 @@
 
 .event {
   // padding: 0 10px;
+  min-width: 80px;
   align-items: center;
   display: flex;
   flex-direction: column;
+
+  &.today {
+
+    & .icon-wrapper {
+      background-color: var(--sys-tertiary-container);
+      color: var(--sys-on-tertiary-container);
+    }
+
+    & .date-wrapper {
+      color: var(--sys-on-tertiary-container);
+    }
+   
+  }
 }
 
 .event-bar {
@@ -76,7 +90,9 @@
 .content{
   display: flex;
   justify-content: space-between;
-  // flex-direction: row;
+  overflow: auto;
+  scroll-snap-align: end;
+  scrollbar-width: thin;
 }
 
 .material-symbols-rounded{

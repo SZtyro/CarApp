@@ -1,20 +1,13 @@
 <div class="wrapper">
     <div class="axis"></div>
-    <div class="content">
+    <div class="content" #content>
     
-        <div class="event" *ngFor="let event of _carEvents">
+        <div class="event" [class]="event.entityType" *ngFor="let event of _carEvents">
             <div class="event-bar"></div>
-            <a class="icon-wrapper" matRipple style="cursor: pointer;" href="/{{event.entityType}}/{{event.id}}" [title]="event.remarks">
+            <a class="icon-wrapper" matRipple style="cursor: pointer;" [attr.href]="getHref(event)" [title]="event.remarks">
                 <span class="material-symbols-rounded">{{getIconFor(event.entityType)}}</span>
             </a>
             <div class="date-wrapper">{{event.date | date}}</div>
-        </div>
-        <div class="event">
-            <div class="event-bar"></div>
-            <div class="icon-wrapper" style="background-color: var(--sys-tertiary-container);">
-                <span class="material-symbols-rounded">today</span>
-            </div>
-            <div class="date-wrapper">{{_today | date}}</div>
         </div>
     </div>
 </div>

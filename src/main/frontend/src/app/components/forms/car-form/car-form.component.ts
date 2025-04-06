@@ -34,10 +34,10 @@ export class CarFormComponent extends BaseFormComponent<any> {
               }})
             ),
             
-            Div.tileWith('col-xll-3', 'insurance-tile ripple',
+            Div.tileWith('col-xxl-4', 'insurance-tile ripple',
               InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100'}}),
             ).onClick(e => this.events.openCurrentInsurance(this.object.id)),
-            Div.tileWith('col-xl-7 col-xxl-8', 'h-100',
+            Div.tileWith('col-xxl-8', 'h-100',
               TireSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100 h-100'}}),
             ),
 
@@ -45,7 +45,7 @@ export class CarFormComponent extends BaseFormComponent<any> {
           
         ),
         
-        Div.tileWith('col-xl-3 col-xxl-2', '',
+        Div.tileWith('col-xl-3 col-xxl-2', 'h-100',
             CarTimelineComponent.create({path: null, options: {carId: this.object.id, class: 'w-100'}}),
           
         ),

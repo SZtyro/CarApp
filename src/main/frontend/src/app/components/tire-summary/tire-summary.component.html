@@ -4,23 +4,35 @@
     <div class="d-flex flex-column h-100">
         <div>
             <div class="row info-wrapper">
-                <div class="col-4">
+                <div class="col-md-6 col-lg-4">
                     <div>
-                        <span>{{'Season' | translate}}:&nbsp;&nbsp;</span>
+                        <div>
+                            <span class="header">{{'Season' | translate}}</span>
+                            <span class="content">{{summary?.type | translate}}</span>
+                        </div>
                         <span class="material-symbols-rounded icon" [class]="summary?.type">{{getIconForSummary(summary?.type)}}</span>
+                        
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-6 col-lg-4">
                     <div>
-                        <span>{{'Mileage' | translate}}:&nbsp;&nbsp;</span>
-                        <span >{{summary?.mileage}}</span>
+                        <div>
+                            <span class="header">{{'Mileage' | translate}}</span>
+                            <span class="content">{{summary?.mileage}}</span>
+                        </div>
+                        <span class="material-symbols-rounded">flyover</span>
+
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-6 col-lg-4">
                     <div>
-                        <span>{{'Age' | translate}}:&nbsp;&nbsp;</span>
-                        <span >{{summary?.age}}</span>
+                        <div>
+                            <span class="header">{{'Age' | translate}}</span>
+                            <span class="content">{{summary?.age}}</span>
+                        </div>
+                        <span class="material-symbols-rounded">calendar_month</span>
                     </div>
+
                 </div>
             </div>
             <div class="p-1 d-flex">
