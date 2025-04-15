@@ -36,6 +36,7 @@ spring:
         resources:
             static-locations: classpath:/static/browser
     security:
+        rememberme.key: ${REMEMBER_ME_KEY}
         basic:
             enabled: true
         oauth2:

@@ -19,6 +19,7 @@
   "New permission:": "Nowe uprawnienie",
   "Target": "Element",
   "Type": "Typ",
+  "Log in": "Zaloguj",
   "ERR_CODE": {
     "required": "Wymagany" 
   },

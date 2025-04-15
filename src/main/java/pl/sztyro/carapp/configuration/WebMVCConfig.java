@@ -32,24 +32,17 @@ public class WebMVCConfig implements WebMvcConfigurer {
             fallbackIndex = "webapps/ROOT/browser/index.html";
         }
 
-        registry.addResourceHandler("/icons/**")
-                .addResourceLocations(resourceLocation + "icons/");
-
-        registry.addResourceHandler("/manifest.webmanifest")
-                .addResourceLocations(resourceLocation + "manifest.webmanifest");
-
-        registry.addResourceHandler("/**/*")
+        registry.addResourceHandler( "/**/*")
                 .addResourceLocations(resourceLocation)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {
-                        Resource requestedResource = location.createRelative(resourcePath);
 
+                        Resource requestedResource = location.createRelative(resourcePath);
                         if (requestedResource.exists() && requestedResource.isReadable()) {
                             return requestedResource;
                         }
-
                         Resource indexResource = new FileSystemResource(fallbackIndex);
                         return indexResource.exists() && indexResource.isReadable() ? indexResource : null;
                     }

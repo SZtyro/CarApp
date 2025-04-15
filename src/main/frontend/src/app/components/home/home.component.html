@@ -10,7 +10,9 @@
                     WELCOME.DESCRIPTION
                 </p>
                 <div class="d-flex gap-2 justify-content-end">
-                    <a href="/oauth2/authorization/google"><button mat-flat-button>{{'Log in with Google' | translate}}</button></a>
+                    <a routerLink="/login">
+                        <button mat-flat-button >{{'Log in' | translate}}</button>
+                    </a>
                     <button mat-button (click)="profile.temporaryLogin()">{{"I'll use a temporary account"| translate}}</button>
                 </div>
             </div>

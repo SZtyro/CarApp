@@ -16,6 +16,7 @@ import { TireService } from './components/forms/tire/tire.service';
 import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
 import { TireModelService } from './components/forms/tire-model/tire-model.service';
 import { HomeComponent } from './components/home/home.component';
+import { HomeService } from './services/home.service';
 
 
 
@@ -50,7 +51,7 @@ let standard = (path: string, form: Type<BaseFormComponent<any>>, service: Type<
 }
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent},
+  { path: 'home', component: HomeComponent, resolve: {user: HomeService}},
   { path: 'login', component: LoginComponent},
   {
     path: '',

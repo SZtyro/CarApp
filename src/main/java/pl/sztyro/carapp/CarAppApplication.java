@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = {"pl.sztyro"})
 @AutoConfiguration
-@EnableJpaRepositories({"pl.sztyro.carapp.repository", "pl.sztyro.core.repository", "pl.sztyro.core.interfaces"})
-@EntityScan({"pl.sztyro.carapp.model", "pl.sztyro.core.model"})
+@EnableJpaRepositories({"pl.sztyro.carapp.repository", "pl.sztyro.core.repository", "pl.sztyro.core.interfaces", "pl.sztyro.security.repository"})
+@EntityScan({"pl.sztyro.carapp.model", "pl.sztyro.core.model", "pl.sztyro.security.model"})
 @ComponentScan("pl.sztyro")
 public class CarAppApplication {
 
