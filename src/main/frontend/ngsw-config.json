@@ -33,7 +33,20 @@
     "!/login/**",
     "!/oauth2/**",
     "!/assets/**"
+  ],
+  "dataGroups": [
+    {
+      "name": "translation-api",
+      "urls": [
+        "/api/public/translations/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 5,
+        "maxAge": "30d",
+        "timeout": "5s"
+      }
+    }
   ]
-  
   
 }

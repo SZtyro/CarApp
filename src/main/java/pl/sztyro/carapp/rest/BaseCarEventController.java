@@ -10,10 +10,8 @@ import pl.sztyro.core.rest.FilteredResult;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 public abstract class BaseCarEventController<T extends  CarEvent> extends BaseController<T> {
 
@@ -28,10 +26,6 @@ public abstract class BaseCarEventController<T extends  CarEvent> extends BaseCo
         super(controllerClass, entityClass);
     }
 
-//    public CarEventController(){
-//        super(CarEventController.class, (Class<T>) CarEvent.class);
-//    }
-
     @Override
     public void beforeUpdateEntity(T dbEntity, T changes) throws IOException {
 
@@ -40,14 +34,15 @@ public abstract class BaseCarEventController<T extends  CarEvent> extends BaseCo
                     HttpStatus.BAD_REQUEST,
                     "Set car."
             );
-        if(changes.getPreviousEvent() == null){
-            HashMap<String, String> params = new HashMap<>();
-            params.put("date:To", String.valueOf(changes.getDate().getTime()));
-            params.put("size", "2");
-            params.put("sort", "date:DESC");
-            params.put("car.id", String.valueOf(changes.getCar().getId()));
-            FilteredResult<T> all = this.getAll(params);
-            List<T> results = all.getResults();
+        if(changes.getPreviousEvent() == null && dbEntity.getPreviousEvent() == null){
+            List<T> results = queryBuilder()
+                    .size(2)
+                    .dateTo("date", String.valueOf(changes.getDate().getTime()))
+                    .sortDesc("date")
+                    .and("car.id", String.valueOf(changes.getCar().getId()))
+                    .queryAll(this::getFetch)
+                    .getResults();
+
             if(!results.isEmpty()) {
                 //Take 2 latest events, if user just saved second event then results
                 //has only one last (first) elem

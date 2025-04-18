@@ -17,7 +17,7 @@ import java.util.Date;
 @SuperBuilder(toBuilder = true)
 @Entity
 @NoArgsConstructor
-@Secure(read = "")
+@Secure(read = "", write = "")
 public class Tire extends BaseEntity {
 
     @Column

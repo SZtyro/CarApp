@@ -20,6 +20,13 @@
   "Target": "Element",
   "Type": "Typ",
   "Log in": "Zaloguj",
+  "Remember me": "Zapamiętaj mnie",
+  "New version available. Do you want to reload?": "Dostępna jest nowa wersja aplikacji. Czy chcesz ją teraz załadować?",
+  "No access": "Brak dostępu",
+  "Forbidden": "Odmowa dostępu",
+  "Dismiss": "Odrzuć",
+  "Document is still referenced by another document. Please delete the connections first.": " Dokument nadal jest powiązany z innym dokumentem. Usuń najpierw powiązanie.",
+  "Document has been modified by someone else. Try reload.": "Dokument został zmodyfikowany przez kogoś innego. Spróbuj odświeżyć",
   "ERR_CODE": {
     "required": "Wymagany" 
   },
@@ -172,5 +179,6 @@
   "News": "Nowości",
   "Others": "Inne",
   "Trips": "Podróże",
-  "Splitting trip costs.": "Podział kosztów podróży"
+  "Splitting trip costs.": "Podział kosztów podróży",
+  "Set car": "Wybierz samochód"
 }

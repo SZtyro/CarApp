@@ -37,3 +37,8 @@ input {
 .material-symbols-rounded{
   display: flex;
 }
+
+body {
+  caret-color: transparent !important;
+  cursor: default !important;
+}
