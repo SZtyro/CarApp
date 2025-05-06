@@ -25,6 +25,8 @@
   "No access": "Brak dostępu",
   "Forbidden": "Odmowa dostępu",
   "Dismiss": "Odrzuć",
+  "All": "Wszystkie",
+  "You": "Ty",
   "Document is still referenced by another document. Please delete the connections first.": " Dokument nadal jest powiązany z innym dokumentem. Usuń najpierw powiązanie.",
   "Document has been modified by someone else. Try reload.": "Dokument został zmodyfikowany przez kogoś innego. Spróbuj odświeżyć",
   "ERR_CODE": {
@@ -42,6 +44,7 @@
             "HEADER":"Rola",
             "HEADER$plural": "Role",
             "name": "Nazwa",
+            "enabled": "Aktywny",
             "description": "Opis",
             "members": "Członkowie"
           }
@@ -73,17 +76,21 @@
           },
           "RefuelEvent": {
             "HEADER": "Tankowanie",
+            "HEADER$plural": "Tankowania",
             "amountOfFuel": "Ilość"
           },
           "RepairEvent": {
-            "HEADER": "Naprawa"
+            "HEADER": "Naprawa",
+            "HEADER$plural": "Naprawy"
           },
           "InsuranceEvent": {
             "HEADER": "Ubezpieczenie",
+            "HEADER$plural": "Ubezpieczenia",
             "company": "Firma ubezpieczeniowa"
           },
           "TireChangeEvent": {
             "HEADER": "Zmiana opon",
+            "HEADER$plural": "Zmiany opon",
             "tires": "Opony"
           },
           "InsuranceCompany": {

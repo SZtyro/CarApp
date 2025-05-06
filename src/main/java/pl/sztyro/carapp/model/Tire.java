@@ -6,11 +6,16 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.sztyro.carapp.enums.TirePlacement;
 import pl.sztyro.core.annotation.FrontendSearch;
+import pl.sztyro.core.annotation.MenuRoot;
 import pl.sztyro.core.annotation.Secure;
+import pl.sztyro.core.interfaces.MenuItem;
 import pl.sztyro.core.model.BaseEntity;
+import pl.sztyro.core.model.MenuNode;
 
 import javax.persistence.*;
 import java.util.Date;
+
+import static pl.sztyro.core.model.BaseDictionary.getDictionaryNode;
 
 @Setter
 @Getter
@@ -18,7 +23,8 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @Secure(read = "", write = "")
-public class Tire extends BaseEntity {
+@MenuRoot
+public class Tire extends BaseEntity implements MenuItem {
 
     @Column
     private Integer tireWidth;
@@ -62,5 +68,13 @@ public class Tire extends BaseEntity {
                 getLoadRating(),
                 getSpeedRating()
        ).replaceAll("null", "?");
+    }
+
+    public static MenuNode getNode() {
+        return MenuNode.builder()
+            .path("Tires")
+            .icon("radio_button_unchecked")
+            .build();
+
     }
 }

@@ -9,8 +9,11 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Type;
 import pl.sztyro.core.annotation.FrontendSearch;
+import pl.sztyro.core.annotation.MenuRoot;
 import pl.sztyro.core.annotation.Secure;
+import pl.sztyro.core.interfaces.MenuItem;
 import pl.sztyro.core.model.BaseEntity;
+import pl.sztyro.core.model.MenuNode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,7 +32,8 @@ import java.util.Date;
         @JsonSubTypes.Type(value = InsuranceEvent.class, name = "pl.sztyro.carapp.model.InsuranceEvent"),
         @JsonSubTypes.Type(value = RepairEvent.class, name = "pl.sztyro.carapp.model.RepairEvent"),
 })
-public abstract class CarEvent extends BaseEntity {
+@MenuRoot
+public abstract class CarEvent extends BaseEntity implements MenuItem {
 
     @Column
     @FrontendSearch
@@ -70,5 +74,14 @@ public abstract class CarEvent extends BaseEntity {
                 ", date=" + date +
                 '}';
     }
+
+    @Getter
+    private static final MenuNode node = MenuNode.builder()
+            .path("Events")
+            .name("Events")
+            .icon("list_alt")
+            .build()
+            .pushChildren(MenuNode.builder().path("Events/All").name("All").build());
+
 
 }

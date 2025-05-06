@@ -54,6 +54,7 @@ public class TemporaryUserCreatedListener {
                 .name("Multipla")
                 .engineType(EngineType.Diesel)
                 .author(tempUser)
+                .draft(false)
                 .build()
         );
 
@@ -61,18 +62,21 @@ public class TemporaryUserCreatedListener {
                 .name("Vugatti Beyron")
                 .engineType(EngineType.Petrol)
                 .author(tempUser)
+                .draft(false)
                 .build()
         );
 
         em.merge(RepairEvent.builder()
                 .car(multipla)
                 .author(tempUser)
+                .draft(false)
                 .date(dateService.builder().add(Calendar.DATE, 10).build())
                 .build()
         );
         em.merge(RepairEvent.builder()
                 .car(vugattiBeyron)
                 .author(tempUser)
+                .draft(false)
                 .date(dateService.builder().add(Calendar.DATE, 14).build())
                 .build()
         );
@@ -102,6 +106,7 @@ public class TemporaryUserCreatedListener {
                         InsuranceEvent in = insuranceEventController.create(InsuranceEvent.builder()
                                 .car(car)
                                 .date(new Date())
+                                .draft(false)
                                 .author(tempUser)
                                 .company(insuranceCompanies.get(0))
                                 .build()
@@ -119,6 +124,7 @@ public class TemporaryUserCreatedListener {
                         RefuelEvent refuelEvent = refuelEventController.create(RefuelEvent.builder()
                                 .author(tempUser)
                                 .car(car)
+                                .draft(false)
                                 .date(dateService.builder()
                                         .add(Calendar.MONTH, -1)
                                         .add(Calendar.DAY_OF_MONTH, mileage/100)
@@ -139,6 +145,7 @@ public class TemporaryUserCreatedListener {
                         userTires.add(em.merge(Tire.builder()
                                 .date(dateService.builder().add(Calendar.YEAR, -1).build())
                                 .model(model)
+                                .draft(false)
                                 .author(tempUser)
                                 .placement(placement)
                                 .build()
@@ -178,6 +185,7 @@ public class TemporaryUserCreatedListener {
                 winterChangeDates.forEach(date -> em.merge(TireChangeEvent.builder()
                         .tires(winterSet)
                         .car(car)
+                        .draft(false)
                         .author(tempUser)
                         .date(date)
                         .build()
@@ -186,6 +194,7 @@ public class TemporaryUserCreatedListener {
                 summerChangeDates.forEach(date -> em.merge(TireChangeEvent.builder()
                         .tires(summerSet)
                         .car(car)
+                        .draft(false)
                         .author(tempUser)
                         .date(date)
                         .build()
@@ -201,6 +210,7 @@ public class TemporaryUserCreatedListener {
         em.merge(TireChangeEvent.builder()
                 .car(vugattiBeyron)
                 .author(tempUser)
+                .draft(false)
                 .date(dateService.builder().add(Calendar.DATE, 16).build())
                 .build()
         );

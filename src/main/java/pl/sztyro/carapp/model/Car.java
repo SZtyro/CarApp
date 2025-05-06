@@ -6,8 +6,11 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import pl.sztyro.carapp.enums.EngineType;
 import pl.sztyro.core.annotation.FrontendSearch;
+import pl.sztyro.core.annotation.MenuRoot;
 import pl.sztyro.core.annotation.Secure;
+import pl.sztyro.core.interfaces.MenuItem;
 import pl.sztyro.core.model.BaseEntity;
+import pl.sztyro.core.model.MenuNode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +24,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Car extends BaseEntity {
+@MenuRoot
+public class Car extends BaseEntity implements MenuItem {
 
     @Column
     @FrontendSearch
@@ -39,4 +43,11 @@ public class Car extends BaseEntity {
 
     @Column
     private Double highestConsumption;
+
+    public static MenuNode getNode() {
+        return MenuNode.builder()
+            .path("Cars")
+            .icon("directions_car")
+            .build();
+    }
 }

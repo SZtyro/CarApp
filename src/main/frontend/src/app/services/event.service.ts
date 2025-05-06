@@ -16,7 +16,7 @@ export class EventService extends BaseRestService<any> {
   override resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let id = route.params['id'];
     if(id == null) return this.getMetadata()
-    else return this.getEvent(route.params['id'], route.params['type']);
+    else return this.getEvent(route.params['id'], route.params['entityType']);
   }
 
   override update(id: number, data: any): Observable<any> {
