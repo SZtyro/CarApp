@@ -30,18 +30,91 @@
   "Document is still referenced by another document. Please delete the connections first.": " Dokument nadal jest powiązany z innym dokumentem. Usuń najpierw powiązanie.",
   "Document has been modified by someone else. Try reload.": "Dokument został zmodyfikowany przez kogoś innego. Spróbuj odświeżyć",
   "ERR_CODE": {
-    "required": "Wymagany" 
+    "required": "Wymagany"
   },
-  "WELCOME":{
-    "DESCRIPTION": "Ta strona nie ma jeszcze nawet wymyślnej nazwy. To piaskownica, w której testuję swoje pomysły. Możesz zalogować się za pomocą konta Google, ale jeśli jesteś tu tylko po to, aby zobaczyć, jak to działa, śmiało skorzystaj z tymczasowego konta.",
-    "WHAT_DOES_IT_DO": "To prosta aplikacja do prowadzenia dziennika samochodowego, podobna do wielu innych. Jednak jej prostota pozwala mi udostępniać ją publicznie na GitHubie. Pracuję nad tym projektem w wolnym czasie. Poniżej znajduje się mapa drogowa funkcji, które planuję dodać w przyszłości.Kafelki z wstążkami będą częścią mojej własnej biblioteki i zostaną udostępnione we wszystkich moich aplikacjach."
+  "WELCOME": {
+    "DESCRIPTION": "To prosta aplikacja do prowadzenia dziennika samochodowego.",
+    "WHAT_DOES_IT_DO": ", podobna do wielu innych. Jednak jej prostota pozwala mi udostępniać ją publicznie na GitHubie. Pracuję nad tym projektem w wolnym czasie. Poniżej znajduje się mapa drogowa funkcji, które planuję dodać w przyszłości.Kafelki z wstążkami będą częścią mojej własnej biblioteki i zostaną udostępnione we wszystkich moich aplikacjach.",
+    "OVERVIEW": {
+      "DESCRIPTION": "Monitoruj wydatki na paliwo, opony i ubezpieczenie, przeglądaj statystyki oraz otrzymuj przypomnienia o ważnych terminach – wszystko w jednej aplikacji. Logowanie odbywa się wyłącznie przez Google – bez haseł, bez zakładania kont, z pełnym bezpieczeństwem i błyskawicznym dostępem. Chcesz najpierw sprawdzić możliwości? Skorzystaj z konta tymczasowego z przykładowymi danymi i zobacz, jak to działa bez żadnej rejestracji.",
+      "GENERAL": {
+        "HEADER": "Wszystkie wydatki i terminy w jednym miejscu",
+        "DESCRIPTION": "Aplikacja ta to proste i wygodne narzędzie do monitorowania wszystkich kosztów związanych z eksploatacją samochodu. Rejestruj tankowania, ubezpieczenia, wymiany opon i inne wydatki, aby mieć pełny obraz swoich kosztów i lepiej planować budżet.",
+        "KEY1": "Pełna historia wydatków",
+        "VALUE1": " - paliwo, ubezpieczenia, serwis, zakup i wymiana opon.",
+        "KEY2": "Podsumowanie aktualnych opon",
+        "VALUE2": " - sezon, wiek, przebieg, historia użytkowania.",
+        "KEY3": "Wydarzenia i przypomnienia",
+        "VALUE3": " - nie przegapisz końca ważności polisy ani sezonowej zmiany opon.",
+        "KEY4": "Stan ubezpieczenia",
+        "VALUE4": " - informacje o aktualnej polisie i powiadomienia o zbliżającym się końcu ubezpieczenia.",
+        "FOOTER": "Zyskaj kontrolę nad kosztami i bezpieczeństwem swojego auta - wszystko w jednym, przejrzystym panelu."
+      },
+      "PWA": {
+        "HEADER": "Zawsze pod ręką - dzięki technologii PWA",
+        "DESCRIPTION": "Aplikacja została stworzona jako Progressive Web App (PWA), co oznacza, że możesz z niej korzystać jak z klasycznej aplikacji mobilnej - bez konieczności pobierania ze sklepu.",
+        "KEY1": "Dostępność offline (wkrótce)",
+        "VALUE1": " - dodawaj tankowania, przeglądaj dane o oponach i ubezpieczeniu nawet bez połączenia z internetem.",
+        "KEY2": "Instalacja jednym kliknięciem",
+        "VALUE2": "- zainstaluj aplikację na ekranie głównym swojego telefonu lub komputera jak natywną aplikację.",
+        "KEY3": "Szybkość działania",
+        "VALUE3": " - dzięki lokalnemu cache'owi aplikacja ładuje się błyskawicznie, niezależnie od sieci.",
+        "KEY4": "Automatyczne aktualizacje",
+        "VALUE4": " - zawsze korzystasz z najnowszej wersji, bez potrzeby samodzielnej aktualizacji.",
+        "KEY5": "Bezpieczeństwo",
+        "VALUE5": " - komunikacja z aplikacją odbywa się w pełni szyfrowanym połączeniem HTTPS.",
+        "FOOTER": "Dzięki PWA możesz mieć wszystkie dane dotyczące swojego auta zawsze pod ręką - szybko, wygodnie i bez zbędnych instalacji."
+      },
+      "REFUELING": {
+        "HEADER": "Intuicyjne dodawanie tankowań - pełna kontrola nad spalaniem",
+        "DESCRIPTION": "Formularz tankowania został zaprojektowany z myślą o wygodzie i automatyzacji. Dzięki inteligentnemu powiązaniu z poprzednim tankowaniem, nie musisz ręcznie wprowadzać danych - aplikacja zrobi to za Ciebie.",
+        "KEY1": "Automatyczne połączenie z poprzednim tankowaniem",
+        "VALUE1": " - dane takie jak przebieg czy ilość paliwa są analizowane, by dokładnie obliczyć statystyki.",
+        "KEY2": "Obliczanie spalania",
+        "VALUE2": " - aplikacja pokazuje średnie zużycie paliwa od ostatniego tankowania.",
+        "KEY3": "Dystans od ostatniego tankowania",
+        "VALUE3": " - pełna informacja o tym, ile kilometrów pokonałeś na danym baku.",
+        "KEY4": "Koszt jazdy",
+        "VALUE4": " - przelicznik ceny paliwa na 100 km pomaga realnie ocenić wydatki.",
+        "FOOTER": "Dodawanie tankowania jeszcze nigdy nie było tak szybkie i pomocne - dzięki analizie danych masz pełen obraz efektywności swojej jazdy."
+      }
+    },
+    "ABOUT_ME":{
+      "DESCRIPTION": "Nazywam się Fabian i od pięciu lat tworzę i rozwijam kilka aplikacji ERP w Java EE/JBoss z Angular 14. W wolnym czasie piszę aplikacje w Java 17 z użyciem SpringBoot opartej na Angular 18. Rozwijam również własną bibliotekę do tego frameworku."
+    },
+    "SPECS":{
+      "OAUTH2": {
+        "TITLE": "OAuth2",
+        "DESCRIPTION": "Najważniejsze w aplikacji jest bezpieczeństwo. Dlatego do logowania używam OAuth2.0. Dzięki temu nie muszę przechowywać haseł użytkowników. Dodatkowo, użytkownicy nie muszą zapamiętywać kolejnych haseł."
+      },
+      "TEMPORARY_ACCOUNT": {
+        "TITLE": "Konto tymczasowe",
+        "DESCRIPTION": "Konto tymczasowe pozwala na szybkie zalogowanie się bez potrzeby rejestracji. System generuje przykładowe dane do przetestowania aplikacji. Konta kasowane są każdej nocy, a automat czyści w bezpeiczny sposób, wszystkie zależności utworzone przez takie konto."
+      },
+      "VPS": {
+        "TITLE": "Własny serwer VPS",
+        "DESCRIPTION": "Aplikacja działa na własnym serwerze VPS. Dzięki temu mam pełną kontrolę nad wykorzystywanymi technologiami."
+      },
+      "LIBRARIES": {
+        "TITLE": "Własne biblioteki",
+        "DESCRIPTION": "Aplikacja korzysta z moich własnych bibliotek, które usprawniają proces tworzenia komponentów. Dzięki temu mogę łatwiej testować wspólne dla moich projektów komponenty oraz nie powielać kodu."
+      },
+      "PWA": {
+        "TITLE": "PWA",
+        "DESCRIPTION": "Aplikacja została stworzona jako Progressive Web App, co oznacza, że możesz z niej korzystać jak z klasycznej aplikacji mobilnej - bez konieczności pobierania ze sklepu."
+      },
+      "SMTP": {
+        "TITLE": "Własny SMTP",
+        "DESCRIPTION": "Aplikacja korzysta z własnego SMTP do wysyłania powiadomień. W przyszłości będzie możliwość skonfigurowania przypomnień o ważnych terminach."
+      }
+    }
   },
   "pl": {
-    "sztyro":{
+    "sztyro": {
       "core": {
         "model": {
           "Role": {
-            "HEADER":"Rola",
+            "HEADER": "Rola",
             "HEADER$plural": "Role",
             "name": "Nazwa",
             "enabled": "Aktywny",
@@ -131,6 +204,8 @@
       }
     }
   },
+  "Main features": "Główne funkcje",
+  "What do you gain?": "Co zyskujesz?",
   "Service": "Usługa",
   "Refuel": "Tankowanie",
   "TireChange": "Wymiana opon",
@@ -156,21 +231,29 @@
   "Github repository": "Repozytorium Github",
   "Library": "Biblioteka",
   "Events": "Wpisy",
-  "Form builder, core utilities, fields": "Budowanie formularzy, główne funkcje, pola",
-  "Refueling, cost summary, repairs, insurance": "Tankowanie, podsumowanie kosztów, naprawy, ubezpieczenie",
+  "Form builder, Core utilities, Basic form fields": "Budowanie formularzy, Główne funkcje, Podstawowe pola formularzy",
+  "Refueling, Cost summary, Repairs, Insurance": "Tankowanie, Podsumowanie kosztów, Naprawy, Ubezpieczenie",
   "Tires": "Opony",
-  "Tire changes, brands, models": "Zmiany opon, marki, modele",
+  "Tire changes, Tire brands, Tire models": "Zmiany opon, Marki opon, Modele opon",
   "App dashboard": "Pulpit",
-  "Detailed statistics and insights": "Szczegółowe statystyki i wgląd",
-  "Expandable menu with a tree structure. Mobile layout.": "Menu w formie drzewa. Dostosowanie do urządzeń mobilnych.",
+  "Demo tiles, Detailed statistics and insights": "Demonstracyjne elementy, Szczegółowe statystyki i wgląd",
+  "Expandable menu with a tree structure, Mobile layout": "Menu w formie drzewa, Dostosowanie do urządzeń mobilnych.",
   "Welcome page": "Strona powitalna",
-  "Public page for non-logged users": "Strona dla niezalogowanych użytkowników",
+  "Public page for non-logged users, Overview tab, Specification tab, Roadmap tab, About me tab": "Strona dla niezalogowanych użytkowników, Zakładka przeglądowa, Zakładka specyfikacji, Zakładka etapów, Zakładka o mnie",
   "Task system": "System zadań",
-  "Bug reporting and development tracking": "Zgłaszanie błędów i śledzenie rozwoju",
+  "Bug reporting, Development tracking, Feature requests": "Zgłaszanie błędów, Śledzenie rozwoju, Prośby o funkcje",
+  "Enhanced statistics": "Rozszerzone statystyki",
+  "Notifications": "Powiadomienia",
+  "Customizable notifications, Email based on event date": "Powiadomienia dostosowane do użytkownika, Powiadomienia e-mail o nadchodzących wydarzeniach",
+  "Splitting trip costs": "Podział kosztów podróży",
+  "Full version of form builder": "Pełna wersja generatora formularzy",
+  "Library chart component, Detailed cost dashboard charts": "Rozszerzony komponent wykresów, Szczegółowe wykresy kosztów",
   "Rating": "System ocen",
   "Tire rating and reviews": "Oceny i opinie opon",
   "Community": "Społeczność",
   "User forums": "Fora użytkowników",
+  "Offline mode": "Tryb offline",
+  "Ability to save documents without an internet connection": "Możliwość zapisywania dokumentów bez połączenia z internetem",
   "RF": "PP",
   "RR": "PT",
   "LF": "LP",
@@ -187,5 +270,12 @@
   "Others": "Inne",
   "Trips": "Podróże",
   "Splitting trip costs.": "Podział kosztów podróży",
-  "Set car": "Wybierz samochód"
+  "Set car": "Wybierz samochód",
+  "Specs": "Specyfikacja",
+  "About me": "O mnie",
+  "Overview": "Przegląd",
+  "Languages over last week": "Języki w ostatnim tygodniu",
+  "Languages over last year": "Języki w ostatnim roku",
+  "Time tracked on project:": "Czas śledzony w projekcie:",
+  "Time tracked in shared library:": "Czas śledzony w bibliotece:"
 }

@@ -2,8 +2,83 @@
     "pl_PL": "Polish",
     "en_US": "English",
     "WELCOME":{
-        "DESCRIPTION": "This site doesn't even have a fancy name yet. It's a sandbox where I test my ideas. You can log in using a Google account, but if you're just here to see how it works, feel free to use a temporary account.",
-        "WHAT_DOES_IT_DO": "It's a simple car logbook app, similar to many others. However, its simplicity allows me to share it  publicly on GitHub. I work on this project in my free time. Below is a roadmap of features I plan to add in the future. Tiles with ribbons will be part of my own library and will be shared across all my applications."
+      "DESCRIPTION": "It's a simple and convenient tool for tracking all costs related to your car.",
+      "OVERVIEW": {
+        "DESCRIPTION": "Monitor fuel, tire, and insurance expenses, view statistics, and receive reminders about important dates - all in one app. Login is done exclusively via Google - no passwords, no account creation, fully secure and instantly accessible. Want to try it first? Use a temporary account with sample data and see how it works without any registration.",
+        "GENERAL": {
+          "HEADER": "All your car expenses and reminders in one place",
+          "DESCRIPTION": "This app is a simple and convenient tool for tracking all costs related to your car's operation. Record refueling, insurance, tire changes, and other expenses to get a full picture of your costs and better plan your budget.",
+          "KEY1": "Complete expense history",
+          "VALUE1": " - fuel, insurance, service, tire purchase and replacement.",
+          "KEY2": "Current tire summary",
+          "VALUE2": " - season, age, mileage, usage history.",
+          "KEY3": "Events and reminders",
+          "VALUE3": " - never miss an insurance expiry or seasonal tire change.",
+          "KEY4": "Insurance status",
+          "VALUE4": " - details about your current policy and notifications about its expiration.",
+          "FOOTER": "Gain control over your car's costs and safety - all in one clear dashboard."
+        },
+        "PWA": {
+          "HEADER": "Always at hand - thanks to PWA technology",
+          "DESCRIPTION": "The app was built as a Progressive Web App (PWA), meaning you can use it like a regular mobile app - without downloading it from the store.",
+          "KEY1": "Offline access (coming soon)",
+          "VALUE1": " - add refuelings, view tire and insurance data even without an internet connection.",
+          "KEY2": "One-click installation",
+          "VALUE2": " - install the app on your phone or computer home screen like a native app.",
+          "KEY3": "Fast performance",
+          "VALUE3": " - with local caching, the app loads instantly regardless of your network.",
+          "KEY4": "Automatic updates",
+          "VALUE4": " - always use the latest version without needing to update manually.",
+          "KEY5": "Security",
+          "VALUE5": " - all communication with the app is fully encrypted over HTTPS.",
+          "FOOTER": "Thanks to PWA, you always have your car data at hand - fast, convenient, and with no unnecessary installations."
+        },
+        "REFUELING": {
+          "HEADER": "Intuitive refueling - full control over fuel consumption",
+          "DESCRIPTION": "The refueling form is designed with convenience and automation in mind. Thanks to smart linking with your previous refueling, you don't have to enter data manually - the app does it for you.",
+          "KEY1": "Automatic linking with previous refueling",
+          "VALUE1": " - data like mileage and fuel amount are analyzed to accurately calculate statistics.",
+          "KEY2": "Fuel consumption calculation",
+          "VALUE2": " - the app shows your average fuel consumption since the last refueling.",
+          "KEY3": "Distance since last refueling",
+          "VALUE3": " - full info on how many kilometers you've driven on the current tank.",
+          "KEY4": "Driving cost",
+          "VALUE4": " - cost per 100 km helps you realistically assess expenses.",
+          "FOOTER": "Adding refuelings has never been so fast and useful - with data analysis, you get a complete picture of your driving efficiency."
+        }
+      },
+      "SPECS": {
+        "OAUTH2": {
+          "TITLE": "OAuth2",
+          "DESCRIPTION": "Security is the top priority of this app. That's why OAuth2.0 is used for login. This way, there's no need to store user passwords, and users don't have to remember yet another password."
+        },
+        "TEMPORARY_ACCOUNT": {
+          "TITLE": "Temporary Account",
+          "DESCRIPTION": "The temporary account allows you to log in quickly without registration. The system generates sample data to test the app. These accounts are deleted every night, and an automated process safely removes all data and dependencies created by such accounts."
+        },
+        "VPS": {
+          "TITLE": "Own VPS Server",
+          "DESCRIPTION": "The application runs on my own VPS server, giving me full control over the technologies in use."
+        },
+        "LIBRARIES": {
+          "TITLE": "Custom Libraries",
+          "DESCRIPTION": "The app uses my own custom libraries to streamline component development. This makes it easier to test shared components across my projects and avoid code duplication."
+        },
+        "PWA": {
+          "TITLE": "PWA",
+          "DESCRIPTION": "The application is built as a Progressive Web App, meaning you can use it like a regular mobile app - no need to download it from an app store."
+        },
+        "SMTP": {
+          "TITLE": "Custom SMTP",
+          "DESCRIPTION": "The app uses its own SMTP server to send notifications. In the future, it will support configurable reminders for important dates."
+        }
+      },
+      "ABOUT_ME": {
+        "DESCRIPTION": "My name is Fabian, and for the past five years I've been developing and maintaining several ERP applications using Java EE/JBoss with Angular 14. In my free time, I build applications with Java 17 and Spring Boot, paired with Angular 18. I'm also developing my own library for this framework."
+      }
+
+
+
     },
     "pl": {
     "sztyro":{
@@ -21,8 +96,8 @@
       "carapp": {
         "model": {
           "Car": {
-            "HEADER": "Samochód",
-            "HEADER$plural": "Samochody",
+            "HEADER": "Car",
+            "HEADER$plural": "Cars",
             "name": "Name",
             "lastInspection": "Last inspection",
             "productionYear": "Production year",
@@ -44,17 +119,21 @@
           },
           "RefuelEvent": {
             "HEADER": "Refueling",
+            "HEADER$plural": "Refuelings",
             "amountOfFuel": "Cuantity"
           },
           "RepairEvent": {
-            "HEADER": "Repair"
+            "HEADER": "Repair",
+            "HEADER$plural": "Repairs"
           },
           "InsuranceEvent": {
             "HEADER": "Insurance",
+            "HEADER$plural": "Insurances",
             "company": "Insurance company"
           },
           "TireChangeEvent": {
             "HEADER": "Tire change",
+            "HEADER$plural": "Tire changes",
             "tires": "Tires"
           },
           "InsuranceCompany": {

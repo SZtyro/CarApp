@@ -37,7 +37,7 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CoreModule } from '@sztyro/core';
+import { CoreModule, TabContainerComponent, TabComponent, ChartComponent } from '@sztyro/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EventComponent } from './components/forms/event-form/event.component';
@@ -134,6 +134,9 @@ export const MY_DATE_FORMATS = {
     MatMomentDateModule,
     MatSnackBarModule,
     MatBadgeModule,
+    TabContainerComponent,
+    TabComponent,
+    ChartComponent,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

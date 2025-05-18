@@ -16,6 +16,8 @@ import pl.sztyro.carapp.service.TireService;
 import pl.sztyro.core.enums.PermissionType;
 import pl.sztyro.core.model.BaseEntity;
 import pl.sztyro.core.rest.FilteredResult;
+import pl.sztyro.core.service.DateService;
+import pl.sztyro.core.service.PermissionService;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
@@ -39,6 +41,12 @@ public class TireChangeEventController extends BaseCarEventController<TireChange
 
     @Autowired
     private RefuelEventController refuelEventController;
+
+    @Autowired
+    private PermissionService permissionService;
+
+    @Autowired
+    private DateService dateService;
 
     public TireChangeEventController(){
         super(TireChangeEventController.class, TireChangeEvent.class);

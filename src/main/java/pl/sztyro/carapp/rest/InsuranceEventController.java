@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sztyro.carapp.model.InsuranceEvent;
+import pl.sztyro.carapp.repository.InsuranceEventRepository;
 import pl.sztyro.core.service.UserService;
 
 import java.io.IOException;
@@ -16,13 +17,16 @@ public class InsuranceEventController extends BaseCarEventController<InsuranceEv
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private InsuranceEventRepository repository;
+
     public InsuranceEventController(){
         super(InsuranceEventController.class, InsuranceEvent.class);
     }
 
 
     @Override
-    public void afterUpdateEntity(InsuranceEvent updatedEntity) throws IOException {
+    public void afterUpdateEntity(InsuranceEvent updatedEntity) {
         Map<String, String> params = new HashMap<>();
         params.put("previousEvent.id", String.valueOf(updatedEntity.getId()));
         List<InsuranceEvent> results = this.getAll(params).getResults();
@@ -48,7 +52,11 @@ public class InsuranceEventController extends BaseCarEventController<InsuranceEv
                     .previousEvent(this.repository.save(updatedEntity))
                     .build();
 
-            nextEvent = create(nextEvent).getBody();
+            try {
+                nextEvent = create(nextEvent).getBody();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             updatedEntity.setNextEvent(nextEvent);
             repository.save(updatedEntity);
 

@@ -27,7 +27,7 @@ public abstract class BaseCarEventController<T extends  CarEvent> extends BaseCo
     }
 
     @Override
-    public void beforeUpdateEntity(T dbEntity, T changes) throws IOException {
+    public void beforeUpdateEntity(T dbEntity, T changes) {
 
         if(changes.getCar() == null)
             throw new ResponseStatusException(

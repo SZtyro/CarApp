@@ -30,8 +30,11 @@ export class FuelSummary extends Field<any>{
 
   getPricePer100?(): string {
     let litresPer100 = this.calculate();
+    let totalPrice = this.formRef?.object.price;
+    let cuantity = this.formRef?.object.amountOfFuel;
+    
     if(litresPer100 != '?')
-      return (this.formRef?.object.price * Number(litresPer100)).toFixed(2);
+      return ((totalPrice / cuantity) * Number(litresPer100)).toFixed(2);
     else return '?';
   }
 

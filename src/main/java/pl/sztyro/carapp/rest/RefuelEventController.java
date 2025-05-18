@@ -23,7 +23,7 @@ public class RefuelEventController extends BaseCarEventController<RefuelEvent> {
     }
 
     @Override
-    public void beforeUpdateEntity(RefuelEvent dbEntity, RefuelEvent changes) throws IOException {
+    public void beforeUpdateEntity(RefuelEvent dbEntity, RefuelEvent changes) {
         super.beforeUpdateEntity(dbEntity, changes);
         CarEvent previousEvent = changes.getPreviousEvent();
 

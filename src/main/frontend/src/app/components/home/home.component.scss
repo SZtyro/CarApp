@@ -1,46 +1,48 @@
-#github{
-    background-color: #2B3137;
-    color: #ebebeb;
+
+
+
+
+.tile-wrapper{
+
+
+    & .tile{
+        background-color: var(--sys-surface-container-high);
+        color: var(--sys-on-surface);
+        border-radius: 12px;
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+
+
+        & .material-symbols-rounded{
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            color: rgb(177, 115, 115);
+        }
+
+        & .material-symbols-rounded.done{
+            color: #79a171;
+        }
+
+        & .material-symbols-rounded.underConsideration{
+            color: #738cc4;
+        }
+
+        & .material-symbols-rounded.inProgress{
+            color: #bfb26c;
+        }
+
+        & h5, & p{
+            margin: 0;
+        }
+
+    }
+
 }
 
-#linkedIn{
-    color: #ebebeb;
-    background: #0a66c2;
-}
-
-#wakatime{
-    color: #ebebeb;
-    background: #030711;
-}
-
-.tile{
-    background-color: var(--sys-surface-container-high);
-    color: var(--sys-on-surface);
-    border-radius: 8px;
-    padding: 12px;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-}
-
-.tile .material-symbols-rounded{
-    color: rgb(177, 115, 115);
-}
-
-.tile .material-symbols-rounded.done{
-    color: #79a171;
-}
-
-.tile h5, .tile p{
-    margin: 0;
-}
-
-.tile .material-symbols-rounded{
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-}
 
 .ribbon{
     position: absolute;
@@ -75,15 +77,12 @@ button img{
     padding-right: 4px;
 }
 
-button svg{
-    width: 20px;
-    height: 20px;
-    padding-right: 4px;
-}
+
 
 .btn-label{
     height: 19px;
     display: flex;
+    padding-left: 8px;
 }
 
 ::ng-deep .mdc-button__label{
@@ -94,9 +93,47 @@ a{
     text-decoration: none;
 }
 
+img.frame{
+    // border: 10px solid darkgrey;
+    box-shadow: black 10px 10px 42px;
+    &.thin{   
+        // border: 4px solid lightgrey;
+        box-shadow: black 5px 5px 22px;
+    }
+}
+
 .sections-wrapper{
     & > div {
         padding: 0px 10px 40px 10px;
+
+        & .description{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        & .image-wrapper{
+            display: flex;
+            align-items: center;
+        }
+
+        & .mobile{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            & img{
+                height: 90%;
+                position: absolute;
+                bottom: 94%;
+                right: 4%;
+                
+            }
+        }
+
+        & img{
+           
+           border-radius: 12px;
+        }
 
         & > div{
             padding-top: 20px;
@@ -110,3 +147,154 @@ a{
         margin: 4px 0;
     }
 }
+
+::ng-deep .tabs-wrapper{
+    background-color: transparent !important;
+
+    & .tabs{
+        border-radius: inherit;
+        background-color: var(--sys-surface-container-highest);
+        margin-bottom: 48px;
+    }
+}
+
+.welcome-tiles-wrapper{
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: row;
+
+    & h1{
+        font-size: 88px;
+    }
+
+    & .welcome-tile{
+        background-color: var(--sys-surface-container);
+        border-radius: 24px;
+        grid-column: span 1;
+
+        &.info{
+            padding: 56px;
+        }
+
+        &.image{
+            & div{
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                top: 25%;
+
+                & img{
+                    width: 40%;
+                    border-radius: 16px;
+                    border: solid 5px lightgrey;
+                }
+            }
+           
+
+            overflow: hidden;
+            height: 480px;
+
+            @media screen and (max-width: 576px) {
+                height: 198px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1294px){
+        .welcome-tile{
+            grid-column: span 2;
+        }
+    }
+}
+
+.about-me-container{
+
+    .row.charts{
+        
+        & > div {
+            text-align: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+
+            & lib-chart{
+                height: 300px;min-width: 200px;
+                display: flex;
+            }
+        }
+    }
+
+
+    & .profile-container{
+        & div > img{
+            width: 100%; 
+            border-radius: 48px 122px;
+
+            @media screen and (max-width: 1200px) and (min-width: 576px) {
+                border-radius: 48px 82px;
+                
+            }
+
+        }
+
+        & .link-container{
+            padding: 12px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            & a{
+                width: 100%;
+                & button{
+                    height: 48px;
+                    width: 100%;
+                    border-radius: 24px;
+                    & svg {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+            
+
+            & #github{
+                background-color: #2B3137;
+                color: #ebebeb;
+            }
+
+            & #linkedIn{
+                color: #ebebeb;
+                background: #0a66c2;
+            }
+
+            & #wakatime{
+                color: #ebebeb;
+                background: #030711;
+            }
+
+        }
+    }
+    
+}
+
+
+.specs-container{
+    & .tile{
+        padding: 16px;
+        border-radius: 24px;
+        background-color: var(--sys-surface-container);
+
+        & .header{
+            display: flex;
+            justify-content: space-between;
+            
+            & .material-symbols-rounded{
+                font-size: 30px;
+            }
+                
+        }
+    }
+}
+
+

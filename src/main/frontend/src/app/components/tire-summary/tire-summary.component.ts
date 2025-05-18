@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef,  ViewChild } from '@angular/core';
 import { Field, FieldProperties, GeneratorProperties, InstanceProperties } from '@sztyro/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { auditTime, map } from 'rxjs/operators';
