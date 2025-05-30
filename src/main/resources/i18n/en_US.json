@@ -71,10 +71,20 @@
         "SMTP": {
           "TITLE": "Custom SMTP",
           "DESCRIPTION": "The app uses its own SMTP server to send notifications. In the future, it will support configurable reminders for important dates."
+        },
+         "BETA": {
+          "TITLE": "Branch beta",
+          "DESCRIPTION": "The application has <a href=\"https://beta.carapp.sztyro.com\">branch beta</a> which allows testing new features before their official release. This way, users can test the latest features without fear of data loss. Beta has a separate database."
+        },
+        "JENKINS": {
+          "TITLE": "Jenkins",
+          "DESCRIPTION": "The application uses Jenkins to automate the build process."
         }
       },
-      "ABOUT_ME": {
-        "DESCRIPTION": "My name is Fabian, and for the past five years I've been developing and maintaining several ERP applications using Java EE/JBoss with Angular 14. In my free time, I build applications with Java 17 and Spring Boot, paired with Angular 18. I'm also developing my own library for this framework."
+      "ABOUT_ME":{
+        "DESCRIPTION": "My name is Fabian, and for the past five years, I've been developing and enhancing ERP and CRM applications using Java EE and Angular. I have in-depth knowledge of Angular - I started with migrating legacy projects from AngularJS. I independently designed and maintain two libraries that accelerate software development, automate form handling, and help prevent errors. I've worked with companies across various industries - from large enterprises to sole proprietorships. I've implemented process optimizations (Kaizen, FMEA), worked with PostgreSQL, Git, and Jira, and developed Android applications. In my free time, I work on personal projects using Spring Boot - one of which I host on my own VPS, where I also explore Linux and Docker.",
+        "DESCRIPTION_2": "When building applications, I pay close attention to scalability. I believe that every feature might need to be extended in the future, so careful architectural planning from the start is essential. I strive to make my code clean, readable, and easy to maintain. I avoid unnecessary duplication of logic. I create libraries with reusability in mind - as a solid foundation for future projects, helping me save time when starting new applications. I also enjoy experimenting with design. Despite the limited support for Material Design 3 in Angular, I actively work on implementing it in my projects.",
+        "FOOTER": "Besides programming, I enjoy playing video games. My favorite is Space Engineers - a sandbox game where I'm limited only by my imagination, not a storyline. It also allows writing simple scripts in C#, which adds another layer of fun for me. I'm also passionate about emerging technologies and aviation. In the future, I'd love to create my own video game."
       }
 
 
