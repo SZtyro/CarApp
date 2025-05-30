@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
     { title: 'App dashboard', description: 'Demo tiles, Detailed statistics and insights', state: 'done' },
     { title: 'Menu', description: 'Expandable menu with a tree structure, Mobile layout', state: 'done', library: true }, 
     { title: 'Welcome page', description: 'Public page for non-logged users, Overview tab, Specification tab, Roadmap tab, About me tab', state: 'done' },
+    { title: 'Jenkins', description: 'Continuous integration and delivery', state: 'done' },
     { title: 'Task system', description: 'Bug reporting, Development tracking, Feature requests', state: 'inProgress', library: true },
     { title: 'Enhanced statistics', description: 'Library chart component, Detailed cost dashboard charts', state: 'inProgress', library: true },
     { title: 'Notifications', description: 'Customizable notifications, Email based on event date', state: 'planned', library: true },
@@ -64,6 +65,8 @@ export class HomeComponent implements OnInit {
     { title: 'Maven', logo: 'https://www.svgrepo.com/show/373829/maven.svg', background: '#e87427'},
     { title: 'Tomcat', logo: 'https://www.svgrepo.com/show/354454/tomcat.svg', background: '#d1a41a'},
     { title: 'Linux', logo: 'https://www.svgrepo.com/show/452122/ubuntu.svg', background: '#e95420'},
+    { title: 'Jenkins', logo: 'https://www.svgrepo.com/show/373699/jenkins.svg', background: '#49728b'},
+    { title: 'Nginx', logo: 'https://www.svgrepo.com/show/354115/nginx.svg', background: '#009639'},
   ]
 
   specs = [
@@ -73,6 +76,8 @@ export class HomeComponent implements OnInit {
     {title: 'VPS', icon: 'host'},
     {title: 'LIBRARIES', icon: 'category'},
     {title: 'PWA', icon: 'install_desktop'},
+    {title: 'BETA', icon: 'experiment'},
+    {title: 'JENKINS', icon: 'rocket_launch'},
   ]
  
   

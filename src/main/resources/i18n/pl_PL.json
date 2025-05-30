@@ -36,7 +36,7 @@
     "DESCRIPTION": "To prosta aplikacja do prowadzenia dziennika samochodowego.",
     "WHAT_DOES_IT_DO": ", podobna do wielu innych. Jednak jej prostota pozwala mi udostępniać ją publicznie na GitHubie. Pracuję nad tym projektem w wolnym czasie. Poniżej znajduje się mapa drogowa funkcji, które planuję dodać w przyszłości.Kafelki z wstążkami będą częścią mojej własnej biblioteki i zostaną udostępnione we wszystkich moich aplikacjach.",
     "OVERVIEW": {
-      "DESCRIPTION": "Monitoruj wydatki na paliwo, opony i ubezpieczenie, przeglądaj statystyki oraz otrzymuj przypomnienia o ważnych terminach – wszystko w jednej aplikacji. Logowanie odbywa się wyłącznie przez Google – bez haseł, bez zakładania kont, z pełnym bezpieczeństwem i błyskawicznym dostępem. Chcesz najpierw sprawdzić możliwości? Skorzystaj z konta tymczasowego z przykładowymi danymi i zobacz, jak to działa bez żadnej rejestracji.",
+      "DESCRIPTION": "Monitoruj wydatki na paliwo, opony i ubezpieczenie, przeglądaj statystyki oraz otrzymuj przypomnienia o ważnych terminach - wszystko w jednej aplikacji. Logowanie odbywa się wyłącznie przez Google - bez haseł, bez zakładania kont, z pełnym bezpieczeństwem i błyskawicznym dostępem. Chcesz najpierw sprawdzić możliwości? Skorzystaj z konta tymczasowego z przykładowymi danymi i zobacz, jak to działa bez żadnej rejestracji.",
       "GENERAL": {
         "HEADER": "Wszystkie wydatki i terminy w jednym miejscu",
         "DESCRIPTION": "Aplikacja ta to proste i wygodne narzędzie do monitorowania wszystkich kosztów związanych z eksploatacją samochodu. Rejestruj tankowania, ubezpieczenia, wymiany opon i inne wydatki, aby mieć pełny obraz swoich kosztów i lepiej planować budżet.",
@@ -80,7 +80,9 @@
       }
     },
     "ABOUT_ME":{
-      "DESCRIPTION": "Nazywam się Fabian i od pięciu lat tworzę i rozwijam kilka aplikacji ERP w Java EE/JBoss z Angular 14. W wolnym czasie piszę aplikacje w Java 17 z użyciem SpringBoot opartej na Angular 18. Rozwijam również własną bibliotekę do tego frameworku."
+      "DESCRIPTION": "Nazywam się Fabian i od 5 lat tworzę i rozwijam aplikacje ERP i CRM w technologiach Java EE i Angular. Mam dogłębną znajomość Angulara - zaczynałem od migracji z AngularJS. Samodzielnie zaprojektowałem i rozwijam dwie biblioteki, które przyspieszają tworzenie oprogramowania, automatyzują formularze i zapobiegają błędom. Współpracowałem z firmami z różnych branż - od dużych przedsiębiorstw po jednoosobowe działalności. Wdrażałem optymalizacje procesów (Kaizen, FMEA). Pracowałem z PostgreSQL, GIT, Jira, tworzyłem też aplikacje na Androida. Po godzinach rozwijam własne projekty w Spring Boot - jedną z aplikacji hostuję na swoim VPS, gdzie uczę się Linuxa i Dockera.",
+      "DESCRIPTION_2": "Tworząc aplikacje, zwracam szczególną uwagę na ich skalowalność. Wierzę, że każda funkcja może w przyszłości wymagać rozbudowy, dlatego staranne planowanie architektury już na wczesnym etapie jest dla mnie kluczowe. Dbam o to, by mój kod był czytelny, przejrzysty i łatwy do modyfikacji. Unikam zbędnego powielania logiki. Tworzę biblioteki z myślą o ponownym wykorzystaniu ich w kolejnych projektach - jako solidny fundament, który pozwala mi zaoszczędzić czas przy budowie nowych aplikacji. Lubię eksperymentować z designem. Pomimo ograniczonego wsparcia dla Material Design 3 w Angularze, staram się go konsekwentnie wdrażać.",
+      "FOOTER": "W wolnym czasie, oprócz programowania, lubię grać w gry komputerowe. Moją ulubioną jest Space Engineers - gra, która nie ogranicza mnie fabułą, a jedynie wyobraźnią. Pozwala również na pisanie prostych skryptów w C#, co daje mi dodatkową frajdę z tworzenia. Interesuję się również nowinkami technologicznymi oraz lotnictwem. W przyszłości chciałbym stworzyć własną grę komputerową."
     },
     "SPECS":{
       "OAUTH2": {
@@ -89,7 +91,7 @@
       },
       "TEMPORARY_ACCOUNT": {
         "TITLE": "Konto tymczasowe",
-        "DESCRIPTION": "Konto tymczasowe pozwala na szybkie zalogowanie się bez potrzeby rejestracji. System generuje przykładowe dane do przetestowania aplikacji. Konta kasowane są każdej nocy, a automat czyści w bezpeiczny sposób, wszystkie zależności utworzone przez takie konto."
+        "DESCRIPTION": "Konto tymczasowe pozwala na szybkie zalogowanie się bez potrzeby rejestracji. System generuje przykładowe dane do przetestowania aplikacji. Konta kasowane są każdej nocy, a automat czyści w bezpieczny sposób, wszystkie zależności utworzone przez takie konto."
       },
       "VPS": {
         "TITLE": "Własny serwer VPS",
@@ -106,6 +108,14 @@
       "SMTP": {
         "TITLE": "Własny SMTP",
         "DESCRIPTION": "Aplikacja korzysta z własnego SMTP do wysyłania powiadomień. W przyszłości będzie możliwość skonfigurowania przypomnień o ważnych terminach."
+      },
+      "BETA": {
+        "TITLE": "Branch beta",
+        "DESCRIPTION": "Aplikacja zawiera <a href=\"https://beta.carapp.sztyro.com\">branch beta</a> który pozwala na testowanie nowych funkcji przed ich oficjalnym wydaniem. Dzięki temu urzytkownicy mogą przetestować najnowszye funkcje bez obawy o utratę danych. Beta ma osobną bazę danych."
+      },
+      "JENKINS": {
+        "TITLE": "Jenkins",
+        "DESCRIPTION": "Aplikacja korzysta z Jenkinsa do automatyzacji procesu budowania."
       }
     }
   },
@@ -277,5 +287,7 @@
   "Languages over last week": "Języki w ostatnim tygodniu",
   "Languages over last year": "Języki w ostatnim roku",
   "Time tracked on project:": "Czas śledzony w projekcie:",
-  "Time tracked in shared library:": "Czas śledzony w bibliotece:"
+  "Time tracked in shared library:": "Czas śledzony w bibliotece:",
+  "Continuous integration and delivery": "Ciągła integracja i dostarczanie",
+  "Time tracked over last year": "Czas śledzony w ostatnim roku"
 }
