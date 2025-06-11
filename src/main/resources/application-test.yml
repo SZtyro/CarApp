@@ -6,6 +6,7 @@ server:
     error:
         include-message: always
 spring:
+    security.rememberme.key: 123
     config:
         import: optional:file:.env[.properties]
     datasource:
