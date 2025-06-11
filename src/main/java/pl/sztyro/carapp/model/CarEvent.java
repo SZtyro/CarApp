@@ -3,6 +3,7 @@ package pl.sztyro.carapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,6 +42,7 @@ public abstract class CarEvent extends BaseEntity implements MenuItem {
 
     @Column
     @FrontendSearch
+    @Builder.Default
     private Date date = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY)

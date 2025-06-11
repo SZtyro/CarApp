@@ -4,17 +4,23 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.sztyro.carapp.model.Car;
 import pl.sztyro.carapp.model.InsuranceEvent;
 import pl.sztyro.carapp.repository.InsuranceEventRepository;
+import pl.sztyro.core.model.User;
 
 import java.io.IOException;
 import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class InsuranceEventControllerIntegrationTest extends BaseEventIntegrationTest{
+
+    private Car othersUserCar;
     
     @Autowired
     private InsuranceEventController controller;
@@ -26,6 +32,15 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
     @Override
     public void init() {
         super.init();
+        User otherUser = users.save(User.builder().email("otherUser@test.com").build());
+        othersUserCar = cars.save(Car.builder().author(otherUser).draft(false).build());
+        repository.save(InsuranceEvent.builder()
+                .car(othersUserCar)
+                .date(dateService.builder().add(Calendar.DAY_OF_MONTH, -1).build())
+                .build()
+        );
+        repository.save(InsuranceEvent.builder().car(toyota).build());
+
     }
 
     @Test
@@ -60,5 +75,17 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
         assertNotNull(nextEvent.getAuthor());
         assertNotNull(nextEvent.getCar());
         assertEquals(newEntity.getCar().getId(), nextEvent.getCar().getId());
+    }
+
+    @Test
+    public void shouldRespectPermissions() throws Exception {
+
+        String url = "/api/events/type/insurance/current/";
+        //Not logged
+        mvc.perform(get(url + othersUserCar.getId())).andExpect(status().isUnauthorized());
+        //Trying to get car without access
+        mvcOAuth2(get(url + othersUserCar.getId())).andExpect(status().isForbidden());
+        //Get owned car insurance
+        mvcOAuth2(get(url + toyota.getId())).andExpect(status().isOk());
     }
 }

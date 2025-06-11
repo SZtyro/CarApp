@@ -46,18 +46,7 @@ export class EventService extends BaseRestService<any> {
   }
 
   getCurrentInsurance(carId: number): Observable<any>{
-    return this.getAll({
-      'car.id' : carId,
-      size: 1,
-      entityType: 'pl.sztyro.carapp.model.InsuranceEvent',
-      'nextEvent.id': '!null'
-    }).pipe(
-      switchMap(events => {
-        if(events.results.length > 0)
-          return this.getEvent(events.results[0].id, 'pl.sztyro.carapp.model.InsuranceEvent')
-        else return of(null);
-      })
-    )
+    return this.http.get(`${this.endpoint}/type/insurance/current/${carId}`);
   }
 
   openCurrentInsurance(carId: number): void{
