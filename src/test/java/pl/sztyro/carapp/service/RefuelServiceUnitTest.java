@@ -1,11 +1,10 @@
-package pl.sztyro.carapp.rest;
+package pl.sztyro.carapp.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import pl.sztyro.carapp.model.Car;
-import pl.sztyro.carapp.service.RefuelService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

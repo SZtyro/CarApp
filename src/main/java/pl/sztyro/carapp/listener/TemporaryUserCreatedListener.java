@@ -70,6 +70,7 @@ public class TemporaryUserCreatedListener {
                 .car(multipla)
                 .author(tempUser)
                 .draft(false)
+                .price(750.0)
                 .date(dateService.builder().add(Calendar.DATE, 10).build())
                 .build()
         );
@@ -77,6 +78,7 @@ public class TemporaryUserCreatedListener {
                 .car(vugattiBeyron)
                 .author(tempUser)
                 .draft(false)
+                .price(240.0)
                 .date(dateService.builder().add(Calendar.DATE, 14).build())
                 .build()
         );
@@ -132,7 +134,9 @@ public class TemporaryUserCreatedListener {
                                 )
                                 .build()).getBody();
                         refuelEvent.setMileage(mileage);
-                        refuelEvent.setAmountOfFuel(25.0 + mileage/1000);
+                        double amount = 25.0 + ((double) mileage /1000);
+                        refuelEvent.setAmountOfFuel(amount);
+                        refuelEvent.setPrice(amount * 6.30);
                         refuelEventController.update(refuelEvent.getId(), refuelEvent);
                     } catch (IOException e) {
                         log.info("There is a problem creating refuel event for temporary user.", e);

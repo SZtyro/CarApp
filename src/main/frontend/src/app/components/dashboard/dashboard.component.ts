@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, merge, Observable, of, startWith, Subject, Subscription, switchMap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
 import { RoleService, Utils } from '@sztyro/core'
 import { TranslateService } from '@ngx-translate/core';
-import { Chart } from 'chart.js/auto';
 import { CarService } from './../../services/car.service';
+import { ChartConfiguration } from 'chart.js/auto';
 
 type DashboardEvent = {car: any, events: any[]}
 
@@ -13,10 +13,7 @@ type DashboardEvent = {car: any, events: any[]}
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  @ViewChild('chart') chartRef!: ElementRef<HTMLCanvasElement>;
-  private chartInstance: Chart;
+export class DashboardComponent implements OnInit, OnDestroy {
 
   private carEventTypes: object = {};
 
@@ -44,6 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mainCar$ = this.cars.getAll().pipe(
       map(cars => cars.results?.[0])
     )
+   this.prepareChart();
 
   }
 
@@ -56,6 +54,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   today: Date = new Date();
   monthLater: Date = new Date(this.today.getFullYear(),this.today.getMonth() + 1, this.today.getDate());
   incomingEvents$: Observable<DashboardEvent[]>;
+  summaryChartConfig$: Observable<ChartConfiguration>;
 
   newsSwitch$: Subject<'Article'| 'Changelog' | 'Voting'> = new BehaviorSubject('Article');
   news: any[] = [];
@@ -87,13 +86,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.langSubscritpion$.unsubscribe();
     this.carEventTypesSubscritpion$.unsubscribe();
-    if (this.chartInstance) {
-      this.chartInstance.destroy();
-    }
-  }
-
-  ngAfterViewInit(): void {
-    this.createChart();
+    
   }
 
   getIconFor?(type){
@@ -168,91 +161,66 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  createChart(): void {
+  prepareChart(): void {
 
-    if (!this.chartRef?.nativeElement) {
-      console.error('Chart reference is not initialized.');
-      return;
-    }
+    this.summaryChartConfig$ = this.mainCar$.pipe(
+      switchMap(car => car ? this.events.getSummary(car.id) : of({})),
+      map(summary => {
+        const keys = Object.keys(summary);
+        const months = keys.map(key => this.translate.instant(key[0].toUpperCase() + key.slice(1)));
 
-    const months = Array.from({ length: 12 }, (_, i) =>
-      new Intl.DateTimeFormat(this.translate.currentLang.split('_')[0], { month: 'long' }).format(new Date(2000, i))
-    ).map(month => month[0].toUpperCase() + month.slice(1));
-
-    const refuelings = [600, 550, 580, 620, 590, 610, 630, 600, 620, 580, 600, 590];
-    const repairs = [0, 0, 0, 0, 0, 0, 0, 1200, 0, 0, 0, 1500];
-    const others = [0, 0, 0, 200, 0, 0, 0, 0, 0, 300, 200, 1200];
-
-    this.translate.get([
-      'pl.sztyro.carapp.model.RefuelEvent.HEADER',
-      'pl.sztyro.carapp.model.RepairEvent.HEADER',
-      'Others'
-    ]).subscribe(translations => {
-
-      try{
-        if(this.chartInstance == null){
-          this.chartInstance = new Chart(this.chartRef.nativeElement, {
-            type: 'bar',
-            data: {
-              labels: months,
-              datasets: [
-                {
-                  label: translations['pl.sztyro.carapp.model.RefuelEvent.HEADER'],
-                  data: refuelings,
-                  backgroundColor: Utils.Style.hexAdjustBrightness(Utils.Style.getCssVariable('--sys-primary-fixed-dim'), 0.5),
-                  borderRadius: 12,
-                  stack: 'costs'
-                },
-                {
-                  label: translations['pl.sztyro.carapp.model.RepairEvent.HEADER'],
-                  data: repairs,
-                  backgroundColor: Utils.Style.hexAdjustBrightness(Utils.Style.getCssVariable('--sys-primary-fixed-dim'), 0.6),
-                  borderRadius: 12,
-                  stack: 'costs'
-                },
-                {
-                  label:  translations['Others'],
-                  data: others,
-                  backgroundColor: Utils.Style.hexAdjustBrightness(Utils.Style.getCssVariable('--sys-primary-fixed-dim'), 0.7),
-                  borderRadius: 12,
-                  stack: 'costs'
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false, 
-              scales: {
-                y: { beginAtZero: true }
-              },
-              plugins: {
-                tooltip: {
-                  enabled: true, 
-                  backgroundColor: Utils.Style.getCssVariable('--sys-surface-dim'), 
-                  titleColor: Utils.Style.getCssVariable('--sys-on-surface') , 
-                  bodyColor: Utils.Style.getCssVariable('--sys-on-surface'), 
-                  usePointStyle: true,
-                  caretSize: 0,
-                  cornerRadius: 8,
-                  padding: 10,
-                  displayColors: false,
-                  callbacks: {
-                    label: function (context) {
-                      
-                      return `${context.dataset.label}: ${context.raw} zł`; 
-                    }
-                  }
-                }
-              },
-            }
-          });
+        const events = {
+          'pl.sztyro.carapp.model.RefuelEvent': '#76a773',
+          'pl.sztyro.carapp.model.RepairEvent': '#cdb485',
+          'pl.sztyro.carapp.model.InsuranceEvent': '#8c8cb1',
+          'pl.sztyro.carapp.model.TireChangeEvent': '#c0c0c0',
         }
-      }catch(e){
-        console.error(e);
-      }
+
+        return {
+          type: 'bar',
+          data:{
+            labels: months,
+            datasets: Object.keys(events).map(eventType => {
+              return {
+                label: this.translate.instant(eventType + '.HEADER'),
+                data: keys.map(month => summary[month]?.find(k => k.type === eventType)?.sum ?? 0),
+                borderColor: events[eventType],
+                backgroundColor: events[eventType],
+                borderRadius: 8,
+                maxBarThickness: 32,
+                stack: 'costs'
+              }
+            }),
+          },
+          options: {
+          responsive: true,
+          maintainAspectRatio: false, 
+          scales: {
+            y: { beginAtZero: true }
+          },
+          plugins: {
+            tooltip: {
+              enabled: true, 
+              backgroundColor: Utils.Style.getCssVariable('--sys-surface-dim'), 
+              titleColor: Utils.Style.getCssVariable('--sys-on-surface') , 
+              bodyColor: Utils.Style.getCssVariable('--sys-on-surface'), 
+              usePointStyle: true,
+              caretSize: 0,
+              cornerRadius: 8,
+              padding: 10,
+              displayColors: false,
+              callbacks: {
+                label: function (context) {
+                  return `${context.dataset.label}: ${Number(context.raw).toFixed(2)} zł`; 
+                }
+              }
+            }
+          },
+          }
+        }
+      })
+    )
     
-    
-    }, err => console.error(err))
   }
 
   switchAction(index: number): void {

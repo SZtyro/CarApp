@@ -60,7 +60,6 @@ public abstract class BaseIntegrationTest {
         user.setEmail(testerMail);
         users.save(user);
 
-        System.out.println("Tester " + testerMail);
     }
 
     @BeforeEach

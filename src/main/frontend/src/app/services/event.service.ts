@@ -68,6 +68,10 @@ export class EventService extends BaseRestService<any> {
     return this.http.get(`${this.endpoint}/type/tireChange/summary/${carId}`)
   }
 
+  getSummary(carId: number): Observable<any>{
+    return this.http.get(`api/dashboard/summary/${carId}`)
+  }
+
   private getTypeRouting(entityType, addDash?:boolean): string{
     let type: string = "";
     if(entityType != null){
