@@ -50,10 +50,9 @@
     <div class="col-12 cost-tile">
       <div class="d-flex">
         <div class="header">{{'Costs' | translate}}</div>
-        <div class="demo">Demo</div>
       </div>
-      <div class="content p-3 d-flex">
-        <canvas #chart></canvas>
+      <div class="content p-3">
+        <lib-chart [chartConfig$]="summaryChartConfig$"></lib-chart>
       </div>
           
     </div>

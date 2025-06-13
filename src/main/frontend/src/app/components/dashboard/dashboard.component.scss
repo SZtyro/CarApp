@@ -144,10 +144,14 @@ mat-icon{
 }
 
 .cost-tile{
-    & .content{
+    & .content {
         background-color: var(--sys-surface-container);
-        height: 300px;
         border-radius: 32px;
+        
+        & ::ng-deep .chart-wrapper{
+            height: 300px !important;
+            
+        }
     }
 }
 

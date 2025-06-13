@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     { title: 'Welcome page', description: 'Public page for non-logged users, Overview tab, Specification tab, Roadmap tab, About me tab', state: 'done' },
     { title: 'Jenkins', description: 'Continuous integration and delivery', state: 'done' },
     { title: 'Task system', description: 'Bug reporting, Development tracking, Feature requests', state: 'inProgress', library: true },
-    { title: 'Enhanced statistics', description: 'Library chart component, Detailed cost dashboard charts', state: 'inProgress', library: true },
+    { title: 'Enhanced statistics', description: 'Library chart component, Detailed cost dashboard charts', state: 'done', library: true },
     { title: 'Notifications', description: 'Customizable notifications, Email based on event date', state: 'planned', library: true },
     { title: 'Trips', description: "Splitting trip costs", state: 'planned' },
     { title: 'Core 1.0', description: 'Full version of form builder', state: 'planned', library: true },

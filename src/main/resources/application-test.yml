@@ -30,6 +30,7 @@ spring:
                     auto: create-drop
                     create_namespaces: true
                 show_sql: false
+                format_sql: true
         #                connection:
         #                    url: jdbc:postgresql://localhost:5432/testdb;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS core
         show-sql: false
