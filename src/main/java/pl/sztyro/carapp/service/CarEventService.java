@@ -57,6 +57,7 @@ public class CarEventService {
         private String type;
 
         public Double add(Double addition){
+            if(addition == null) addition = 0.0;
             if(this.sum == null) {
                 this.sum = addition;
                 return addition;
