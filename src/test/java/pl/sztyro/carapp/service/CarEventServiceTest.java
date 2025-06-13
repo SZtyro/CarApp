@@ -18,6 +18,7 @@ import pl.sztyro.core.service.DateService;
 import javax.persistence.EntityManager;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +50,9 @@ class CarEventServiceTest {
         Mockito.when(dateService.now()).thenReturn(calendar.getTime());
 
         Car test = em.merge(Car.builder().name("Test").build());
+        em.merge(RefuelEvent.builder().car(test).date(Utils.Date.from(2023,3,10)).price(10.0).build());
         em.merge(RefuelEvent.builder().car(test).date(Utils.Date.from(2024,3,10)).price(10.0).build());
+        em.merge(RefuelEvent.builder().car(test).date(Utils.Date.from(2024,3,10)).build());
         em.merge(RefuelEvent.builder().car(test).date(Utils.Date.from(2024,3,22)).price(15.0).build());
         em.merge(RefuelEvent.builder().car(test).date(Utils.Date.from(2024,4,22)).price(15.0).build());
         em.merge(InsuranceEvent.builder().car(test).date(Utils.Date.from(2024,3,1)).price(800.0).build());
