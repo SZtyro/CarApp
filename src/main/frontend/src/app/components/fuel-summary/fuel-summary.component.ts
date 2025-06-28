@@ -23,7 +23,7 @@ export class FuelSummary extends Field<any>{
 
   calculate?(){
     let latestRefuelMileage = this.formRef?.object.previousEvent?.mileage ?? 0;
-    let n = Number((100 * this.formRef?.object.amountOfFuel)/(this.formRef?.object.mileage - latestRefuelMileage)).toFixed(2)
+    let n = Number((this.formRef?.object.amountOfFuel)/(this.formRef?.object.mileage - latestRefuelMileage)).toFixed(2)
     if(n == 'NaN') return '?'
     else return n;
   }

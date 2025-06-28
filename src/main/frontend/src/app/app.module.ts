@@ -37,7 +37,7 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CoreModule, TabContainerComponent, TabComponent, ChartComponent } from '@sztyro/core';
+import { CoreModule, TabContainerComponent, TabComponent, ChartComponent, IssueModule } from '@sztyro/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EventComponent } from './components/forms/event-form/event.component';
@@ -143,6 +143,7 @@ export const MY_DATE_FORMATS = {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    IssueModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },
