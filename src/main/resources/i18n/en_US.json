@@ -92,17 +92,6 @@
     },
     "pl": {
     "sztyro":{
-      "core": {
-        "model": {
-          "Role": {
-            "HEADER":"Role",
-            "HEADER$plural": "Roles",
-            "name": "Name",
-            "description": "Opis",
-            "members": "Członkowie"
-          }
-        }
-      },
       "carapp": {
         "model": {
           "Car": {

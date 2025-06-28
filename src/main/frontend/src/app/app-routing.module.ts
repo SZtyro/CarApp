@@ -5,7 +5,7 @@ import { EventFormComponent } from './components/forms/event-form/event-form.com
 import { EventService } from './services/event.service';
 import { CarService } from './services/car.service';
 import { CarFormComponent } from './components/forms/car-form/car-form.component';
-import { BaseFormComponent, BaseRestService, BaseSearchComponent, RESOURCE, RoleComponent, RoleService, ProfileService, LoginComponent} from '@sztyro/core';
+import { BaseFormComponent, BaseRestService, BaseSearchComponent, RESOURCE, RoleComponent, RoleService, ProfileService, LoginComponent, IssueService, IssueTypeService, IssueTypeComponent, IssueComponent} from '@sztyro/core';
 import { EventComponent } from './components/forms/event-form/event.component';
 import { InsuranceCompanyService } from './services/insurance-company.service';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
@@ -77,6 +77,8 @@ const routes: Routes = [
       { path: 'TireCompanies', children: getChildren(TireCompanyFormComponent, TireCompanyService) },
       standard('Tires', TireComponent, TireService),
       standard('TireModels', TireModelComponent, TireModelService),
+      standard('IssueTypes', IssueTypeComponent, IssueTypeService),
+      standard('Issues', IssueComponent, IssueService),
       {
         path: '',
         redirectTo: '/home',
