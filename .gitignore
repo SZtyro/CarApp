@@ -41,3 +41,4 @@ node
 
 /src/main/webapp/
 build.bat
+/src/main/resources/CHANGELOG.md

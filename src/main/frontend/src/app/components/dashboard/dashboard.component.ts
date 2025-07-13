@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
-import { RoleService, Utils } from '@sztyro/core'
+import { InfoService, RoleService, Utils } from '@sztyro/core'
 import { TranslateService } from '@ngx-translate/core';
 import { CarService } from './../../services/car.service';
 import { ChartConfiguration } from 'chart.js/auto';
@@ -21,8 +21,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private events: EventService,
     private roles: RoleService,
     private translate: TranslateService,
-    private cars: CarService
+    private cars: CarService,
+    private infoService: InfoService
   ) { 
+    this.changelog$ = this.infoService.getChangelog();
     this.incomingEvents$ = this.events.getAll({
       "sort": 'date:ASC',
       "size": 3,
@@ -56,7 +58,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   incomingEvents$: Observable<DashboardEvent[]>;
   summaryChartConfig$: Observable<ChartConfiguration>;
 
-  newsSwitch$: Subject<'Article'| 'Changelog' | 'Voting'> = new BehaviorSubject('Article');
+  changelog$: Observable<any[]>;
+  newsSwitch$: Subject<'Article'| 'Changelog' | 'Voting'> = new BehaviorSubject('Changelog');
   news: any[] = [];
   newsActions: any[] = [
     {icon: 'news', action: 'Article'},
@@ -92,6 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getIconFor?(type){
     return this.carEventTypes[type];
   }
+
 
 
   /**

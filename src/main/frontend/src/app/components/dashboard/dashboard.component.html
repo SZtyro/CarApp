@@ -36,7 +36,7 @@
       <div class="row">
         <div class="col-6" >
           <div class="left-tile" >
-          
+            {{car.lowestConsumption | number:'1.0-2'}} l/100km
           </div>
         </div>
         <div class="col-6">
@@ -61,38 +61,32 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex">
           <div class="header">{{'News' | translate}}</div>
-          <div class="demo">Demo</div>
         </div>
         <div class="news-btns d-flex d-md-none mobile">
-          <button mat-button *ngFor="let btn of newsActions; let index = index" [hidden]="btn.action != (newsSwitch$ | async)" (click)="switchAction(index)"><span class="material-symbols-rounded" [matBadge]="btn.badge" >{{btn.icon}}</span></button>
+          <button [disabled]="btn.action === 'Voting'" mat-button *ngFor="let btn of newsActions; let index = index" [hidden]="btn.action != (newsSwitch$ | async)" (click)="switchAction(index)"><span class="material-symbols-rounded" [matBadge]="btn.badge" >{{btn.icon}}</span></button>
         </div>
       </div>
       <div class="d-flex">
         <div class="news-btns flex-column d-none d-md-flex desktop">
-          <button mat-button *ngFor="let btn of newsActions" (click)="newsSwitch$.next(btn.action)"><span class="material-symbols-rounded" [matBadge]="btn.badge" >{{btn.icon}}</span></button>
+          <button [disabled]="btn.action === 'Voting'" mat-button *ngFor="let btn of newsActions" (click)="newsSwitch$.next(btn.action)"><span class="material-symbols-rounded" [matBadge]="btn.badge" >{{btn.icon}}</span></button>
         </div>
 
         <span [ngSwitch]="newsSwitch$ | async" class="w-100">
           <div *ngSwitchCase="'Changelog'" class="d-flex flex-column gap-3">
-            <div class="tile p-3" *ngFor="let article of news" >
+            <div class="tile" style="padding: 16px 16px 16px 22px" *ngFor="let section of changelog$ | async" >
               <div class="tile-header">
-                <span>[{{article.version}}]&nbsp;{{article.title}}</span>
+                <span>v{{section.version}}&nbsp;{{section.title}}</span>
+                <span class="date">{{section.date}}</span>
               </div>
               <div class="tile-content changelog-content">
                 <div class="d-flex flex-column">
-                  <div *ngFor="let add of article.added" class="d-flex">
-                    <span class="material-symbols-rounded" style="color: #79a171;">add_circle</span>&nbsp;
-                    <span>{{add}}</span>
+                  <div *ngFor="let change of section.changes">
+                    <span [ngSwitch]="change.type" class="change-wrapper">
+                      <span *ngSwitchCase="'ADD'"><span class="dot" style="background-color: #94c48a;"></span>&nbsp;{{change.message}}</span>
+                      <span *ngSwitchCase="'FIX'"><span class="dot" style="background-color: rgb(226, 214, 162);"></span>&nbsp;{{change.message}}</span>
+                      <span *ngSwitchCase="'CHORE'"><span class="dot" style="background-color: rgb(156, 166, 185);"></span>&nbsp;{{change.message}}</span>
+                    </span>
                   </div>
-                  <div *ngFor="let fix of article.fixes" class="d-flex">
-                    <span class="material-symbols-rounded" style="color: rgb(108, 142, 187);">build_circle</span>&nbsp;
-                    <span>{{fix}}</span>
-                  </div>
-                  <div *ngFor="let deleted of article.deleted" class="d-flex">
-                    <span class="material-symbols-rounded" style="color: rgb(177, 115, 115);">cancel</span>&nbsp;
-                    <span>{{deleted}}</span>
-                  </div>
-                  
                 </div>
               </div>
             </div>
