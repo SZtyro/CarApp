@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActionButton, BaseFormComponent, BaseRestService, ChipsField, DateField, Div, GeneratorProperties, InputField, SelectField, SelectOption } from '@sztyro/core';
+import { ActionButton, BaseFormComponent, ChipsField, DateField, Div, GeneratorProperties, InputField, SelectField } from '@sztyro/core';
 import { TireService } from './tire.service';
 import { TireModelService } from '../tire-model/tire-model.service';
-import { map, mergeMap, Observable, of, switchMap } from 'rxjs';
+import { mergeMap, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-tire',
@@ -40,11 +40,10 @@ export class TireComponent extends BaseFormComponent {
         InputField.create({path: 'loadRating', options: {class: 'col-md-4'}}),
         InputField.create({path: 'speedRating', options: {class: 'col-md-4'}}),
         DateField.create({path: 'date', options: {class: 'col-md-4'}}),
-        SelectField.create({path: 'placement', options: {
+        SelectField.fromEnum({path: 'placement', options: {
           class: 'col-md-4', 
-          selectOptions: this.resource.getEnum("pl.sztyro.carapp.enums.TirePlacement").pipe(
-            map(e => e.map(x => new SelectOption(x.name)))
-          )
+          resource: this.resource,
+          enumType: "pl.sztyro.carapp.enums.TirePlacement"
         }}),
       )
     ]

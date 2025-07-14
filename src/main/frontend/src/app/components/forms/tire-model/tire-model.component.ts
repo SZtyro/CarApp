@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { BaseFormComponent, BaseRestService, ChipsField, Div, GeneratorProperties, InputField, SelectField, SelectOption } from '@sztyro/core';
+import { BaseFormComponent, ChipsField, Div, GeneratorProperties, InputField, SelectField } from '@sztyro/core';
 import { TireModelService } from './tire-model.service';
 import { TireCompanyService } from 'src/app/services/tire-company.service';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-tire-model',
@@ -17,9 +16,11 @@ export class TireModelComponent extends BaseFormComponent<any>{
       return [
         Div.tileStandard(
           InputField.create({path: 'name', options:{ class: 'col-md-6'}}),
-          SelectField.create({path: 'type', options: {
+          SelectField.fromEnum({path: 'type', options: {
             class: 'col-md-6',
-            selectOptions: this.resource.getEnum("pl.sztyro.carapp.enums.TireType").pipe(map(e => e.map(x => new SelectOption(x.name))))
+            resource: this.resource,
+            isRequired: () => true,
+            enumType: "pl.sztyro.carapp.enums.TireType"
           }}),
           ChipsField.restPicker(this.companies, {path: 'company', options: {}}),
         
