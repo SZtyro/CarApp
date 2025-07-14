@@ -93,6 +93,23 @@
     "pl": {
     "sztyro":{
       "carapp": {
+        "enums": {
+          "TireType": {
+            "HEADER": "Tire type",
+            "HEADER$plural": "Tires type",
+            "Summer": "Summer",
+            "Winter": "Winter",
+            "AllSeason": "All Season"
+          },
+          "TirePlacement": {
+            "HEADER": "Tire placement",
+            "HEADER$plural": "Tire placements",
+            "RR": "Right rear",
+            "RF": "Right front",
+            "LR": "Left rear",
+            "LF": "Left front"
+          }
+        },
         "model": {
           "Car": {
             "HEADER": "Car",
@@ -168,6 +185,17 @@
             "diameter": "Diameter",
             "loadRating": "Load rating",
             "speedRating": "Speed rating"
+          }
+        }
+      },
+      "workflow": {
+        "enums": {
+          "IssueStates": {
+            "VERIFICATION": "Verification",
+            "REGISTERED": "Registered",
+            "OPENED": "Opened",
+            "REJECTED": "Rejected",
+            "CLOSED": "Closed"
           }
         }
       }
