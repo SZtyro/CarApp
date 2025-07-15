@@ -94,6 +94,11 @@
     "sztyro":{
       "carapp": {
         "enums": {
+          "CarCareType": {
+            "SERVICE": "Service",
+            "WASHING": "Washing",
+            "ACCESSORY": "Accessory"
+          },
           "TireType": {
             "HEADER": "Tire type",
             "HEADER$plural": "Tires type",
@@ -132,6 +137,12 @@
             "previousEvent": "Previous event",
             "nextEvent": "Next event",
             "price": "Price"
+          },
+          "CarCareEvent": {
+            "HEADER": "Car care",
+            "HEADER$plural": "Car cares",
+            "careType": "Type",
+            "timeSpent": "Time spent (min)"
           },
           "RefuelEvent": {
             "HEADER": "Refueling",

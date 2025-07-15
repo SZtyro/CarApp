@@ -3,7 +3,7 @@ import { EventService } from 'src/app/services/event.service';
 import { CarService } from 'src/app/services/car.service';
 import { Validators } from '@angular/forms';
 import { FuelSummary } from '../../fuel-summary/fuel-summary.component';
-import { BaseFormComponent, BaseRestService, Div, TileSelect, InputField, DateField, ChipsField, TextareaField, ImageField, GeneratorProperties } from '@sztyro/core';
+import { BaseFormComponent, BaseRestService, Div, TileSelect, InputField, DateField, ChipsField, TextareaField, ImageField, GeneratorProperties, SelectField } from '@sztyro/core';
 import { InsuranceCompanyService } from 'src/app/services/insurance-company.service';
 import { TireService } from '../tire/tire.service';
 
@@ -36,13 +36,19 @@ export class EventFormComponent extends BaseFormComponent<any>{
       Div.create('row',
         Div.tileWith({'col-md-6': this.isRefuelEvent()}, '',
           Div.create('row',
-            InputField.create({
-              path: 'mileage', options: {
+            InputField.create({ path: 'mileage', options: {
                 type: 'number',
+                class: 'col-sm-6',
                 isRequired: () => !this.isDateInFuture(),
                 label: 'pl.sztyro.carapp.model.CarEvent.mileage'
               }
             }),
+            SelectField.fromEnum({path: 'careType', options: {
+              resource: this.resource,
+              class: 'col-sm-6',
+              enumType: 'pl.sztyro.carapp.enums.CarCareType',
+              isHidden: () => this.object.entityType !== 'pl.sztyro.carapp.model.CarCareEvent'
+            }}),
             InputField.create({
               path: 'amountOfFuel', options: {
                 suffix: 'l',
@@ -59,6 +65,13 @@ export class EventFormComponent extends BaseFormComponent<any>{
                 isRequired: () => this.object.type == 'Refuel',
                 class: { 'col-lg-6': true },
                 label: 'pl.sztyro.carapp.model.CarEvent.price'
+              }
+            }),
+            InputField.create({
+              path: 'timeSpent', options: {
+                suffix: 'min',
+                type: 'number',
+                class: 'col-md-6'
               }
             }),
             DateField.create({

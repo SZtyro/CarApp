@@ -102,6 +102,11 @@
       },
       "carapp": {
         "enums": {
+          "CarCareType": {
+            "SERVICE": "Usługa",
+            "WASHING": "Mycie",
+            "ACCESSORY": "Akcesorium"
+          },
           "TireType": {
             "HEADER": "Typ opony",
             "HEADER$plural": "Typy opon",
@@ -140,6 +145,12 @@
             "previousEvent": "Poprzedni wpis",
             "nextEvent": "Następny wpis",
             "price": "Cena"
+          },
+          "CarCareEvent": {
+            "HEADER": "Pięlęgnacja",
+            "HEADER$plural": "Pielęgnacje",
+            "careType": "Typ",
+            "timeSpent": "Czas trwania (min)"
           },
           "RefuelEvent": {
             "HEADER": "Tankowanie",
