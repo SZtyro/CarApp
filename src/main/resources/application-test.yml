@@ -46,3 +46,6 @@ logging:
                 transaction: DEBUG
             orm:
                 jpa: ERROR
+app:
+    version: @project.version@
+    mail.info.recipient: ${INFO_RECIPIENT}
