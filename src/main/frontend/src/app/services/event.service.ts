@@ -25,8 +25,11 @@ export class EventService extends BaseRestService<any> {
 
   override getAll(params?: any): Observable<FilteredResult<any>> {
     let type = params.entityType;
+    let typedRoute = this.getTypeRouting(type);
+    if(typedRoute != "") typedRoute = "/" + typedRoute;
+    
     delete params.entityType;
-    return this.http.get<FilteredResult>(`${this.endpoint}/${this.getTypeRouting(type)}`, {params: params})
+    return this.http.get<FilteredResult>(`${this.endpoint}${typedRoute}`, {params: params})
   }
 
   override getEditPath(element: any): string {
@@ -74,7 +77,7 @@ export class EventService extends BaseRestService<any> {
 
   private getTypeRouting(entityType, addDash?:boolean): string{
     let type: string = "";
-    if(entityType != null){
+    if(entityType != null && entityType !== 'All'){
       type = entityType.replace('.HEADER', '');
       let parts = type.split('.');
       type = parts[parts.length - 1];

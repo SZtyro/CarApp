@@ -1,29 +1,19 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseSearchComponent, Column, Div, Field, GeneratorProperties, InteractionService, TableField } from '@sztyro/core';
 import { TilePickerComponent } from '../../tile-picker/tile-picker.component';
 import { EventService } from 'src/app/services/event.service';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-event',
   templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/base-search.component.html',
   styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/base-search.component.scss'],
 })
-export class EventComponent extends BaseSearchComponent implements AfterViewInit{
+export class EventComponent extends BaseSearchComponent{
 
   interaction = this.injector.get(InteractionService);
   override resource: EventService = this.injector.get(EventService);
   private type:string = null;
-
-  ngAfterViewInit(): void {
-    this.route.params.subscribe(params => {
-      this.type = params['type'];
-      if(this.type === 'All') this.type = null;
-      this.generator.getFieldByCondition<TableField>(field => field instanceof TableField).performSearch()
-      
-    })
-    
-  }
 
   override onInstancesReady(instances: Field<any>[]): void {
     let table = instances[0] as TableField;
@@ -73,11 +63,9 @@ export class EventComponent extends BaseSearchComponent implements AfterViewInit
         TableField.create({path: null, options: {
           columns: this.getColumns(this.route.snapshot.data.metadata), 
           class: 'w-100',
-          getData: (params) => {
-            if(this.type != null)
-              params.entityType = this.type
-            return this.resource.getAll(params)
-          },
+          getData: (params) => this.route.paramMap.pipe(
+              switchMap(paramMap => this.resource.getAll({...params, ...{entityType: paramMap.get('type')}}))
+            )
         }})
       )
       
