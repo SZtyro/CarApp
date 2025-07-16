@@ -45,8 +45,15 @@ mat-icon{
 }
 
 .changelog-content{
-    & .material-symbols-rounded{
-        font-size: 18px;
+    & .dot{
+        border-radius: 50%;
+        width: 8px;
+        height: 8px;
+        display: flex;
+    }
+
+    & .change-wrapper > span{
+        display: flex;
         align-items: center;
     }
 }
@@ -74,11 +81,21 @@ mat-icon{
     justify-content: space-between;
     align-items: center;
     color: var(--sys-on-surface);
+    margin-bottom: 8px;
 
     & > span{
         font-size: x-large;
         font-weight: 500 ;
+
+        &.date{
+            background-color: var(--sys-secondary-container);
+            font-size: 14px;
+            padding: 2px 4px;
+            border-radius: 6px;
+            margin-right: 6px;
+        }
     }
+    
 }
 
 .event{

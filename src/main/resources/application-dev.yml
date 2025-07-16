@@ -56,7 +56,9 @@ spring:
                     starttls:
                         enable: true
                     ssl.protocols: TLSv1.2
-app.mail.info.recipient: ${INFO_RECIPIENT}
+app:
+    version: @project.version@
+    mail.info.recipient: ${INFO_RECIPIENT}
 logging:
     level:
         pl.sztyro: DEBUG

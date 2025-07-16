@@ -60,4 +60,6 @@ spring:
                     ssl.trust: sztyro.com
                     starttls:
                         enable: true
-app.mail.info.recipient: ${INFO_RECIPIENT}
+app:
+    version: @project.version@
+    mail.info.recipient: ${INFO_RECIPIENT}

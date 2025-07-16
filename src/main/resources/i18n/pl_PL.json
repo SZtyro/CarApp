@@ -101,6 +101,28 @@
         }
       },
       "carapp": {
+        "enums": {
+          "CarCareType": {
+            "SERVICE": "Usługa",
+            "WASHING": "Mycie",
+            "ACCESSORY": "Akcesorium"
+          },
+          "TireType": {
+            "HEADER": "Typ opony",
+            "HEADER$plural": "Typy opon",
+            "Summer": "Letnie",
+            "Winter": "Zimowe",
+            "AllSeason": "Całosezonowe"
+          },
+          "TirePlacement": {
+            "HEADER": "Umiejscowienie opony",
+            "HEADER$plural": "Umiejscowienie opon",
+            "RR": "Prawy tył",
+            "RF": "Prawy przód",
+            "LR": "Lewy tył",
+            "LF": "Lewy przód"
+          }
+        },
         "model": {
           "Car": {
             "HEADER": "Samochód",
@@ -123,6 +145,12 @@
             "previousEvent": "Poprzedni wpis",
             "nextEvent": "Następny wpis",
             "price": "Cena"
+          },
+          "CarCareEvent": {
+            "HEADER": "Pięlęgnacja",
+            "HEADER$plural": "Pielęgnacje",
+            "careType": "Typ",
+            "timeSpent": "Czas trwania (min)"
           },
           "RefuelEvent": {
             "HEADER": "Tankowanie",
@@ -178,6 +206,17 @@
             "speedRating": "Indeks prędkości"
           }
         }
+      },
+      "workflow": {
+        "enums": {
+          "IssueStates": {
+            "VERIFICATION": "Weryfikacja",
+            "REGISTERED": "Zarejestrowany",
+            "OPENED": "Otwarty",
+            "REJECTED": "Odrzucony",
+            "CLOSED": "Zamknięty"
+          }
+        }
       }
     }
   },
@@ -198,7 +237,7 @@
   "Winter": "Zimowe",
   "AllSeason": "Całoroczne",
   "Required to calculate next inspection date.": "Potrzebny do obliczenia następnej daty przeglądu.",
-  "Generate others": "Generuj popzostałe",
+  "Generate others": "Generuj pozostałe",
   "Site under construction": "Strona w budowie",
   "What does it do?": "Co to robi?",
   "Log in with Google": "Zaloguj z Google",
@@ -231,10 +270,6 @@
   "User forums": "Fora użytkowników",
   "Offline mode": "Tryb offline",
   "Ability to save documents without an internet connection": "Możliwość zapisywania dokumentów bez połączenia z internetem",
-  "RF": "PP",
-  "RR": "PT",
-  "LF": "LP",
-  "LR": "LT",
   "Fuel consumption": "Zużycie paliwa",
   "Distance traveled": "Pokonany dystans",
   "Price per 100km": "Cena za 100km",

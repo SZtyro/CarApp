@@ -58,8 +58,8 @@ const routes: Routes = [
     resolve: { profile: ProfileService },
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: "Events/:type", component: EventComponent, providers: [{ provide: RESOURCE, useClass: EventService }], resolve: { metadata: EventService} },
       { path: "Events/:entityType/:id", component: EventFormComponent, resolve: { model: EventService} },
+      { path: "Events/:type", component: EventComponent, providers: [{ provide: RESOURCE, useClass: EventService }], resolve: { metadata: EventService} },
       { path: 'Events', redirectTo: 'Events/All'},
       { path: 'pl.sztyro.carapp.model.CarEvent', redirectTo: 'Events' },
       { path: 'pl.sztyro.carapp.model.TireChangeEvent', redirectTo: 'Events' },

@@ -6,6 +6,7 @@ COPY pom.xml .
 COPY src ./src
 COPY .m2/settings.xml /root/.m2/settings.xml
 COPY .npmrc /root/.npmrc
+COPY CHANGELOG.md ./
 
 RUN apt-get update && apt-get install -y maven
 RUN mvn clean install -Dmaven.test.skip=true -P production
