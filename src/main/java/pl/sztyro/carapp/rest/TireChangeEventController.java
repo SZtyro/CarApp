@@ -56,7 +56,6 @@ public class TireChangeEventController extends BaseCarEventController<TireChange
     protected void getFetch(Root<TireChangeEvent> root) {
         root.fetch(TireChangeEvent_.car, JoinType.LEFT);
         root.fetch(TireChangeEvent_.tires, JoinType.LEFT);
-        root.fetch(TireChangeEvent_.nextEvent, JoinType.LEFT);
         root.fetch(TireChangeEvent_.previousEvent, JoinType.LEFT);
     }
 
@@ -93,7 +92,6 @@ public class TireChangeEventController extends BaseCarEventController<TireChange
                         .and("car.id", String.valueOf(carId))
                         .sortAsc("mileage")
                         .queryAll(root -> {
-                            root.fetch(TireChangeEvent_.nextEvent, JoinType.LEFT);
                             root.fetch(TireChangeEvent_.tires, JoinType.LEFT);
                         })
                         .getResults();
@@ -101,12 +99,13 @@ public class TireChangeEventController extends BaseCarEventController<TireChange
                 int mileage = fromLastChangeToLastEvent;
 
 
-                for (TireChangeEvent change : previousChanges) {
-                    Set<Long> changeTireIds = change.getTires().stream().map(BaseEntity::getId).collect(Collectors.toSet());
-                    if(changeTireIds.equals(currentTiresIds)){
-                        if(change.getNextEvent() != null) mileage = mileage + change.getNextEvent().getMileage();
-                    }
-                }
+//                for (TireChangeEvent change : previousChanges) {
+//                    Set<Long> changeTireIds = change.getTires().stream().map(BaseEntity::getId).collect(Collectors.toSet());
+//                    if(changeTireIds.equals(currentTiresIds)){
+//                        //TODO: Fetch next event mileage
+////                        if(change.getNextEvent() != null) mileage = mileage + change.getNextEvent().getMileage();
+//                    }
+//                }
 
 
                 return CarTiresSummary.builder()

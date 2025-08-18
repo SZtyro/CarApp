@@ -51,27 +51,12 @@ public abstract class BaseCarEventController<T extends  CarEvent> extends BaseCo
                 //Avoid reference to itself
                 if(!Objects.equals(latestEvent.getId(), changes.getId())) {
                     changes.setPreviousEvent(latestEvent);
-                    latestEvent.setNextEvent(changes);
                     em.merge(latestEvent);
                 }else{
                     if(results.size() == 2){
                         T previous = results.get(1);
                         changes.setPreviousEvent(previous);
                     }
-                }
-            }
-        }
-        if(changes.getNextEvent() == null){
-            List<T> nextEvents = queryBuilder()
-                    .dateFrom("date", String.valueOf(changes.getDate().getTime()))
-                    .size(2)
-                    .and("sort", "date:ASC")
-                    .and("car.id", String.valueOf(changes.getCar().getId()))
-                    .queryAll().getResults();
-            if(nextEvents.size() == 2){
-                if(nextEvents.get(0).getId().equals(changes.getId())){
-                    T nextEvent = nextEvents.get(1);
-                    changes.setNextEvent(nextEvent);
                 }
             }
         }
@@ -88,7 +73,6 @@ public abstract class BaseCarEventController<T extends  CarEvent> extends BaseCo
     protected void getFetch(Root<T> root) {
         root.fetch(CarEvent_.car, JoinType.LEFT);
         root.fetch(CarEvent_.previousEvent, JoinType.LEFT);
-        root.fetch(CarEvent_.nextEvent, JoinType.LEFT);
     }
 
     @GetMapping("/types")

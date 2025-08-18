@@ -111,27 +111,26 @@ export class EventFormComponent extends BaseFormComponent<any>{
           FuelSummary.create({ path: null, options: { class: 'w-100' } })
         ),
         Div.tileStandard(
-          TextareaField.create({ path: 'remarks', options: { label: 'pl.sztyro.carapp.model.CarEvent.remarks' } }),
-          ChipsField.create({
-            path: "previousEvent", options: {
-              class: 'col-md-6',
-              restpicker: Object.assign(this.resource.defaultRestpickerOptions, {
-                showValue: e => new Date(e.date).toLocaleDateString()
-              }),
-              label: 'pl.sztyro.carapp.model.CarEvent.previousEvent'
-            }
-          }),
-          ChipsField.create({
-            path: "nextEvent", options: {
-              class: 'col-md-6',
-              restpicker: Object.assign(this.resource.defaultRestpickerOptions, {
-                showValue: e => new Date(e.date).toLocaleDateString()
-              }),
-              label: 'pl.sztyro.carapp.model.CarEvent.nextEvent'
-            }
+          TextareaField.create({
+            path: 'remarks',
+            options: { label: 'pl.sztyro.carapp.model.CarEvent.remarks' },
           })
-        )
-
+        ),
+        EventConnectionComponent.create({
+          path: 'previousEvent',
+          options: {
+            class: 'col-6',
+            parent: this
+          },
+        }),
+        EventConnectionComponent.create({
+          path: 'nextEvent',
+          options: {
+            class: 'col-6',
+            parent: this,
+            type: 'next'
+          },
+        })
       ),
     ];
   }
