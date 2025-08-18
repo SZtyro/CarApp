@@ -63,7 +63,6 @@ public class InsuranceEventController extends BaseCarEventController<InsuranceEv
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            updatedEntity.setNextEvent(nextEvent);
             repository.save(updatedEntity);
 
         }

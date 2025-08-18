@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface CarEventRepository extends BaseRepository<CarEvent> {
-    @EntityGraph(attributePaths = {"car", "nextEvent", "previousEvent"})
+    @EntityGraph(attributePaths = {"car", "previousEvent"})
     @Override
     Optional<CarEvent> findById(Long aLong);
 

@@ -5,7 +5,7 @@ import { EventFormComponent } from './components/forms/event-form/event-form.com
 import { EventService } from './services/event.service';
 import { CarService } from './services/car.service';
 import { CarFormComponent } from './components/forms/car-form/car-form.component';
-import { BaseFormComponent, BaseRestService, BaseSearchComponent, RESOURCE, RoleComponent, RoleService, ProfileService, LoginComponent, IssueService, IssueTypeService, IssueTypeComponent, IssueComponent} from '@sztyro/core';
+import { MenuService, RESOURCE, RoleComponent, RoleService, ProfileService, LoginComponent, IssueService, IssueTypeService, IssueTypeComponent, IssueComponent} from '@sztyro/core';
 import { EventComponent } from './components/forms/event-form/event.component';
 import { InsuranceCompanyService } from './services/insurance-company.service';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
@@ -18,37 +18,6 @@ import { TireModelService } from './components/forms/tire-model/tire-model.servi
 import { HomeComponent } from './components/home/home.component';
 import { HomeService } from './services/home.service';
 
-
-
-let getChildren = (
-  form: Type<BaseFormComponent<any>>,
-  service: Type<BaseRestService<any>>,
-  ...children: Routes
-) => {
-  return [
-    {
-      path: '',
-      component: BaseSearchComponent,
-      resolve: { metadata: service },
-      providers: [{ provide: RESOURCE, useClass: service }],
-    },
-    {
-      path: ':id',
-      component: form,
-      resolve: { model: service },
-    },
-    ...children,
-  ];
-};
-
-let standard = (path: string, form: Type<BaseFormComponent<any>>, service: Type<BaseRestService<any>>, override?: Partial<Route>): Route => {
-  let elem = {
-    path: path,
-    children: getChildren(form,service)
-  }
-
-  return {...elem, ...override}
-}
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, resolve: {user: HomeService}},
@@ -71,14 +40,14 @@ const routes: Routes = [
       { path: 'pl.sztyro.carapp.model.RefuelEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.RefuelEvent/:id', resolve: {model: EventService} },
       { path: 'pl.sztyro.carapp.model.InsuranceCompany/:id', redirectTo: 'InsuranceCompanies/:id' },
       { path: 'pl.sztyro.carapp.model.Car', redirectTo: 'Cars' },
-      { path: 'Cars', children: getChildren(CarFormComponent, CarService) },
-      { path: 'Roles', children: getChildren(RoleComponent, RoleService) },
-      { path: 'InsuranceCompanies', children: getChildren(InsuranceCompanyComponent, InsuranceCompanyService)},
-      { path: 'TireCompanies', children: getChildren(TireCompanyFormComponent, TireCompanyService) },
-      standard('Tires', TireComponent, TireService),
-      standard('TireModels', TireModelComponent, TireModelService),
-      standard('IssueTypes', IssueTypeComponent, IssueTypeService),
-      standard('Issues', IssueComponent, IssueService),
+      { path: 'Cars', children: MenuService.getChildren(CarFormComponent, CarService) },
+      { path: 'Roles', children: MenuService.getChildren(RoleComponent, RoleService) },
+      { path: 'InsuranceCompanies', children: MenuService.getChildren(InsuranceCompanyComponent, InsuranceCompanyService)},
+      { path: 'TireCompanies', children: MenuService.getChildren(TireCompanyFormComponent, TireCompanyService) },
+      MenuService.standard('Tires', TireComponent, TireService),
+      MenuService.standard('TireModels', TireModelComponent, TireModelService),
+      MenuService.standard('IssueTypes', IssueTypeComponent, IssueTypeService),
+      MenuService.standard('Issues', IssueComponent, IssueService),
       {
         path: '',
         redirectTo: '/home',

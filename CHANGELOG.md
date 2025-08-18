@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.7 - Event form transitions - 2025.08.18
+
+### ADD
+- Added event form transitions
+
+### REMOVE
+- Removed next event connection, now it is fetched
+
+
 ## v0.6 - Car care event, changelog - 2025.07.15
 
 ### ADD

@@ -53,13 +53,8 @@ public abstract class CarEvent extends BaseEntity implements MenuItem {
 
     @JoinColumn(name = "previous_id", referencedColumnName = "id")
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"previousEvent", "nextEvent",})
+    @JsonIgnoreProperties({"previousEvent"})
     private CarEvent previousEvent;
-
-    @JoinColumn(name = "next_id", referencedColumnName = "id")
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"previousEvent", "nextEvent",})
-    private CarEvent nextEvent;
 
     @Lob
     @Column

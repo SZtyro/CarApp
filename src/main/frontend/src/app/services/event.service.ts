@@ -91,4 +91,8 @@ export class EventService extends BaseRestService<any> {
 
     return type;
   }
+
+  getNextEvent(parentId: number): Observable<FilteredResult> {
+    return this.getAll({ 'previousEvent.id': parentId });
+  }
 }

@@ -1,0 +1,74 @@
+.wrapper {
+  background-color: var(--sys-secondary-container);
+  color: var(--sys-on-secondary--container);
+  border-radius: 8px;
+  cursor: pointer;
+  height: 100%;
+  min-height: 88px;
+
+  & .edit {
+    pointer-events: block;
+    gap: 12px;
+    display: flex;
+    margin-right: 12px;
+    
+    
+    & .material-symbols-rounded{
+      border-radius: 8px;
+      display: none;
+      font-size: 24px !important;
+      transition: all 0.3s ease;
+      padding: 8px;
+
+      &:hover{
+        background-color: rgba($color: transparent, $alpha: 0.2);
+      }
+    }
+  }
+
+  &.next{
+    & .edit{
+      display: none !important;
+    }
+  }
+  
+  & > div {
+    height: 100%;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+     
+
+    & .icon-wrapper {
+      width: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & .material-symbols-rounded {
+        font-size: 34px;
+      }
+    }
+
+   
+  }
+
+  ::ng-deep & canvas{
+    transition: transform 1s ease, filter 0.3s ease;
+  }
+
+  ::ng-deep  &.hovered {
+
+    ::ng-deep & canvas{
+      transform: scale(1.7);
+      filter: blur(1px);
+    }
+
+    &.previous{
+      & .edit .material-symbols-rounded{
+        display: flex !important;
+      }
+    }
+  }
+}
+

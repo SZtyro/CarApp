@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface RepairEventRepository extends BaseRepository<RepairEvent> {
     @Override
-    @EntityGraph(attributePaths = {"car", "nextEvent", "previousEvent", "company", "author", "access"})
+    @EntityGraph(attributePaths = {"car", "previousEvent", "company", "author", "access"})
     Optional<RepairEvent> findById(Long aLong);
 }

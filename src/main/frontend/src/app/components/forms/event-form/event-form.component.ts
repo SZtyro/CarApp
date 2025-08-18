@@ -3,137 +3,241 @@ import { EventService } from 'src/app/services/event.service';
 import { CarService } from 'src/app/services/car.service';
 import { Validators } from '@angular/forms';
 import { FuelSummary } from '../../fuel-summary/fuel-summary.component';
-import { BaseFormComponent, BaseRestService, Div, TileSelect, InputField, DateField, ChipsField, TextareaField, ImageField, GeneratorProperties, SelectField } from '@sztyro/core';
+import {
+  BaseFormComponent,
+  BaseRestService,
+  Div,
+  InputField,
+  DateField,
+  ChipsField,
+  TextareaField,
+  ImageField,
+  GeneratorProperties,
+  SelectField,
+  RestPickerComponent,
+} from '@sztyro/core';
 import { InsuranceCompanyService } from 'src/app/services/insurance-company.service';
 import { TireService } from '../tire/tire.service';
+import { EventConnectionComponent } from './event-connection.component';
 
 @Component({
   selector: 'app-event-form',
-  templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.html',
-  styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.scss'],
+  templateUrl:
+    './../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.html',
+  styleUrls: [
+    './../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.scss',
+    './event-form.component.scss',
+  ],
 })
-export class EventFormComponent extends BaseFormComponent<any>{
+export class EventFormComponent extends BaseFormComponent<any> {
   override resource: BaseRestService<any> = this.injector.get(EventService);
   private cars: CarService = this.injector.get(CarService);
   private tires: TireService = this.injector.get(TireService);
-  private insuranceCompanies: InsuranceCompanyService = this.injector.get(InsuranceCompanyService);
+  private insuranceCompanies: InsuranceCompanyService = this.injector.get(
+    InsuranceCompanyService
+  );
 
+  private transitionedEvent: boolean = false;
 
-  isRefuelEvent(){
-    return  this.object.entityType === 'pl.sztyro.carapp.model.RefuelEvent';
+  override getImportantInfo() {
+    let now = new Date();
+    now.setHours(0, 0, 0);
+    if (this.object.date > now.getTime() && this.isRefuelEvent()) return 'TIPS.REFUELING';
+    else return null;
   }
 
-  isDateInFuture(): boolean{
-    let formDate = new Date(this.object.date)
-    let now = new Date()
-    now.setHours(23,59,59)
-    
+  isRefuelEvent() {
+    return this.object?.entityType === 'pl.sztyro.carapp.model.RefuelEvent';
+  }
+
+  isDateInFuture(): boolean {
+    let formDate = new Date(this.object.date);
+    let now = new Date();
+    now.setHours(23, 59, 59);
+
     return formDate.getTime() >= now.getTime();
   }
 
   override getProperties(): GeneratorProperties<any>[] {
     return [
-      Div.create('row',
-        Div.tileWith({'col-md-6': this.isRefuelEvent()}, '',
-          Div.create('row',
-            InputField.create({ path: 'mileage', options: {
+      Div.create(
+        'row',
+        Div.tileWith(
+          { 'col-md-6': this.isRefuelEvent() },
+          '',
+          Div.create(
+            'row',
+            InputField.create({
+              path: 'mileage',
+              options: {
                 type: 'number',
                 class: 'col-sm-6',
                 isRequired: () => !this.isDateInFuture(),
-                label: 'pl.sztyro.carapp.model.CarEvent.mileage'
-              }
+                label: 'pl.sztyro.carapp.model.CarEvent.mileage',
+              },
             }),
-            SelectField.fromEnum({path: 'careType', options: {
-              resource: this.resource,
-              class: 'col-sm-6',
-              enumType: 'pl.sztyro.carapp.enums.CarCareType',
-              isHidden: () => this.object.entityType !== 'pl.sztyro.carapp.model.CarCareEvent'
-            }}),
+            SelectField.fromEnum({
+              path: 'careType',
+              options: {
+                resource: this.resource,
+                class: 'col-sm-6',
+                enumType: 'pl.sztyro.carapp.enums.CarCareType',
+                isHidden: () =>
+                  this.object.entityType !==
+                  'pl.sztyro.carapp.model.CarCareEvent',
+              },
+            }),
             InputField.create({
-              path: 'amountOfFuel', options: {
+              path: 'amountOfFuel',
+              options: {
                 suffix: 'l',
                 type: 'number',
                 isHidden: () => !this.isRefuelEvent(),
                 isRequired: () => this.isRefuelEvent(),
-                class: () => { return { 'col-lg-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent() }; }
-              }
+                class: 'col-sm-6',
+              },
             }),
             InputField.create({
-              path: 'price', options: {
+              path: 'price',
+              options: {
                 suffix: 'zł',
                 type: 'number',
                 isRequired: () => this.object.type == 'Refuel',
                 class: { 'col-lg-6': true },
-                label: 'pl.sztyro.carapp.model.CarEvent.price'
-              }
+                label: 'pl.sztyro.carapp.model.CarEvent.price',
+              },
             }),
             InputField.create({
-              path: 'timeSpent', options: {
+              path: 'timeSpent',
+              options: {
                 suffix: 'min',
                 type: 'number',
-                class: 'col-md-6'
-              }
+                class: 'col-md-6',
+                isHidden: () =>
+                  this.object.entityType !==
+                  'pl.sztyro.carapp.model.CarCareEvent',
+              },
             }),
             DateField.create({
-              path: 'date', options: {
-                class: () => { return { 'col-md-6': !this.isRefuelEvent() }; },
+              path: 'date',
+              options: {
+                class: 'col-md-6',
                 validators: [Validators.required],
-                label: 'pl.sztyro.carapp.model.CarEvent.date'
-              }
+                label: 'pl.sztyro.carapp.model.CarEvent.date',
+              },
             }),
             ChipsField.restPicker(this.insuranceCompanies, {
-              path: "company", options: {
+              path: 'company',
+              options: {
                 class: 'col-md-6',
-                isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
-              }
+                isHidden: () =>
+                  this.object.entityType !=
+                  'pl.sztyro.carapp.model.InsuranceEvent',
+              },
             }),
             ImageField.create({
-              path: 'company.logoUrl', options: {
+              path: 'company.logoUrl',
+              options: {
                 class: 'col-md-6',
                 height: '82',
-                isHidden: () => this.object.entityType != "pl.sztyro.carapp.model.InsuranceEvent"
-              }
+                isHidden: () =>
+                  this.object.entityType !=
+                  'pl.sztyro.carapp.model.InsuranceEvent',
+              },
             }),
+
             ChipsField.restPicker(this.cars, {
-              path: "car", options: {
+              path: 'car',
+              options: {
                 label: 'pl.sztyro.carapp.model.CarEvent.car',
-              }
+              },
             }),
             ChipsField.restPicker(this.tires, {
-              path: "tires", options: {
-                isHidden: () => this.object.entityType != 'pl.sztyro.carapp.model.TireChangeEvent'
-              }
+              path: 'tires',
+              options: {
+                isHidden: () =>
+                  this.object.entityType !=
+                  'pl.sztyro.carapp.model.TireChangeEvent',
+              },
             })
           )
-         
         ),
-        Div.create({'col-md-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent()} ,
+        Div.create(
+          { 'col-md-6': this.isRefuelEvent(), 'd-none': !this.isRefuelEvent() },
           FuelSummary.create({ path: null, options: { class: 'w-100' } })
         ),
         Div.tileStandard(
-          TextareaField.create({ path: 'remarks', options: { label: 'pl.sztyro.carapp.model.CarEvent.remarks' } }),
-          ChipsField.create({
-            path: "previousEvent", options: {
-              class: 'col-md-6',
-              restpicker: Object.assign(this.resource.defaultRestpickerOptions, {
-                showValue: e => new Date(e.date).toLocaleDateString()
-              }),
-              label: 'pl.sztyro.carapp.model.CarEvent.previousEvent'
-            }
-          }),
-          ChipsField.create({
-            path: "nextEvent", options: {
-              class: 'col-md-6',
-              restpicker: Object.assign(this.resource.defaultRestpickerOptions, {
-                showValue: e => new Date(e.date).toLocaleDateString()
-              }),
-              label: 'pl.sztyro.carapp.model.CarEvent.nextEvent'
-            }
+          TextareaField.create({
+            path: 'remarks',
+            options: { label: 'pl.sztyro.carapp.model.CarEvent.remarks' },
           })
-        )
-
+        ),
+        EventConnectionComponent.create({
+          path: 'previousEvent',
+          options: {
+            class: 'col-6',
+            parent: this
+          },
+        }),
+        EventConnectionComponent.create({
+          path: 'nextEvent',
+          options: {
+            class: 'col-6',
+            parent: this,
+            type: 'next'
+          },
+        })
       ),
     ];
   }
+
+  navigateToEvent(type: 'previous' | 'next', eventId: string) {
+    this.transitionedEvent = true;
+    let elem = document.getElementsByTagName('app-event-form');
+    elem.item(0).classList.add(type);
+    setTimeout(() => {
+      this.router
+        .navigate([
+          'Events',
+          this.object.entityType,
+          eventId,
+        ])
+        .then(() => {
+          elem.item(0).classList.remove(type);
+
+          this.initFormData();
+          this.generator.refreshInstances()
+        });
+    }, 500);
+
+  }
+
+  editPreviousEvent(): void{
+    this.interaction.openRestPicker(RestPickerComponent,{ 
+      ...this.resource.defaultRestpickerOptions,
+      customMethod: (params) => {
+        let p = {...params}
+        p['id'] = "!" + this.object.id;
+        p.entityType = this.object.entityType;
+        return this.resource.getAll(p)
+      },
+    }).subscribe(
+      selected => {
+        if(selected) {
+          this.object.previousEvent = selected;
+        }
+      }
+    )
+  }
+
+  clearPreviousEvent(): void {
+    this.object.previousEvent = null;
+  }
+
+  override returnToList(): void {
+    if(this.transitionedEvent) this.router.navigate(['Events'])
+    else super.returnToList();
+  }
+
   
 }
