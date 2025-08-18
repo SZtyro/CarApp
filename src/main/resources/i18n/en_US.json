@@ -1,97 +1,97 @@
 {
-    "pl_PL": "Polish",
-    "en_US": "English",
-    "WELCOME":{
-      "DESCRIPTION": "It's a simple and convenient tool for tracking all costs related to your car.",
-      "OVERVIEW": {
-        "DESCRIPTION": "Monitor fuel, tire, and insurance expenses, view statistics, and receive reminders about important dates - all in one app. Login is done exclusively via Google - no passwords, no account creation, fully secure and instantly accessible. Want to try it first? Use a temporary account with sample data and see how it works without any registration.",
-        "GENERAL": {
-          "HEADER": "All your car expenses and reminders in one place",
-          "DESCRIPTION": "This app is a simple and convenient tool for tracking all costs related to your car's operation. Record refueling, insurance, tire changes, and other expenses to get a full picture of your costs and better plan your budget.",
-          "KEY1": "Complete expense history",
-          "VALUE1": " - fuel, insurance, service, tire purchase and replacement.",
-          "KEY2": "Current tire summary",
-          "VALUE2": " - season, age, mileage, usage history.",
-          "KEY3": "Events and reminders",
-          "VALUE3": " - never miss an insurance expiry or seasonal tire change.",
-          "KEY4": "Insurance status",
-          "VALUE4": " - details about your current policy and notifications about its expiration.",
-          "FOOTER": "Gain control over your car's costs and safety - all in one clear dashboard."
-        },
-        "PWA": {
-          "HEADER": "Always at hand - thanks to PWA technology",
-          "DESCRIPTION": "The app was built as a Progressive Web App (PWA), meaning you can use it like a regular mobile app - without downloading it from the store.",
-          "KEY1": "Offline access (coming soon)",
-          "VALUE1": " - add refuelings, view tire and insurance data even without an internet connection.",
-          "KEY2": "One-click installation",
-          "VALUE2": " - install the app on your phone or computer home screen like a native app.",
-          "KEY3": "Fast performance",
-          "VALUE3": " - with local caching, the app loads instantly regardless of your network.",
-          "KEY4": "Automatic updates",
-          "VALUE4": " - always use the latest version without needing to update manually.",
-          "KEY5": "Security",
-          "VALUE5": " - all communication with the app is fully encrypted over HTTPS.",
-          "FOOTER": "Thanks to PWA, you always have your car data at hand - fast, convenient, and with no unnecessary installations."
-        },
-        "REFUELING": {
-          "HEADER": "Intuitive refueling - full control over fuel consumption",
-          "DESCRIPTION": "The refueling form is designed with convenience and automation in mind. Thanks to smart linking with your previous refueling, you don't have to enter data manually - the app does it for you.",
-          "KEY1": "Automatic linking with previous refueling",
-          "VALUE1": " - data like mileage and fuel amount are analyzed to accurately calculate statistics.",
-          "KEY2": "Fuel consumption calculation",
-          "VALUE2": " - the app shows your average fuel consumption since the last refueling.",
-          "KEY3": "Distance since last refueling",
-          "VALUE3": " - full info on how many kilometers you've driven on the current tank.",
-          "KEY4": "Driving cost",
-          "VALUE4": " - cost per 100 km helps you realistically assess expenses.",
-          "FOOTER": "Adding refuelings has never been so fast and useful - with data analysis, you get a complete picture of your driving efficiency."
-        }
+  "pl_PL": "Polish",
+  "en_US": "English",
+  "TIPS": {
+    "REFUELING": "Refueling must always be completed at the same point so that the system can correctly calculate statistics (e.g., “full tank,” until the first nozzle shutoff)."
+  },
+  "WELCOME": {
+    "DESCRIPTION": "It's a simple and convenient tool for tracking all costs related to your car.",
+    "OVERVIEW": {
+      "DESCRIPTION": "Monitor fuel, tire, and insurance expenses, view statistics, and receive reminders about important dates - all in one app. Login is done exclusively via Google - no passwords, no account creation, fully secure and instantly accessible. Want to try it first? Use a temporary account with sample data and see how it works without any registration.",
+      "GENERAL": {
+        "HEADER": "All your car expenses and reminders in one place",
+        "DESCRIPTION": "This app is a simple and convenient tool for tracking all costs related to your car's operation. Record refueling, insurance, tire changes, and other expenses to get a full picture of your costs and better plan your budget.",
+        "KEY1": "Complete expense history",
+        "VALUE1": " - fuel, insurance, service, tire purchase and replacement.",
+        "KEY2": "Current tire summary",
+        "VALUE2": " - season, age, mileage, usage history.",
+        "KEY3": "Events and reminders",
+        "VALUE3": " - never miss an insurance expiry or seasonal tire change.",
+        "KEY4": "Insurance status",
+        "VALUE4": " - details about your current policy and notifications about its expiration.",
+        "FOOTER": "Gain control over your car's costs and safety - all in one clear dashboard."
       },
-      "SPECS": {
-        "OAUTH2": {
-          "TITLE": "OAuth2",
-          "DESCRIPTION": "Security is the top priority of this app. That's why OAuth2.0 is used for login. This way, there's no need to store user passwords, and users don't have to remember yet another password."
-        },
-        "TEMPORARY_ACCOUNT": {
-          "TITLE": "Temporary Account",
-          "DESCRIPTION": "The temporary account allows you to log in quickly without registration. The system generates sample data to test the app. These accounts are deleted every night, and an automated process safely removes all data and dependencies created by such accounts."
-        },
-        "VPS": {
-          "TITLE": "Own VPS Server",
-          "DESCRIPTION": "The application runs on my own VPS server, giving me full control over the technologies in use."
-        },
-        "LIBRARIES": {
-          "TITLE": "Custom Libraries",
-          "DESCRIPTION": "The app uses my own custom libraries to streamline component development. This makes it easier to test shared components across my projects and avoid code duplication."
-        },
-        "PWA": {
-          "TITLE": "PWA",
-          "DESCRIPTION": "The application is built as a Progressive Web App, meaning you can use it like a regular mobile app - no need to download it from an app store."
-        },
-        "SMTP": {
-          "TITLE": "Custom SMTP",
-          "DESCRIPTION": "The app uses its own SMTP server to send notifications. In the future, it will support configurable reminders for important dates."
-        },
-         "BETA": {
-          "TITLE": "Branch beta",
-          "DESCRIPTION": "The application has <a href=\"https://beta.carapp.sztyro.com\">branch beta</a> which allows testing new features before their official release. This way, users can test the latest features without fear of data loss. Beta has a separate database."
-        },
-        "JENKINS": {
-          "TITLE": "Jenkins",
-          "DESCRIPTION": "The application uses Jenkins to automate the build process."
-        }
+      "PWA": {
+        "HEADER": "Always at hand - thanks to PWA technology",
+        "DESCRIPTION": "The app was built as a Progressive Web App (PWA), meaning you can use it like a regular mobile app - without downloading it from the store.",
+        "KEY1": "Offline access (coming soon)",
+        "VALUE1": " - add refuelings, view tire and insurance data even without an internet connection.",
+        "KEY2": "One-click installation",
+        "VALUE2": " - install the app on your phone or computer home screen like a native app.",
+        "KEY3": "Fast performance",
+        "VALUE3": " - with local caching, the app loads instantly regardless of your network.",
+        "KEY4": "Automatic updates",
+        "VALUE4": " - always use the latest version without needing to update manually.",
+        "KEY5": "Security",
+        "VALUE5": " - all communication with the app is fully encrypted over HTTPS.",
+        "FOOTER": "Thanks to PWA, you always have your car data at hand - fast, convenient, and with no unnecessary installations."
       },
-      "ABOUT_ME":{
-        "DESCRIPTION": "My name is Fabian, and for the past five years, I've been developing and enhancing ERP and CRM applications using Java EE and Angular. I have in-depth knowledge of Angular - I started with migrating legacy projects from AngularJS. I independently designed and maintain two libraries that accelerate software development, automate form handling, and help prevent errors. I've worked with companies across various industries - from large enterprises to sole proprietorships. I've implemented process optimizations (Kaizen, FMEA), worked with PostgreSQL, Git, and Jira, and developed Android applications. In my free time, I work on personal projects using Spring Boot - one of which I host on my own VPS, where I also explore Linux and Docker.",
-        "DESCRIPTION_2": "When building applications, I pay close attention to scalability. I believe that every feature might need to be extended in the future, so careful architectural planning from the start is essential. I strive to make my code clean, readable, and easy to maintain. I avoid unnecessary duplication of logic. I create libraries with reusability in mind - as a solid foundation for future projects, helping me save time when starting new applications. I also enjoy experimenting with design. Despite the limited support for Material Design 3 in Angular, I actively work on implementing it in my projects.",
-        "FOOTER": "Besides programming, I enjoy playing video games. My favorite is Space Engineers - a sandbox game where I'm limited only by my imagination, not a storyline. It also allows writing simple scripts in C#, which adds another layer of fun for me. I'm also passionate about emerging technologies and aviation. In the future, I'd love to create my own video game."
+      "REFUELING": {
+        "HEADER": "Intuitive refueling - full control over fuel consumption",
+        "DESCRIPTION": "The refueling form is designed with convenience and automation in mind. Thanks to smart linking with your previous refueling, you don't have to enter data manually - the app does it for you.",
+        "KEY1": "Automatic linking with previous refueling",
+        "VALUE1": " - data like mileage and fuel amount are analyzed to accurately calculate statistics.",
+        "KEY2": "Fuel consumption calculation",
+        "VALUE2": " - the app shows your average fuel consumption since the last refueling.",
+        "KEY3": "Distance since last refueling",
+        "VALUE3": " - full info on how many kilometers you've driven on the current tank.",
+        "KEY4": "Driving cost",
+        "VALUE4": " - cost per 100 km helps you realistically assess expenses.",
+        "FOOTER": "Adding refuelings has never been so fast and useful - with data analysis, you get a complete picture of your driving efficiency."
       }
-
-
-
     },
-    "pl": {
-    "sztyro":{
+    "SPECS": {
+      "OAUTH2": {
+        "TITLE": "OAuth2",
+        "DESCRIPTION": "Security is the top priority of this app. That's why OAuth2.0 is used for login. This way, there's no need to store user passwords, and users don't have to remember yet another password."
+      },
+      "TEMPORARY_ACCOUNT": {
+        "TITLE": "Temporary Account",
+        "DESCRIPTION": "The temporary account allows you to log in quickly without registration. The system generates sample data to test the app. These accounts are deleted every night, and an automated process safely removes all data and dependencies created by such accounts."
+      },
+      "VPS": {
+        "TITLE": "Own VPS Server",
+        "DESCRIPTION": "The application runs on my own VPS server, giving me full control over the technologies in use."
+      },
+      "LIBRARIES": {
+        "TITLE": "Custom Libraries",
+        "DESCRIPTION": "The app uses my own custom libraries to streamline component development. This makes it easier to test shared components across my projects and avoid code duplication."
+      },
+      "PWA": {
+        "TITLE": "PWA",
+        "DESCRIPTION": "The application is built as a Progressive Web App, meaning you can use it like a regular mobile app - no need to download it from an app store."
+      },
+      "SMTP": {
+        "TITLE": "Custom SMTP",
+        "DESCRIPTION": "The app uses its own SMTP server to send notifications. In the future, it will support configurable reminders for important dates."
+      },
+      "BETA": {
+        "TITLE": "Branch beta",
+        "DESCRIPTION": "The application has <a href=\"https://beta.carapp.sztyro.com\">branch beta</a> which allows testing new features before their official release. This way, users can test the latest features without fear of data loss. Beta has a separate database."
+      },
+      "JENKINS": {
+        "TITLE": "Jenkins",
+        "DESCRIPTION": "The application uses Jenkins to automate the build process."
+      }
+    },
+    "ABOUT_ME": {
+      "DESCRIPTION": "My name is Fabian, and for the past five years, I've been developing and enhancing ERP and CRM applications using Java EE and Angular. I have in-depth knowledge of Angular - I started with migrating legacy projects from AngularJS. I independently designed and maintain two libraries that accelerate software development, automate form handling, and help prevent errors. I've worked with companies across various industries - from large enterprises to sole proprietorships. I've implemented process optimizations (Kaizen, FMEA), worked with PostgreSQL, Git, and Jira, and developed Android applications. In my free time, I work on personal projects using Spring Boot - one of which I host on my own VPS, where I also explore Linux and Docker.",
+      "DESCRIPTION_2": "When building applications, I pay close attention to scalability. I believe that every feature might need to be extended in the future, so careful architectural planning from the start is essential. I strive to make my code clean, readable, and easy to maintain. I avoid unnecessary duplication of logic. I create libraries with reusability in mind - as a solid foundation for future projects, helping me save time when starting new applications. I also enjoy experimenting with design. Despite the limited support for Material Design 3 in Angular, I actively work on implementing it in my projects.",
+      "FOOTER": "Besides programming, I enjoy playing video games. My favorite is Space Engineers - a sandbox game where I'm limited only by my imagination, not a storyline. It also allows writing simple scripts in C#, which adds another layer of fun for me. I'm also passionate about emerging technologies and aviation. In the future, I'd love to create my own video game."
+    }
+  },
+  "pl": {
+    "sztyro": {
       "carapp": {
         "enums": {
           "CarCareType": {
@@ -134,8 +134,8 @@
             "car": "Car",
             "type": "Type",
             "remarks": "Remarks",
-            "previousEvent": "Previous event",
-            "nextEvent": "Next event",
+            "previousEvent": "Previous",
+            "nextEvent": "Next",
             "price": "Price"
           },
           "CarCareEvent": {

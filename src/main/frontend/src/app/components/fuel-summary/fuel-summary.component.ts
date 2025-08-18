@@ -55,7 +55,7 @@ export class FuelSummary extends Field<any>{
   getConsumptionResult(): number{
     let consumption = this.calculate();
     let car = this.formRef?.object.car;
-    if((this.formRef as EventFormComponent).isRefuelEvent() && car != null && consumption !== '?' && consumption != null && car.highestConsumption != null && car.highestConsumption != null){
+    if((this.formRef as EventFormComponent)?.isRefuelEvent() && car != null && consumption !== '?' && consumption != null && car.highestConsumption != null && car.highestConsumption != null){
       if(car.highestConsumption <= consumption) return 0
       else if (car.lowestConsumption >= consumption) return 100
       else {

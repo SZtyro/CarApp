@@ -86,6 +86,9 @@
       }
     }
   },
+  "TIPS":{
+    "REFUELING": "Tankowanie musi zostać zakończone zawsze w tym samym momencie, a by system mógł wyliczyć poprawnie statysyki (np. \"pod korek\", do pierwszego odbicia)."
+  },
   "pl": {
     "sztyro": {
       "core": {
@@ -142,8 +145,8 @@
             "car": "Samochód",
             "type": "Typ",
             "remarks": "Uwagi",
-            "previousEvent": "Poprzedni wpis",
-            "nextEvent": "Następny wpis",
+            "previousEvent": "Poprzedni",
+            "nextEvent": "Następny",
             "price": "Cena"
           },
           "CarCareEvent": {
