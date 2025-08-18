@@ -1,0 +1,24 @@
+::ng-deep #previousEvent{
+  padding-right: 6px;
+}
+
+::ng-deep #nextEvent{
+  padding-left: 6px;
+}
+
+::ng-deep app-event-form{
+  transition: transform 0.3s ease-in-out, opacity 0.5s ease-in-out;
+
+  ::ng-deep &.previous{
+    position: absolute;
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  ::ng-deep &.next{
+    position: absolute;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  
+}

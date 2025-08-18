@@ -53,6 +53,7 @@ import { TireModelComponent } from './components/forms/tire-model/tire-model.com
 import { HomeComponent } from './components/home/home.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { EventConnectionComponent } from './components/forms/event-form/event-connection.component';
 
 export let AppInjector: Injector;
 
@@ -110,7 +111,7 @@ export const MY_DATE_FORMATS = {
     MatIconModule,
     MatRippleModule,
     MatCardModule,
-    TranslateModule.forChild({
+    TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
@@ -143,7 +144,8 @@ export const MY_DATE_FORMATS = {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    IssueModule
+    IssueModule,
+    EventConnectionComponent
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },
