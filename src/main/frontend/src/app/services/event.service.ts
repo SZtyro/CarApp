@@ -56,10 +56,12 @@ export class EventService extends BaseRestService<any> {
     this.getCurrentInsurance(carId).subscribe(insurance => {
       if(insurance != null)
         this.router.navigate([this.getEditPath(insurance)])
-      else
-        this.createEvent({car: {id: carId}}, {name: 'pl.sztyro.carapp.model.InsuranceEvent'}).subscribe(elem => {
+    }, err => {
+      if(err.status === 404){
+        this.createEvent({car: {id: carId}, entityType: 'pl.sztyro.carapp.model.InsuranceEvent'}, {name: 'pl.sztyro.carapp.model.InsuranceEvent'}).subscribe(elem => {
           this.router.navigate([this.getEditPath(elem)])
-      });
+        })
+      }
     })
   }
 

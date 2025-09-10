@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { Field, InstanceProperties, GeneratorProperties, FieldProperties } from '@sztyro/core';
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { FormElement, FormElementBuilder } from '@sztyro/core';
+import { Renderable } from '@sztyro/core/lib/form-builder/interface/renderable';
 import { EventService } from 'src/app/services/event.service';
-
-export class CarTimelineProperties extends FieldProperties {
-  carId: number;
-}
+import { InsuranceSummaryBuilder } from '../insurance-summary/insurance-summary.component';
 
 
 @Component({
@@ -12,29 +10,21 @@ export class CarTimelineProperties extends FieldProperties {
   templateUrl: './car-timeline.component.html',
   styleUrl: './car-timeline.component.scss'
 })
-export class CarTimelineComponent extends Field<CarTimelineProperties> implements AfterViewInit {
-
-  events = this.injector.get(EventService);
+export class CarTimelineComponent extends FormElement implements OnInit, AfterViewInit {
 
   @ViewChild('content', { static: true }) content: any;
+  
+  events = inject(EventService);
 
-
-  static override create(options:InstanceProperties<CarTimelineProperties>): GeneratorProperties<CarTimelineProperties>{
-    return {
-      type: CarTimelineComponent,
-      config: options,
-    }
-  }
-
+  carId: number;
   _carEvents?: any[];
   _today?: number = new Date().getTime();
 
   private carEventTypes:{type: string, icon: string}[] = []
 
 
-  override ngOnInit(): void {
-    super.ngOnInit();
-    this.events.getAll({'car.id' : this.options.carId, size: 7, sort: 'date:DESC'}).subscribe(events => {
+  ngOnInit(): void {
+    this.events.getAll({'car.id' : this.carId, size: 7, sort: 'date:DESC'}).subscribe(events => {
       this._carEvents = events.results.reverse();
       let index = 0;
       let closestDate = 0;
@@ -73,5 +63,18 @@ export class CarTimelineComponent extends Field<CarTimelineProperties> implement
 
   getHref(event:any): string{  
     return event.entityType != 'today' ? `/${event.entityType}/${event.id}`: null
+  }
+
+  static builder(parent: Renderable): InsuranceSummaryBuilder{
+    return new InsuranceSummaryBuilder(CarTimelineComponent, parent)
+  }
+
+}
+
+export class CarTimelineBuilder extends FormElementBuilder<CarTimelineComponent>{
+
+  carId(id: number){
+    this.ref.instance.carId = id;
+    return this;
   }
 }
