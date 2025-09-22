@@ -12,7 +12,7 @@ export class TireModelService extends BaseRestService{
     showValue: e => `${e.company?.name} ${e.name}`,
     columns: [
       new Column('name'),
-      new Column('company.name', {header: 'pl.sztyro.carapp.model.TireCompany.name'}),
+      new Column('company.name', {header: 'pl.sztyro.carapp.model.TireCompany.HEADER'}),
     ] 
   });
 
