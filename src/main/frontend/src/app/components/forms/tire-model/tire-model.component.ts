@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { BaseFormComponent, ChipsField, Div, FieldBuilder, FormComponent, FormElementBuilder, GeneratorProperties, InputField, SelectField } from '@sztyro/core';
+import { FieldBuilder, StandardFormComponent, FormElementBuilder } from '@sztyro/core';
 import { TireModelService } from './tire-model.service';
 import { TireCompanyService } from 'src/app/services/tire-company.service';
 
@@ -8,7 +8,7 @@ import { TireCompanyService } from 'src/app/services/tire-company.service';
   templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.html',
   styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.scss'],
 })
-export class TireModelComponent extends FormComponent{
+export class TireModelComponent extends StandardFormComponent{
 
   override resource = inject(TireModelService);
   private companies = inject(TireCompanyService);

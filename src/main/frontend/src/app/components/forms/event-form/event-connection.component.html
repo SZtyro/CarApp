@@ -1,10 +1,10 @@
-<div class="wrapper" [class]="options.type" matRipple #graphic 
+<div class="wrapper" [class]="type" matRipple #graphic 
     (click)="onClick()" 
     (mouseleave)="graphic.classList.remove('hovered')"
     (mouseenter)="graphic.classList.add('hovered')">
     <div canvasBackground [properties]="backgroundProperties">
         <div class="d-flex w-100">
-            <div class="icon-wrapper" *ngIf="options.type === 'previous'" style="margin-right: 12px;">
+            <div class="icon-wrapper" *ngIf="type === 'previous'" style="margin-right: 12px;">
                 <span class="material-symbols-rounded">{{getDate() != null ? 'arrow_back' : 'close'}}</span>
             </div>
             <div class="w-100">
@@ -15,7 +15,7 @@
                 <span class="material-symbols-rounded" (click)="$event.stopPropagation(); edit()">edit</span>
                 <span class="material-symbols-rounded" (click)="$event.stopPropagation(); clear()">delete</span>
             </div>
-            <div class="icon-wrapper" *ngIf="options.type === 'next'"  style="margin-left: 12px;" >
+            <div class="icon-wrapper" *ngIf="type === 'next'"  style="margin-left: 12px;" >
                 <span class="material-symbols-rounded">{{nextEvent != null ? 'arrow_forward' : 'add'}}</span>
             </div>
         </div>

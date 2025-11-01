@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FieldBuilder, FormComponent } from '@sztyro/core';
+import { FieldBuilder, StandardFormComponent } from '@sztyro/core';
 import { FormElementBuilder } from '@sztyro/core/lib/form-builder/form-element';
 import { InsuranceCompanyService } from 'src/app/services/insurance-company.service';
 
@@ -8,7 +8,7 @@ import { InsuranceCompanyService } from 'src/app/services/insurance-company.serv
   templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.html',
   styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.scss'],
 })
-export class InsuranceCompanyComponent extends FormComponent {
+export class InsuranceCompanyComponent extends StandardFormComponent {
   protected override template(builder: FieldBuilder): FormElementBuilder<any>[] {
     return [
       builder.tile(anchor => [

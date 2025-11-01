@@ -1,14 +1,10 @@
 import { AfterViewInit, Component, ElementRef,  inject,  ViewChild } from '@angular/core';
-import { FieldProperties, FormElement, FormElementBuilder, InteractionService } from '@sztyro/core';
+import { FormElement, FormElementBuilder, InteractionService } from '@sztyro/core';
 import { Renderable } from '@sztyro/core/lib/form-builder/interface/renderable';
 import { fromEvent, Observable } from 'rxjs';
 import { auditTime, map } from 'rxjs/operators';
 import { EventService } from 'src/app/services/event.service';
 import { TireCompanyService } from 'src/app/services/tire-company.service';
-
-export class InsuranceSummaryProperties extends FieldProperties {
-  carId: number;
-}
 
 
 @Component({

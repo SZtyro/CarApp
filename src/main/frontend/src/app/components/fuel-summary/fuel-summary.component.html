@@ -1,4 +1,4 @@
-<div class="h-100 container">
+<div class="h-100 container" style="padding: 12px">
     <div class="row">
         <div class="col-12" *ngIf="{consumption: getConsumptionResult()} as result">
             <div class="section" [ngClass]="{'good': result.consumption < 30, 'bad': result.consumption > 70}">

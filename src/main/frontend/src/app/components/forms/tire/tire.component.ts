@@ -1,15 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { ActionButton, FieldBuilder, FormComponent, FormElementBuilder } from '@sztyro/core';
+import { ActionButton, StandardFormComponent, FormElementBuilder, FieldBuilder, formImports } from '@sztyro/core';
 import { TireService } from './tire.service';
 import { TireModelService } from '../tire-model/tire-model.service';
 import { mergeMap, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-tire',
+  standalone: true,
+  imports: [formImports],
   templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.html',
   styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.scss'],
 })
-export class TireComponent extends FormComponent {
+export class TireComponent extends StandardFormComponent {
   override resource = inject(TireService);
   private models = inject(TireModelService);
 

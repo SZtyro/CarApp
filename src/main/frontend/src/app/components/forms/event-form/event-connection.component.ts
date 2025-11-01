@@ -1,27 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentRef, OnInit, ViewChild } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   CoreModule,
-  Field,
-  FieldProperties,
-  GeneratorProperties,
-  InstanceProperties,
   CanvasBackgroundDirective,
   CanvasBackgroundProperties,
   Utils,
+  FormElement,
+  FormElementBuilder,
+  StandardFormComponent,
+  // StandardFormComponent,
 } from '@sztyro/core';
 import * as _ from 'lodash';
-import { EventFormComponent } from './event-form.component';
 import { EventService } from 'src/app/services/event.service';
 import { SVGPaths } from './svgPaths';
+import { Renderable } from '@sztyro/core/lib/form-builder/interface/renderable';
+import { EventFormComponent } from './event-form.component';
 
-export class EventConnectionProperties extends FieldProperties {
-  type?: 'previous' | 'next' = 'previous';
-  backgroundProperties?: CanvasBackgroundProperties;
-  parent: EventFormComponent;
-}
 
 @Component({
   selector: 'app-event-connection',
@@ -36,10 +32,12 @@ export class EventConnectionProperties extends FieldProperties {
   templateUrl: './event-connection.component.html',
   styleUrl: './event-connection.component.scss',
 })
-export class EventConnectionComponent
-  extends Field<EventConnectionProperties>
-  implements OnInit
-{
+export class EventConnectionComponent extends FormElement implements OnInit {
+
+  static builder(parent: Renderable): EventConnectionBuilder{
+    return new EventConnectionBuilder(EventConnectionComponent, parent)
+  }
+
   @ViewChild(CanvasBackgroundDirective)
   canvasBackground: CanvasBackgroundDirective;
 
@@ -49,59 +47,46 @@ export class EventConnectionComponent
     paths: [],
   };
 
+  type: 'previous' | 'next';
   nextEvent: any;
+  path: string;
 
-  static override create(
-    options: InstanceProperties<EventConnectionProperties>
-  ): GeneratorProperties<EventConnectionProperties> {
-    let p = new EventConnectionProperties();
 
-    options.options = { ...p, ...options.options };
-    return {
-      type: EventConnectionComponent,
-      config: options,
-    };
+  getLabel(): string {
+    return `pl.sztyro.carapp.model.CarEvent.${this.path}`; 
   }
 
-  override getLabel(): string {
-    let l = super.getLabel();
-    let splitted = l.split('.');
-    return 'pl.sztyro.carapp.model.CarEvent.' + splitted[splitted.length - 1]; 
-  }
-
-  override ngOnInit(): void {
-    super.ngOnInit();
-  }
 
   onClick(): void {
     let id;
-    if (this.options.type === 'previous') id = this.getValue()?.id;
+    let fr = this.getFormRef() as EventFormComponent;
+    if (this.type === 'previous') id = this.getValue()?.id;
     else {
       id = this.nextEvent?.id;
       if(id == null){
-        let obj = this.options.parent.object;
-        this.options.parent.resource.create({
+        let obj = fr.object();
+        fr.resource.create({
           entityType: obj.entityType,
           car: obj.car,
           previousEvent: {
             id: obj.id,
             entityType: obj.entityType
           }
-        }).subscribe((created => this.options.parent.navigateToEvent(this.options.type, created.id)))
+        }).subscribe((created => fr.navigateToEvent(this.type, created.id)))
       }
     }
 
-    if (id != null) this.options.parent.navigateToEvent(this.options.type, id);
+    if (id != null) fr.navigateToEvent(this.type, id);
   }
 
-  initTile() {
+  ngOnInit(): void {    
     this.backgroundProperties = {
       ...this.backgroundProperties,
-      ...this.options.backgroundProperties,
+      ...this.backgroundProperties,
     };
-    if (this.options.type === 'next') {
-      (this.options.parent.resource as EventService)
-        .getNextEvent(this.options.parent.object.id)
+    if (this.type === 'next') {
+      ((this.getFormRef() as StandardFormComponent).resource as EventService)
+        .getNextEvent(this.getFormRef().object().id)
         .subscribe((events) => {
           if (events.results.length > 0) {
             this.nextEvent = events.results[0];
@@ -119,9 +104,13 @@ export class EventConnectionComponent
     }
   }
 
-  getDate() {
-    if (this.options.type === 'previous') return this.getValue()?.date;
+  getDate(): number {
+    if (this.type === 'previous') return this.getValue()?.date;
     else return this.nextEvent?.date;
+  }
+
+  getValue(){
+    return _.get(this.getFormRef().object(), this.path);
   }
 
   assignProperPath() {
@@ -132,21 +121,40 @@ export class EventConnectionComponent
       ['pl.sztyro.carapp.model.RepairEvent', SVGPaths.REPAIR],
       ['pl.sztyro.carapp.model.CarCareEvent', SVGPaths.WASH],
     ]);
-    this.backgroundProperties.paths = [icons.get(this.options.parent.object.entityType)];
+    this.backgroundProperties.paths = [icons.get(this.getFormRef().object().entityType)];
   }
 
   edit(): void{
-    let parent: EventFormComponent = this.options.parent;
+    let parent: EventFormComponent = this.getFormRef() as EventFormComponent;
     parent.editPreviousEvent();
   }
 
   clear(): void{
-    let parent: EventFormComponent = this.options.parent;
+    let parent: EventFormComponent = this.getFormRef() as EventFormComponent;
     parent.clearPreviousEvent();
   }
 
-  override assignValueToField(): void {
-    super.assignValueToField();
-    this.initTile();
+}
+
+export class EventConnectionBuilder extends FormElementBuilder<EventConnectionComponent> {
+
+  type(value: 'previous' | 'next'): EventConnectionBuilder {
+    this.instance.type = value;
+    return this;
+  }
+
+  path(path:string): EventConnectionBuilder {
+    this.instance.path = path;
+    return this;
+  }
+
+  override build(): ComponentRef<EventConnectionComponent> {
+    const componentRef = super.build();
+    let i = componentRef.instance;
+    if(!i.type) {
+      if(i.path.includes('previous')) i.type = 'previous';
+      else i.type = 'next';
+    }
+    return componentRef;
   }
 }

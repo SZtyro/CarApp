@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FieldBuilder, FormComponent, FormElementBuilder } from '@sztyro/core';
+import { FieldBuilder, StandardFormComponent, FormElementBuilder } from '@sztyro/core';
 import { TireCompanyService } from 'src/app/services/tire-company.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { TireCompanyService } from 'src/app/services/tire-company.service';
   templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.html',
   styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.scss'],
 })
-export class TireCompanyFormComponent extends FormComponent {
+export class TireCompanyFormComponent extends StandardFormComponent {
   override resource: TireCompanyService = inject(TireCompanyService);
 
   protected override template(builder: FieldBuilder): FormElementBuilder<any>[] {

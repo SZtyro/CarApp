@@ -29,7 +29,7 @@ export class CarTimelineComponent extends FormElement implements OnInit, AfterVi
       let index = 0;
       let closestDate = 0;
       while (closestDate < this._today) {
-        closestDate = this._carEvents[index].date;
+        closestDate = this._carEvents[index]?.date;
         index++;
       }
       

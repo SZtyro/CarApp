@@ -1,13 +1,11 @@
-::ng-deep #previousEvent{
-  padding-right: 6px;
-}
-
-::ng-deep #nextEvent{
-  padding-left: 6px;
-}
-
 ::ng-deep app-event-form{
   transition: transform 0.3s ease-in-out, opacity 0.5s ease-in-out;
+
+  & app-event-connection{
+    padding-top: calc(var(--bs-gutter-x) * .5);
+    padding-bottom: calc(var(--bs-gutter-x) * .5);
+
+  }
 
   ::ng-deep &.previous{
     position: absolute;
@@ -22,3 +20,4 @@
   }
   
 }
+

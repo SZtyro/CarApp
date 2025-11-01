@@ -7,7 +7,7 @@
             <a class="icon-wrapper" matRipple style="cursor: pointer;" [attr.href]="getHref(event)" [title]="event.remarks">
                 <span class="material-symbols-rounded">{{getIconFor(event.entityType)}}</span>
             </a>
-            <div class="date-wrapper">{{event.date | date}}</div>
+            <div class="date-wrapper">{{event?.date | date}}</div>
         </div>
     </div>
 </div>
