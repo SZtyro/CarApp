@@ -153,6 +153,10 @@
             "HEADER": "Repair",
             "HEADER$plural": "Repairs"
           },
+          "ModificationEvent": {
+            "HEADER": "Modification",
+            "HEADER$plural": "Modification"
+          },
           "InsuranceEvent": {
             "HEADER": "Insurance",
             "HEADER$plural": "Insurances",

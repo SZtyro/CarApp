@@ -33,6 +33,7 @@ import java.util.Date;
         @JsonSubTypes.Type(value = InsuranceEvent.class, name = "pl.sztyro.carapp.model.InsuranceEvent"),
         @JsonSubTypes.Type(value = RepairEvent.class, name = "pl.sztyro.carapp.model.RepairEvent"),
         @JsonSubTypes.Type(value = CarCareEvent.class, name = "pl.sztyro.carapp.model.CarCareEvent"),
+        @JsonSubTypes.Type(value = ModificationEvent.class, name = "pl.sztyro.carapp.model.ModificationEvent"),
 })
 @MenuRoot
 public abstract class CarEvent extends BaseEntity implements MenuItem {

@@ -34,6 +34,8 @@ const routes: Routes = [
       { path: 'pl.sztyro.carapp.model.TireChangeEvent', redirectTo: 'Events' },
       { path: 'pl.sztyro.carapp.model.RepairEvent', redirectTo: 'Events' },
       { path: 'pl.sztyro.carapp.model.InsuranceEvent', redirectTo: 'Events' },
+      { path: 'pl.sztyro.carapp.model.ModificationEvent', redirectTo: 'Events' },
+      { path: 'pl.sztyro.carapp.model.ModificationEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.ModificationEvent/:id', resolve: {model: EventService} },
       { path: 'pl.sztyro.carapp.model.RepairEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.RepairEvent/:id', resolve: {model: EventService} },
       { path: 'pl.sztyro.carapp.model.TireChangeEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.TireChangeEvent/:id', resolve: {model: EventService} },
       { path: 'pl.sztyro.carapp.model.InsuranceEvent/:id', redirectTo: 'Events/pl.sztyro.carapp.model.InsuranceEvent/:id', resolve: {model: EventService} },

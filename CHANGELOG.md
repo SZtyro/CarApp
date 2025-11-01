@@ -2,6 +2,9 @@
 
 ## v0.8 - Core 1.0 Migration - 2025.11.01
 
+### ADD
+- ModificationEvent
+
 ### LIB
 - 1.0 Migration
 - Removed formGroup support
