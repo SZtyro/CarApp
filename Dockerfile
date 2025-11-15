@@ -27,7 +27,7 @@ COPY pom.xml .
 COPY src ./src
 COPY CHANGELOG.md ./
 COPY .m2/settings.xml $MAVEN_CONFIG/settings.xml.template
-COPY --from=frontend /app/src/main/webapp/ ./src/main/webapp/
+COPY --from=frontend /app/src/main/webapp/ ./src/main/resources/static
 COPY build-maven.sh /usr/local/bin/build-maven.sh
 
 RUN chmod +x /usr/local/bin/build-maven.sh && \
