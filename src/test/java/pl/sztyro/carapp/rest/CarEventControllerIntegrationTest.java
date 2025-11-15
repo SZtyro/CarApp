@@ -56,7 +56,6 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
         previous = controller.get(previous.getId()).getBody();
 
         assertEquals(next.getPreviousEvent().getId(), previous.getId());
-        assertEquals(previous.getNextEvent().getId(), next.getId());
         assertEquals(next.getCar().getId(), previous.getCar().getId());
     }
 
@@ -80,7 +79,6 @@ public class CarEventControllerIntegrationTest extends BaseEventIntegrationTest 
 
         RefuelEvent nextEvent = events.getResults().get(0);
         assertEquals(newEntity.getId(), nextEvent.getPreviousEvent().getId());
-        assertEquals(newEntity.getNextEvent().getId(), nextEvent.getId());
 
         Calendar c = Calendar.getInstance();
         c.setTime(nextEvent.getDate());

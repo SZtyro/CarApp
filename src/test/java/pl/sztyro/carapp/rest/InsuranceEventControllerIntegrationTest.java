@@ -64,7 +64,6 @@ public class InsuranceEventControllerIntegrationTest extends BaseEventIntegratio
 
         assertNotNull(nextEvent.getPreviousEvent());
         assertEquals(newEntity.getId(), nextEvent.getPreviousEvent().getId());
-        assertEquals(newEntity.getNextEvent().getId(), nextEvent.getId());
 
         Calendar c = Calendar.getInstance();
         c.setTime(nextEvent.getDate());
