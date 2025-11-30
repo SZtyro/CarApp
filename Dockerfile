@@ -1,7 +1,6 @@
 ARG NODE_VERSION=22.18.0-alpine
 ARG ANGULAR_VERSION=18.2.3
 
-
 FROM node:${NODE_VERSION} as frontend
 WORKDIR /app
 
