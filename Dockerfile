@@ -38,7 +38,7 @@ RUN --mount=type=secret,id=github_token \
 
 
 
-FROM tomcat:9-jdk17-openjdk-slim
+FROM tomcat:9.0.89-jdk17-temurin
 WORKDIR /usr/local/tomcat/webapps
 
 COPY --from=backend /app/target/carApp.war ./ROOT.war
