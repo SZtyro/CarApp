@@ -1,27 +1,28 @@
-import { Component } from '@angular/core';
-import { BaseSearchComponent, Column, Div, Field, GeneratorProperties, InteractionService, TableField } from '@sztyro/core';
-import { TilePickerComponent } from '../../tile-picker/tile-picker.component';
-import { EventService } from 'src/app/services/event.service';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { BaseSearchComponent, Column, FieldBuilder, FormElementBuilder, formImports, InteractionService } from '@sztyro/core';
 import { map, switchMap } from 'rxjs';
+import { EventService } from 'src/app/services/event.service';
+import { TilePickerComponent } from '../../tile-picker/tile-picker.component';
 
 @Component({
   selector: 'app-event',
+  standalone: true,
+  imports: [formImports, MatButtonModule],
   templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/base-search.component.html',
-  styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/base-search.component.scss'],
+  styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.scss'],
 })
-export class EventComponent extends BaseSearchComponent{
+export class EventComponent extends BaseSearchComponent implements OnInit{
 
-  interaction = this.injector.get(InteractionService);
-  override resource: EventService = this.injector.get(EventService);
-  private type:string = null;
-
-  override onInstancesReady(instances: Field<any>[]): void {
-    let table = instances[0] as TableField;
-    if(table != null)
-      table.options.onRowClick = row => {
-        this.router.navigate(['Events', row.entityType, row.id])
-      }
+  
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    event.target.innerWidth < 768 ? this.mobileView = true : this.mobileView = false;
   }
+
+  mobileView: boolean = false;
+  override resource: EventService = inject(EventService);
+  interaction = inject(InteractionService)
 
   override create(): void {
     
@@ -29,6 +30,7 @@ export class EventComponent extends BaseSearchComponent{
       height: 'initial',
       data: {
         title: "Select event type",
+        parent: this,
         data$: this.resource
           .getEventTypes()
           .pipe(
@@ -57,19 +59,22 @@ export class EventComponent extends BaseSearchComponent{
     ];
   }
 
-  override getProperties(): GeneratorProperties<any>[] {
-    return [
-      Div.tileStandard(
-        TableField.create({path: null, options: {
-          columns: this.getColumns(this.route.snapshot.data.metadata), 
-          class: 'w-100',
-          getData: (params) => this.route.paramMap.pipe(
-              switchMap(paramMap => this.resource.getAll({...params, ...{entityType: paramMap.get('type')}}))
-            )
-        }})
-      )
-      
-    ]
+  protected override template(builder: FieldBuilder): FormElementBuilder<any>[] {
+      return [
+        builder.standardTile(t => [
+        t.table()
+          .columns(...this.getColumns(this.metadata))
+          .resource(this.resource)
+          .data(params => this.route.paramMap.pipe(
+            switchMap(paramMap => this.resource.getAll({...params, ...{entityType: paramMap.get('type')}}))
+          ))  
+      ])
+      ]
   }
 
+  override ngOnInit(): void {
+    super.ngOnInit();
+    window.innerWidth < 768 ? this.mobileView = true : this.mobileView = false;
+  }
 }
+  

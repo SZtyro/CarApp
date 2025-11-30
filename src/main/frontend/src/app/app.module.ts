@@ -37,10 +37,9 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CoreModule, TabContainerComponent, TabComponent, ChartComponent, IssueModule } from '@sztyro/core';
+import { CoreModule, TabContainerComponent, TabComponent, ChartComponent, LimitPipe } from '@sztyro/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { EventComponent } from './components/forms/event-form/event.component';
 import { TilePickerComponent } from './components/tile-picker/tile-picker.component';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
 import { InsuranceSummaryComponent } from './components/insurance-summary/insurance-summary.component';
@@ -48,12 +47,12 @@ import { TireCompanyFormComponent } from './components/forms/tire-company-form/t
 import { TireSummaryComponent } from './components/tire-summary/tire-summary.component';
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
-import { TireComponent } from './components/forms/tire/tire.component';
 import { TireModelComponent } from './components/forms/tire-model/tire-model.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EventConnectionComponent } from './components/forms/event-form/event-connection.component';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 export let AppInjector: Injector;
 
@@ -85,7 +84,6 @@ export const MY_DATE_FORMATS = {
   declarations: [
     AppComponent,
     DashboardComponent,
-    EventComponent,
     EventFormComponent,
     FuelSummary,
     CarFormComponent,
@@ -95,7 +93,6 @@ export const MY_DATE_FORMATS = {
     InsuranceSummaryComponent,
     TireCompanyFormComponent,
     TireSummaryComponent,
-    TireComponent,
     TireModelComponent,
     HomeComponent
   ],
@@ -144,8 +141,10 @@ export const MY_DATE_FORMATS = {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    IssueModule,
-    EventConnectionComponent
+    EventConnectionComponent,
+    NgxJsonViewerModule,
+    LimitPipe
+    
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },

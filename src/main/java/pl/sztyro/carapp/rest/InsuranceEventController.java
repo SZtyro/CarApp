@@ -1,16 +1,19 @@
 package pl.sztyro.carapp.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.InsuranceEvent;
 import pl.sztyro.carapp.repository.InsuranceEventRepository;
 import pl.sztyro.carapp.service.InsuranceService;
 import pl.sztyro.core.service.UserService;
 
+import javax.persistence.NoResultException;
 import java.io.IOException;
 import java.util.*;
 
@@ -71,7 +74,12 @@ public class InsuranceEventController extends BaseCarEventController<InsuranceEv
     @GetMapping("/current/{carId}")
     @PreAuthorize("@permissionService.hasPrivilege(#carId, T(pl.sztyro.carapp.model.Car), 'Read')")
     public InsuranceEvent getCurrentInsurance(@PathVariable("carId") Long carId){
-        return insuranceService.getCurrentInsurance(carId);
+        //TODO: 404 Handler
+        try{
+            return insuranceService.getCurrentInsurance(carId);
+        }catch (NoResultException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.8 - Core 1.0 Migration - 2025.11.01
+
+### ADD
+- ModificationEvent
+
+### LIB
+- 1.0 Migration
+- Removed formGroup support
+
 ## v0.7 - Event form transitions - 2025.08.18
 
 ### ADD

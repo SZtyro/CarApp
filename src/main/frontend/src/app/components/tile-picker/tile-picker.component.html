@@ -1,14 +1,12 @@
-<div class="container-fluid">
-    <h3>{{data.title | translate}}</h3>
+<div class="container" [class.mobile]="data.parent.mobileView">
     <div class="row">
-        <div *ngFor="let tile of tiles"
-            (click)="select(tile)" 
-            class="tile col-6 col-xl-3" 
-            matRipple>
-            <span class="material-symbols-rounded">
-                {{tile.icon}}
-            </span>
-            <span translate>{{tile.name}}</span>
+        <div *ngFor="let tile of tiles" (click)="select(tile)" class="tile col-md-6 col-xl-3" >
+            <div matRipple>
+                <span class="title" translate>{{tile.name}}</span>
+                <span class="material-symbols-rounded">
+                    {{tile.icon}}
+                </span>
+            </div>
         </div>
     </div>
 </div>

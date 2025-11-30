@@ -1,13 +1,10 @@
-import { AfterViewInit, Component, ElementRef,  ViewChild } from '@angular/core';
-import { Field, FieldProperties, GeneratorProperties, InstanceProperties } from '@sztyro/core';
-import { fromEvent, Observable, of } from 'rxjs';
+import { AfterViewInit, Component, ElementRef,  inject,  ViewChild } from '@angular/core';
+import { FormElement, FormElementBuilder, InteractionService } from '@sztyro/core';
+import { Renderable } from '@sztyro/core/lib/form-builder/interface/renderable';
+import { fromEvent, Observable } from 'rxjs';
 import { auditTime, map } from 'rxjs/operators';
 import { EventService } from 'src/app/services/event.service';
 import { TireCompanyService } from 'src/app/services/tire-company.service';
-
-export class InsuranceSummaryProperties extends FieldProperties {
-  carId: number;
-}
 
 
 @Component({
@@ -15,22 +12,22 @@ export class InsuranceSummaryProperties extends FieldProperties {
   templateUrl: './tire-summary.component.html',
   styleUrl: './tire-summary.component.scss'
 })
-export class TireSummaryComponent extends Field<InsuranceSummaryProperties> implements AfterViewInit{
-  static override create(options:InstanceProperties<InsuranceSummaryProperties>): GeneratorProperties<InsuranceSummaryProperties>{
-    return {
-      type: TireSummaryComponent,
-      config: options,
-    }
+export class TireSummaryComponent extends FormElement implements AfterViewInit{
+
+  static builder(parent: Renderable): TireSummaryBuilder{
+    return new TireSummaryBuilder(TireSummaryComponent, parent)
   }
 
   @ViewChild('axis', {static: false}) axis: ElementRef;
 
-  events = this.injector.get(EventService);
-  tireCompanies = this.injector.get(TireCompanyService);
+  events = inject(EventService);
+  tireCompanies = inject(TireCompanyService);
+  private interaction = inject(InteractionService);
   tireChangeIcon$: Observable<string>= this.events.getEventTypes().pipe(map(obj => obj['pl.sztyro.carapp.model.TireChangeEvent']));
   monthsOffsets: number[] = [];
   monthsBetween: string[] = [];
   tireCompanyLogo: string;
+  carId;
 
   summary
   readonly today: Date = new Date();
@@ -40,7 +37,7 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
   ngAfterViewInit(): void {
     this.renderAxis();
     fromEvent(window,'resize').pipe(auditTime(500)).subscribe(() => this.renderAxis());
-    this.events.getTireSummary(this.formRef.object.id).subscribe(
+    this.events.getTireSummary(this.carId).subscribe(
       summary => this.summary = summary,
       err => this.interaction.defaultError(err)
     )
@@ -125,5 +122,14 @@ export class TireSummaryComponent extends Field<InsuranceSummaryProperties> impl
   
   getLogoFor(companyId: number): Observable<string> {
     return this.tireCompanies.get(companyId).pipe(map(cmp => cmp.logoUrl))
+  }
+}
+
+
+export class TireSummaryBuilder extends FormElementBuilder<TireSummaryComponent>{
+  
+  carId(id: number){
+    this.ref.instance.carId = id;
+    return this;
   }
 }

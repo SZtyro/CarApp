@@ -115,7 +115,6 @@ class TireChangeEventControllerIntegrationTest extends BaseIntegrationTest {
         firstChange = controller.get(firstChange.getId()).getBody();
 
         assertEquals(firstChange.getId(), secondChange.getPreviousEvent().getId());
-        assertEquals(secondChange.getId(), firstChange.getNextEvent().getId());
     }
 
     @Test

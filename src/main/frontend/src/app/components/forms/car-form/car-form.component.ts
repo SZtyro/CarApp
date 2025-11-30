@@ -1,60 +1,35 @@
-import { Component } from '@angular/core';
-import { BaseFormComponent, BaseRestService, Div, InputField, DateField, ChipsField, TileSelect, SelectField, SelectOption, GeneratorProperties } from '@sztyro/core';
+import { Component, inject } from '@angular/core';
+import { BaseRestService, StandardFormComponent, FieldBuilder, FormElementBuilder } from '@sztyro/core';
 import { CarService } from 'src/app/services/car.service';
-import { EventService } from 'src/app/services/event.service';
+import { InsuranceSummaryBuilder, InsuranceSummaryComponent } from '../../insurance-summary/insurance-summary.component';
+import { TireSummaryBuilder, TireSummaryComponent } from '../../tire-summary/tire-summary.component';
 import { CarTimelineComponent } from '../../car-timeline/car-timeline.component';
-import { InsuranceSummaryComponent } from '../../insurance-summary/insurance-summary.component';
-import { TireSummaryComponent } from '../../tire-summary/tire-summary.component';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-car-form',
-  templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.html',
+  templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.html',
   styleUrls: [
-    './../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.scss',
-    './car-form.component.scss'
+    './../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.scss'
   ]
 })
-export class CarFormComponent extends BaseFormComponent<any> {
-
-  override resource: BaseRestService<any> = this.injector.get(CarService);
-  private events: EventService = this.injector.get(EventService);
-
-   
-  override getProperties(): GeneratorProperties<any>[] {
+export class CarFormComponent extends StandardFormComponent {
+  
+  override resource: BaseRestService<any> = inject(CarService);
+  
+  protected override template(builder: FieldBuilder): FormElementBuilder<any>[] {
     return [
-      Div.create('row',
-        Div.create("col-xl-9 col-xxl-10 p-0",
-          Div.create('row m-0',
-            Div.tileStandard(
-              InputField.create({path: 'name', options: {isRequired: () => true, class: 'col-md-6'}}),
-              SelectField.create({path: 'engineType', options: {
-                class: 'col-md-6',
-                selectOptions: this.resource.getEnum('pl.sztyro.carapp.enums.EngineType').pipe(map(e => e.map(type => new SelectOption(type.name))))
-              }})
-            ),
-            
-            Div.tileWith('col-xxl-4', 'insurance-tile ripple',
-              InsuranceSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100'}}),
-            ).onClick(e => this.events.openCurrentInsurance(this.object.id)),
-            Div.tileWith('col-xxl-8', 'h-100',
-              TireSummaryComponent.create({path: null, options: { carId: this.object.id, class: 'w-100 h-100'}}),
-            ),
-
-          ),
-          
-        ),
-        
-        Div.tileWith('col-xl-3 col-xxl-2', 'h-100',
-            CarTimelineComponent.create({path: null, options: {carId: this.object.id, class: 'w-100'}}),
-          
-        ),
-      )
-     
-     
-        
+      builder.standardTile(tile => [
+        tile.input('name').required().class('col-md-6'),
+        tile.select('engineType').class('col-md-6').optionsFromEnum('pl.sztyro.carapp.enums.EngineType')
+      ]),
+      builder.customAsTile<InsuranceSummaryBuilder>(InsuranceSummaryComponent, b => b.carId(this.object().id))
+        .class('col-xxl-4')
+        .ripple(),
+      builder.customAsTile<TireSummaryBuilder>(TireSummaryComponent, b => b.carId(this.object().id))
+        .class('col-xxl-8'),
+      builder.customAsTile<TireSummaryBuilder>(CarTimelineComponent, b => b.carId(this.object().id))
+        .class('col-12')
     ]
   }
-
-
+   
 }

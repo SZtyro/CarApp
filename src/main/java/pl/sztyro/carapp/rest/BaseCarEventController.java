@@ -20,7 +20,8 @@ public abstract class BaseCarEventController<T extends  CarEvent> extends BaseCo
             TireChangeEvent.class.getName(), "tire_repair",
             InsuranceEvent.class.getName(), "security",
             RepairEvent.class.getName(),"car_repair",
-            CarCareEvent.class.getName(),"soap"
+            CarCareEvent.class.getName(),"soap",
+            ModificationEvent.class.getName(),"car_gear"
     );
 
     public BaseCarEventController(Class controllerClass, Class<T> entityClass){

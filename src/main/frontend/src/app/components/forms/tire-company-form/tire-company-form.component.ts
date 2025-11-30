@@ -1,24 +1,23 @@
-import { Component } from '@angular/core';
-import { BaseFormComponent, Div, GeneratorProperties, InputField } from '@sztyro/core';
+import { Component, inject } from '@angular/core';
+import { FieldBuilder, StandardFormComponent, FormElementBuilder } from '@sztyro/core';
 import { TireCompanyService } from 'src/app/services/tire-company.service';
 
 @Component({
   selector: 'app-tire-company-form',
-  templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.html',
-  styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/base-form.component.scss'],
+  templateUrl: './../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.html',
+  styleUrls: ['./../../../../../node_modules/@sztyro/core/src/lib/assets/form.component.scss'],
 })
-export class TireCompanyFormComponent extends BaseFormComponent {
-  override resource: TireCompanyService = this.injector.get(TireCompanyService);
-  override getProperties(): GeneratorProperties<any>[] {
+export class TireCompanyFormComponent extends StandardFormComponent {
+  override resource: TireCompanyService = inject(TireCompanyService);
+
+  protected override template(builder: FieldBuilder): FormElementBuilder<any>[] {
     return [
-      Div.tileStandard(
-        InputField.create({path: 'name', options: {class: 'col-md-6'}}),
-        // CheckboxField.create({path: 'enabled', options: {class: 'col-md-6'}})
-        InputField.create({path: 'logoUrl', options: {class: 'col-12'}})
-      )
-        
-      
-      
+      builder.standardTile(t => [
+        t.input('name').class('col-md-6'),
+        t.checkbox('enabled').class('col-md-6'),
+        t.input('logoUrl').class('col-12')
+      ])
     ]
   }
+
 }

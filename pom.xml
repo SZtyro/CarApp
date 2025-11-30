@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>carApp</artifactId>
-    <version>0.7.0</version>
+    <version>0.8.0</version>
     <packaging>war</packaging>
     <name>carApp</name>
     <description>carApp</description>
@@ -34,7 +34,7 @@
        <dependency>
            <groupId>pl.sztyro</groupId>
            <artifactId>core</artifactId>
-           <version>1.4.0</version>
+           <version>1.4.2</version>
        </dependency>
 
        <dependency>
@@ -166,55 +166,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>production</id>
-            <build>
-                <plugins>
-                    <plugin>
-
-                        <groupId>com.github.eirslett</groupId>
-                        <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.11.3</version>
-
-                        <executions>
-                            <execution>
-                                <phase>generate-resources</phase>
-                                <id>install node and npm</id>
-                                <goals>
-                                    <goal>install-node-and-npm</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <phase>generate-resources</phase>
-                                <id>npm install</id>
-                                <goals>
-                                    <goal>npm</goal>
-                                </goals>
-                                <configuration>
-                                    <arguments>install</arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>npm run-script build</id>
-                                <goals>
-                                    <goal>npm</goal>
-                                </goals>
-                                <phase>generate-resources</phase>
-                                <configuration>
-                                    <arguments>run build</arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <nodeVersion>v18.19.1</nodeVersion>
-                            <npmVersion>10.2.4</npmVersion>
-                            <workingDirectory>${project.basedir}/src/main/frontend</workingDirectory>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
