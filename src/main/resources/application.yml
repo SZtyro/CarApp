@@ -48,16 +48,16 @@ spring:
             resource:
                 user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
     mail:
-        host: sztyro.com
-        port: 587
-        protocol: smtp
+        host: ${SMTP_HOST}
+        port: ${SMTP_PORT:587}
+        protocol: ${SMTP_PROTOCOL}
         username: ${SMTP_USERNAME}
         password: ${SMTP_PASSWORD}
         properties:
             mail:
                 smtp:
-                    auth: true
-                    ssl.trust: sztyro.com
+                    auth: ${SMTP_AUTH}
+                    ssl.trust: "${SMTP_SSL_TRUST:sztyro.com}"
                     starttls:
                         enable: true
 app:
