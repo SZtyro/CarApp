@@ -80,11 +80,8 @@
               <div class="tile-content changelog-content">
                 <div class="d-flex flex-column">
                   <div *ngFor="let change of section.changes">
-                    <span [ngSwitch]="change.type" class="change-wrapper">
-                      <span *ngSwitchCase="'ADD'"><span class="dot" style="background-color: #94c48a;"></span>&nbsp;{{change.message}}</span>
-                      <span *ngSwitchCase="'FIX'"><span class="dot" style="background-color: rgb(226, 214, 162);"></span>&nbsp;{{change.message}}</span>
-                      <span *ngSwitchCase="'CHORE'"><span class="dot" style="background-color: rgb(156, 166, 185);"></span>&nbsp;{{change.message}}</span>
-                      <span *ngSwitchCase="'REMOVE'"><span class="dot" style="background-color: rgb(201, 154, 151);"></span>&nbsp;{{change.message}}</span>
+                    <span class="change-wrapper">
+                      <span><span class="dot" [style.background-color]="changelogColors[change.type]"></span>&nbsp;{{change.message}}</span>
                     </span>
                   </div>
                 </div>

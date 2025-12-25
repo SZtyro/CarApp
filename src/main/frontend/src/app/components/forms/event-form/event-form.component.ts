@@ -13,6 +13,7 @@ import { InsuranceCompanyService } from "src/app/services/insurance-company.serv
 import { TireService } from "../tire/tire.service";
 import { EventConnectionBuilder, EventConnectionComponent } from "./event-connection.component";
 import { FormControl, FormGroup } from "@angular/forms";
+import { InputComponent } from "@sztyro/core/lib/form-builder/field/input.component";
 
 @Component({
   selector: "app-event-form",
@@ -33,7 +34,7 @@ export class EventFormComponent extends StandardFormComponent {
   override onFormReady(): void {
     super.onFormReady();
     ["mileage", "date", "price", "car", "remarks"].forEach((path) => {
-      this.getFieldByPath(path).getLabel = () => `pl.sztyro.carapp.model.CarEvent.${path}`;
+      this.getFieldByPath<InputComponent>(path).getLabel = () => `pl.sztyro.carapp.model.CarEvent.${path}`;
     });
   }
 

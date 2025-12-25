@@ -1,0 +1,1 @@
+- Listy zmian dostępne w języku polskim

@@ -25,6 +25,7 @@ ENV MAVEN_CONFIG=/root/.m2
 COPY pom.xml .
 COPY src ./src
 COPY CHANGELOG.md ./
+COPY CHANGELOG.pl.md ./
 COPY .m2/settings.xml $MAVEN_CONFIG/settings.xml.template
 COPY --from=frontend /app/src/main/webapp/ ./src/main/resources/static
 COPY build-maven.sh /usr/local/bin/build-maven.sh

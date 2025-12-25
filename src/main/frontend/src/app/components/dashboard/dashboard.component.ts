@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private cars: CarService,
     private infoService: InfoService
   ) { 
-    this.changelog$ = this.infoService.getChangelog();
     this.incomingEvents$ = this.events.getAll({
       "sort": 'date:ASC',
       "size": 3,
@@ -66,6 +65,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {icon: 'code', action: 'Changelog'},
     {icon: 'how_to_vote', action: 'Voting', badge: 2},
   ]
+  changelogColors = {
+    "Added": "#94c48a",
+    "Fixed": "rgb(226, 214, 162)",
+    "Changed": "rgb(156, 166, 185)",
+    "Removed": "rgb(201, 154, 151)"
+  }
 
   ngOnInit(): void {
     
@@ -77,7 +82,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.newsSwitch$
     ])
     .pipe(
-      switchMap(([lang, type]) => this.getNews(lang, type)  
+      switchMap(([lang, type]) => {
+        this.changelog$ = this.infoService.getChangelog(lang);
+        return this.getNews(lang, type);
+      }  
     )).subscribe(news => this.news = news);
 
     this.carEventTypesSubscritpion$ = this.events.getEventTypes().subscribe(types => {
@@ -141,25 +149,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         icon: 'star',
         type: 'Article'
       },
-
-      {
-        lang: 'pl_PL',
-        title: 'Elementy demo, dashboard',
-        version: '0.4.2',
-        fixes: ['Naprawiono błąd blokujący dodanie samochodu z zasobu', 'Naprawiono błąd uniemożliwiający dodanie nowego wydarzenia'],
-        added: ['[Demo] Dodano komponent z nowościami i ankietami', '[Demo] Dodano komponent ze statystykami', '[Demo] Dodano przykładowe dane do kont tymczasowych'],
-        date: new Date(2025, 2, 5),
-        type: 'Changelog'
-      },
-      {
-        lang: 'en_US',
-        title: 'Demo elements, dashboard',
-        version: '0.4.2',
-        fixes: ['Fixed a bug blocking adding a car from a resource', 'Fixed a bug preventing adding a new event'],
-        added: ['[Demo] Added a component with news and surveys', '[Demo] Added a component with statistics', '[Demo] Added sample data to temporary accounts'],
-        date: new Date(2025, 2, 5),
-        type: 'Changelog'
-      }
     ]).pipe(
       map(news => news.filter(n => n.lang === lang && n.type === type.toString()))
     );
