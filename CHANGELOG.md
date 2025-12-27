@@ -1,3 +1,8 @@
+# v0.8.1 - Fixes - 2025-12-27
+
+## Added
+- Multilanguage changelogs
+
 # v0.8 - Core 1.0 Migration - 2025.11.01
 
 ## Added
