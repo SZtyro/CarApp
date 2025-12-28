@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.sztyro.carapp.model.Car;
 import pl.sztyro.core.interfaces.BaseRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,5 @@ public interface CarRepository extends BaseRepository<Car> {
     Optional<Car> findById(Long aLong);
 
     Car findOneByName(String name);
+    List<Car> findByAuthorEmail(String email);
 }

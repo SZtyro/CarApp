@@ -1,1 +1,2 @@
 - Added modification events to summary
+- If a user has registered only one car, it will be automatically assigned to the new event.
