@@ -12,3 +12,10 @@
 ## Added
 - Listy zmian dostępne w języku polskim
 
+# v0.7.0 - Przejścia wpisów - 2025.08.18
+
+## Added
+- Dodano komponent który umożliwia przejścia do powiązanych wpisów 
+
+## Removed
+- Usunięto zapis o następnym wpisie, teraz jest pobierany.

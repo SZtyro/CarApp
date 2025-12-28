@@ -1,0 +1,1 @@
+- Dodano do podsumowania wydatków modyfikacje

@@ -12,7 +12,7 @@
 ## Added
 - Multilanguage changelogs
 
-# v0.8 - Core 1.0 Migration - 2025.11.01
+# v0.8.0 - Core 1.0 Migration - 2025.11.01
 
 ## Added
 - ModificationEvent
@@ -21,7 +21,7 @@
 - 1.0 Migration
 - Removed formGroup support
 
-# v0.7 - Event form transitions - 2025.08.18
+# v0.7.0 - Event form transitions - 2025.08.18
 
 ## Added
 - Added event form transitions
@@ -30,7 +30,7 @@
 - Removed next event connection, now it is fetched
 
 
-# v0.6 - Car care event, changelog - 2025.07.15
+# v0.6.0 - Car care event, changelog - 2025.07.15
 
 ## Added
 - Added Car care event

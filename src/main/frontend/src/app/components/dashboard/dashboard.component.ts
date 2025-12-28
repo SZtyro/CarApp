@@ -168,6 +168,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           'pl.sztyro.carapp.model.InsuranceEvent': '#8c8cb1',
           'pl.sztyro.carapp.model.TireChangeEvent': '#c0c0c0',
           'pl.sztyro.carapp.model.CarCareEvent': '#bf97a4',
+          'pl.sztyro.carapp.model.ModificationEvent': '#d47b7b',
         }
 
         return {
