@@ -1,20 +1,16 @@
 <div class="container" style="margin-top: 32px;">
   <div class="row">
 
-    <div class="col-md-6 h-100">
+    <div class="col-md-6 h-100" *ngIf="(incomingEvents$ | async) as incomingEvents">
       <div>
         <div class="header">{{'Incoming events' | translate}}</div>
         <div class="content">
-          <div *ngFor="let elem of (incomingEvents$ | async)" >
-            <a [href]="'#/Events/' + event.entityType + '/' + event.id" *ngFor="let event of elem.events" class="event w-100" matRipple>
-              <div class="d-flex flex-column">
-                <span style="font-weight: 500;">{{event.entityType + '.HEADER' | translate }}&nbsp;{{event.date | date}}</span>
-                {{elem.car?.name}}
-              </div>
-
-              <span class="material-symbols-rounded">{{getIconFor(event.entityType)}}</span>
-            </a>
-            
+          <div *ngFor="let section of incomingEvents.sooner" >
+            <app-dashboard-event-tile *ngFor="let event of section.events" [carName]="section.car.name" [event]="event"></app-dashboard-event-tile>
+          </div>
+          <div class="event-spacer" *ngIf="isMoreThanOneEvent(incomingEvents)"></div>
+          <div *ngFor="let section of incomingEvents.later" >
+            <app-dashboard-event-tile *ngFor="let event of section.events" [carName]="section.car.name" [event]="event"></app-dashboard-event-tile>
           </div>
         </div>
       </div>

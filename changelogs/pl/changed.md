@@ -1,0 +1,1 @@
+- Nadchodzące wydarzenia na dashboardzie pokazują teraz nawet te za więcej niż 30 dni (max 3)  

@@ -83,7 +83,6 @@ export const MY_DATE_FORMATS = {
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     EventFormComponent,
     FuelSummary,
     CarFormComponent,
@@ -143,7 +142,8 @@ export const MY_DATE_FORMATS = {
     }),
     EventConnectionComponent,
     NgxJsonViewerModule,
-    LimitPipe
+    LimitPipe,
+    DashboardComponent
     
   ],
   providers: [

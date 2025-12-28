@@ -1,0 +1,16 @@
+.event{
+    padding: 12px 24px;
+    border-radius: 42px;
+    background-color: var(--sys-surface-container-high);
+    color: var(--sys-on-surface-variant);
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    min-height: 72px;
+
+    & .material-symbols-rounded{
+        font-size: 32px;
+        display: flex;
+        align-items: center;
+    }
+}

@@ -1,0 +1,9 @@
+<a [href]="'#/Events/' + event().entityType + '/' +  event().id" class="event w-100" matRipple>
+    <div class="d-flex flex-column">
+        <span style="font-weight: 500;">{{ event().entityType + '.HEADER' | translate }}&nbsp;{{event().date |
+            date}}</span>
+        {{carName()}}
+    </div>
+
+    <span class="material-symbols-rounded">{{getIconFor( event().entityType)}}</span>
+</a>

@@ -1,21 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
-import { InfoService, RoleService, Utils } from '@sztyro/core'
+import { ChartComponent, formImports, InfoService, RoleService, Utils } from '@sztyro/core'
 import { TranslateService } from '@ngx-translate/core';
 import { CarService } from './../../services/car.service';
 import { ChartConfiguration } from 'chart.js/auto';
+import { DashboardEventTileComponent } from "./dashboard-event-tile/dashboard-event-tile.component";
+import { MatBadgeModule } from '@angular/material/badge';
 
+type DashboardEventSection = {sooner: DashboardEvent[], later: DashboardEvent[]};
 type DashboardEvent = {car: any, events: any[]}
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  imports: [formImports, ChartComponent, DashboardEventTileComponent, MatBadgeModule]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private carEventTypes: object = {};
 
   constructor(
     private events: EventService,
@@ -27,16 +31,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.incomingEvents$ = this.events.getAll({
       "sort": 'date:ASC',
       "size": 3,
-      'date:From': this.today.getTime(),
-      'date:To': this.monthLater.getTime(),
+      'date:From': this.today.getTime()
     }).pipe(map(response => {
-      let grouped: DashboardEvent[] = []
+      let ret: DashboardEventSection = {sooner: [], later: []};
       response.results.forEach((event) => {
+        let grouped = event.date <= this.monthLater.getTime() ? ret.sooner : ret.later;
         let elem = grouped.find(e => e.car?.id === event.car?.id);
         if(elem != null) elem.events.push(event)
         else grouped.push({car: event.car, events: [event]}); 
       })
-      return grouped;
+      if(this.isMoreThanOneEvent(ret)) return ret;
+      else return null;
     }))
 
     this.mainCar$ = this.cars.getAll().pipe(
@@ -50,11 +55,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   
   mainCar$: Observable<any>;
   langSubscritpion$: Subscription;
-  carEventTypesSubscritpion$: Subscription;
 
   today: Date = new Date();
   monthLater: Date = new Date(this.today.getFullYear(),this.today.getMonth() + 1, this.today.getDate());
-  incomingEvents$: Observable<DashboardEvent[]>;
+  incomingEvents$: Observable<DashboardEventSection>;
   summaryChartConfig$: Observable<ChartConfiguration>;
 
   changelog$: Observable<any[]>;
@@ -88,21 +92,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }  
     )).subscribe(news => this.news = news);
 
-    this.carEventTypesSubscritpion$ = this.events.getEventTypes().subscribe(types => {
-      this.carEventTypes = types;
-    })
+
 
   }
 
   ngOnDestroy(): void {
     this.langSubscritpion$.unsubscribe();
-    this.carEventTypesSubscritpion$.unsubscribe();
     
   }
 
-  getIconFor?(type){
-    return this.carEventTypes[type];
-  }
+
 
 
 
@@ -222,6 +221,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let next = index + 1;
     if(this.newsActions.length === next) this.newsSwitch$.next(this.newsActions[0].action)
     else this.newsSwitch$.next(this.newsActions[next].action)
+  }
+
+  isMoreThanOneEvent(incomingEvents: DashboardEventSection): boolean {
+    return incomingEvents.sooner.length + incomingEvents.later.length > 1
   }
 
 }
