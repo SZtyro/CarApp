@@ -62,3 +62,4 @@ app:
 logging:
     level:
         pl.sztyro: DEBUG
+        pl.sztyro.core.service.RestService: INFO
