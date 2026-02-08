@@ -1,1 +1,0 @@
-- Fixed redirecting to home page after logging out

@@ -1,3 +1,15 @@
+# v0.9.0 - Notifications - 2026-02-08
+
+## Added
+- Dodano do podsumowania wydatków modyfikacje
+- Nowe wpisy automatycznie przypisują samochód, jeśli użytkownik ma tylko jeden
+- Język aplikacji jest zapisywany w profilu
+- Powiadomienia mailowe
+## Changed
+- Nadchodzące wydarzenia na dashboardzie pokazują teraz nawet te za więcej niż 30 dni (max 3)  
+## Fixed
+- Wylogowanie przekierowuje do strony głównej
+
 # v0.8.4 - Fixes - 2025-12-28
 
 

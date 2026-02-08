@@ -1,4 +1,0 @@
-- Dodano do podsumowania wydatków modyfikacje
-- Nowe wpisy automatycznie przypisują samochód, jeśli użytkownik ma tylko jeden
-- Język aplikacji jest zapisywany w profilu
-- Powiadomienia mailowe

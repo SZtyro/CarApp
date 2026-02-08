@@ -1,3 +1,15 @@
+# v0.9.0 - Notifications - 2026-02-08
+
+## Added
+- Added modification events to summary
+- If a user has registered only one car, it will be automatically assigned to the new event.
+- The app language is saved in the user profile
+- Car event mail notifications
+## Changed
+- Incoming events include those with a date more than 30 days in the future (max. 3)
+## Fixed
+- Fixed redirecting to home page after logging out
+
 # v0.8.4 - Fixes - 2025-12-28
 
 
