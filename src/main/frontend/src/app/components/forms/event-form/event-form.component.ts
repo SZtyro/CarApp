@@ -102,7 +102,7 @@ export class EventFormComponent extends StandardFormComponent {
             this.formDate.update(() => new Date(value));
             let notificationField = this.getFieldByPredicate<DateComponent>(f => f.getLabel?.() === this.NOTIFICATION_LABEL);
 
-            if(value != this.object()['date']){ // Date changed, reset notification
+            if(value != this.object()['date'] && !this.isRefuelEvent()){ // Date changed, reset notification
               notificationField.setValue(null);
               this.update("fireDate", null);
             }
