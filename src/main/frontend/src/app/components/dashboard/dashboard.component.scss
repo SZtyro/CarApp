@@ -6,6 +6,12 @@
     margin: 6px 0;
 }
 
+.event-spacer{
+    height: 1px;
+    margin: 0 17px;
+    background-color: var(--sys-secondary);
+}
+
 .icon-wrapper {
     background-color: var(--sys-secondary-container);
     color: var(--sys-on-secondary-container);
@@ -96,23 +102,6 @@ mat-icon{
         }
     }
     
-}
-
-.event{
-    padding: 12px 24px;
-    border-radius: 42px;
-    background-color: var(--sys-surface-container-high);
-    color: var(--sys-on-surface-variant);
-    display: flex;
-    justify-content: space-between;
-    text-decoration: none;
-    min-height: 72px;
-
-    & .material-symbols-rounded{
-        font-size: 32px;
-        display: flex;
-        align-items: center;
-    }
 }
 
 .quick-tile{

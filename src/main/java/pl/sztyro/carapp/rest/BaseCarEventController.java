@@ -1,19 +1,23 @@
 package pl.sztyro.carapp.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.*;
+import pl.sztyro.carapp.service.CarService;
 import pl.sztyro.core.rest.BaseController;
-import pl.sztyro.core.rest.FilteredResult;
 
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public abstract class BaseCarEventController<T extends  CarEvent> extends BaseController<T> {
+
+    @Autowired
+    protected CarService cars;
 
     static final Map<String, String> eventTypes = Map.of(
             RefuelEvent.class.getName(), "local_gas_station",
@@ -74,6 +78,15 @@ public abstract class BaseCarEventController<T extends  CarEvent> extends BaseCo
     protected void getFetch(Root<T> root) {
         root.fetch(CarEvent_.car, JoinType.LEFT);
         root.fetch(CarEvent_.previousEvent, JoinType.LEFT);
+    }
+
+    @Override
+    public ResponseEntity<T> create(T entity) throws IOException {
+        List<Car> userCars = cars.getUserCars();
+        if(userCars.size() == 1){
+            entity.setCar(userCars.get(0));
+        }
+        return super.create(entity);
     }
 
     @GetMapping("/types")

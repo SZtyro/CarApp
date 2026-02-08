@@ -1,21 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
-import { InfoService, RoleService, Utils } from '@sztyro/core'
+import { ChartComponent, formImports, InfoService, RoleService, Utils } from '@sztyro/core'
 import { TranslateService } from '@ngx-translate/core';
 import { CarService } from './../../services/car.service';
 import { ChartConfiguration } from 'chart.js/auto';
+import { DashboardEventTileComponent } from "./dashboard-event-tile/dashboard-event-tile.component";
+import { MatBadgeModule } from '@angular/material/badge';
 
+type DashboardEventSection = {sooner: DashboardEvent[], later: DashboardEvent[]};
 type DashboardEvent = {car: any, events: any[]}
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  imports: [formImports, ChartComponent, DashboardEventTileComponent, MatBadgeModule]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private carEventTypes: object = {};
 
   constructor(
     private events: EventService,
@@ -24,20 +28,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private cars: CarService,
     private infoService: InfoService
   ) { 
-    this.changelog$ = this.infoService.getChangelog();
     this.incomingEvents$ = this.events.getAll({
       "sort": 'date:ASC',
       "size": 3,
-      'date:From': this.today.getTime(),
-      'date:To': this.monthLater.getTime(),
+      'date:From': this.today.getTime()
     }).pipe(map(response => {
-      let grouped: DashboardEvent[] = []
+      let ret: DashboardEventSection = {sooner: [], later: []};     
       response.results.forEach((event) => {
+        let grouped = event.date <= this.monthLater.getTime() ? ret.sooner : ret.later;
         let elem = grouped.find(e => e.car?.id === event.car?.id);
         if(elem != null) elem.events.push(event)
         else grouped.push({car: event.car, events: [event]}); 
       })
-      return grouped;
+      return ret;
     }))
 
     this.mainCar$ = this.cars.getAll().pipe(
@@ -51,11 +54,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   
   mainCar$: Observable<any>;
   langSubscritpion$: Subscription;
-  carEventTypesSubscritpion$: Subscription;
 
   today: Date = new Date();
   monthLater: Date = new Date(this.today.getFullYear(),this.today.getMonth() + 1, this.today.getDate());
-  incomingEvents$: Observable<DashboardEvent[]>;
+  incomingEvents$: Observable<DashboardEventSection>;
   summaryChartConfig$: Observable<ChartConfiguration>;
 
   changelog$: Observable<any[]>;
@@ -66,6 +68,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {icon: 'code', action: 'Changelog'},
     {icon: 'how_to_vote', action: 'Voting', badge: 2},
   ]
+  changelogColors = {
+    "Added": "#94c48a",
+    "Fixed": "rgb(226, 214, 162)",
+    "Changed": "rgb(156, 166, 185)",
+    "Removed": "rgb(201, 154, 151)"
+  }
 
   ngOnInit(): void {
     
@@ -77,24 +85,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.newsSwitch$
     ])
     .pipe(
-      switchMap(([lang, type]) => this.getNews(lang, type)  
+      switchMap(([lang, type]) => {
+        this.changelog$ = this.infoService.getChangelog(lang);
+        return this.getNews(lang, type);
+      }  
     )).subscribe(news => this.news = news);
 
-    this.carEventTypesSubscritpion$ = this.events.getEventTypes().subscribe(types => {
-      this.carEventTypes = types;
-    })
+
 
   }
 
   ngOnDestroy(): void {
     this.langSubscritpion$.unsubscribe();
-    this.carEventTypesSubscritpion$.unsubscribe();
     
   }
 
-  getIconFor?(type){
-    return this.carEventTypes[type];
-  }
+
 
 
 
@@ -141,25 +147,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         icon: 'star',
         type: 'Article'
       },
-
-      {
-        lang: 'pl_PL',
-        title: 'Elementy demo, dashboard',
-        version: '0.4.2',
-        fixes: ['Naprawiono błąd blokujący dodanie samochodu z zasobu', 'Naprawiono błąd uniemożliwiający dodanie nowego wydarzenia'],
-        added: ['[Demo] Dodano komponent z nowościami i ankietami', '[Demo] Dodano komponent ze statystykami', '[Demo] Dodano przykładowe dane do kont tymczasowych'],
-        date: new Date(2025, 2, 5),
-        type: 'Changelog'
-      },
-      {
-        lang: 'en_US',
-        title: 'Demo elements, dashboard',
-        version: '0.4.2',
-        fixes: ['Fixed a bug blocking adding a car from a resource', 'Fixed a bug preventing adding a new event'],
-        added: ['[Demo] Added a component with news and surveys', '[Demo] Added a component with statistics', '[Demo] Added sample data to temporary accounts'],
-        date: new Date(2025, 2, 5),
-        type: 'Changelog'
-      }
     ]).pipe(
       map(news => news.filter(n => n.lang === lang && n.type === type.toString()))
     );
@@ -179,6 +166,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           'pl.sztyro.carapp.model.InsuranceEvent': '#8c8cb1',
           'pl.sztyro.carapp.model.TireChangeEvent': '#c0c0c0',
           'pl.sztyro.carapp.model.CarCareEvent': '#bf97a4',
+          'pl.sztyro.carapp.model.ModificationEvent': '#d47b7b',
         }
 
         return {
@@ -232,6 +220,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let next = index + 1;
     if(this.newsActions.length === next) this.newsSwitch$.next(this.newsActions[0].action)
     else this.newsSwitch$.next(this.newsActions[next].action)
+  }
+
+  isMoreThanOneEvent(incomingEvents: DashboardEventSection): boolean { 
+    return incomingEvents.sooner.length + incomingEvents.later.length > 1
   }
 
 }

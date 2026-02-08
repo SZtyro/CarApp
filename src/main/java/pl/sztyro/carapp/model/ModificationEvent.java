@@ -17,10 +17,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ModificationEvent extends CarEvent implements MenuItem {
-
-    @Column
-    private Double amountOfFuel;
+public class ModificationEvent extends NotifiableCarEvent implements MenuItem {
 
     public static MenuNode getNode() {
         return CarEvent.getNode().pushChildren(

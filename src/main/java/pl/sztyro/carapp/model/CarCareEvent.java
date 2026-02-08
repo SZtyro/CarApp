@@ -16,7 +16,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CarCareEvent extends CarEvent implements MenuItem {
+public class CarCareEvent extends NotifiableCarEvent implements MenuItem {
 
     @Column
     private CarCareType careType;

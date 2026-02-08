@@ -1,4 +1,10 @@
 {
+  "Notification": "Powiadomienie",
+  "1_day_before": "1 dzień przed",
+  "3_days_before": "3 dni przed",
+  "7_days_before": "7 dni przed",
+  "14_days_before": "14 dni przed",
+  "30_days_before": "30 dni przed",
   "WELCOME": {
     "DESCRIPTION": "To prosta aplikacja do prowadzenia dziennika samochodowego.",
     "WHAT_DOES_IT_DO": ", podobna do wielu innych. Jednak jej prostota pozwala mi udostępniać ją publicznie na GitHubie. Pracuję nad tym projektem w wolnym czasie. Poniżej znajduje się mapa drogowa funkcji, które planuję dodać w przyszłości.Kafelki z wstążkami będą częścią mojej własnej biblioteki i zostaną udostępnione we wszystkich moich aplikacjach.",
@@ -88,6 +94,13 @@
   },
   "TIPS":{
     "REFUELING": "Tankowanie musi zostać zakończone zawsze w tym samym momencie, a by system mógł wyliczyć poprawnie statysyki (np. \"pod korek\", do pierwszego odbicia)."
+  },
+  "NOTIFICATIONS": {
+    "INCOMING_EVENT": {
+      "subject": "Zbliża się wydarzenie",
+      "message": "Zbliża się zaplanowane wydarzenie:",
+      "message_1": ""
+    }
   },
   "pl": {
     "sztyro": {

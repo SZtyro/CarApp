@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event): void{
-   
+
     this.screenWidth = event != null ? event.target.innerWidth : window.innerWidth;
     this.calculateRoadmapConfig()
   }
@@ -35,17 +35,17 @@ export class HomeComponent implements OnInit {
   roadmapColumns = [0];
   roadmap = [
     { title: 'Core', description: 'Form builder, Core utilities, Basic form fields', state: 'done', library: true },
-    { title: 'Events', description: 'Refueling, Cost summary, Repairs, Insurance', state: 'done' }, 
-    { title: 'Tires', description: 'Tire changes, Tire brands, Tire models', state: 'done' }, 
+    { title: 'Events', description: 'Refueling, Cost summary, Repairs, Insurance', state: 'done' },
+    { title: 'Tires', description: 'Tire changes, Tire brands, Tire models', state: 'done' },
     { title: 'App dashboard', description: 'Demo tiles, Detailed statistics and insights', state: 'done' },
-    { title: 'Menu', description: 'Expandable menu with a tree structure, Mobile layout', state: 'done', library: true }, 
+    { title: 'Menu', description: 'Expandable menu with a tree structure, Mobile layout', state: 'done', library: true },
     { title: 'Welcome page', description: 'Public page for non-logged users, Overview tab, Specification tab, Roadmap tab, About me tab', state: 'done' },
     { title: 'Jenkins', description: 'Continuous integration and delivery', state: 'done' },
-    { title: 'Task system', description: 'Bug reporting, Development tracking, Feature requests', state: 'inProgress', library: true },
+    { title: 'Task system', description: 'Bug reporting, Development tracking, Feature requests', state: 'done', library: true },
     { title: 'Enhanced statistics', description: 'Library chart component, Detailed cost dashboard charts', state: 'done', library: true },
-    { title: 'Notifications', description: 'Customizable notifications, Email based on event date', state: 'planned', library: true },
+    { title: 'Notifications', description: 'Customizable notifications, Email based on event date', state: 'done', library: true },
     { title: 'Trips', description: "Splitting trip costs", state: 'planned' },
-    { title: 'Core 1.0', description: 'Full version of form builder', state: 'planned', library: true },
+    { title: 'Core 1.0', description: 'Full version of form builder', state: 'done', library: true },
     { title: 'Rating', description: 'Tire rating and reviews', state: 'underConsideration' },
     { title: 'Community', description: 'User forums', state: 'underConsideration' },
     { title: 'Offline mode', description: 'Ability to save documents without an internet connection', state: 'underConsideration' },
@@ -79,13 +79,13 @@ export class HomeComponent implements OnInit {
     {title: 'BETA', icon: 'experiment'},
     {title: 'JENKINS', icon: 'rocket_launch'},
   ]
- 
-  
+
+
   constructor(
     private http: HttpClient,
     public profile: ProfileService,
     public translate: TranslateService){
-    
+
   }
 
 
@@ -93,13 +93,13 @@ export class HomeComponent implements OnInit {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       this.theme = 'dark'
     }
-    
+
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
       this.theme = event.matches ? "dark" : "light";
     });
 
     this.calculateRoadmapConfig();
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -227,14 +227,14 @@ export class HomeComponent implements OnInit {
           legend: {display: false},
         },
       },
-      
+
       data: {
         labels: wakaTimeData.data.map(e => e.name),
         datasets: [
           {
             label: 'Percent',
             data: wakaTimeData.data.map(e => e.percent),
-            
+
             backgroundColor:  wakaTimeData.data.map(e => e.color),
             borderColor: 'transparent'
           },

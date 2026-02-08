@@ -47,18 +47,26 @@ spring:
     mail:
         host: smtp.gmail.com
         port: 587
+        protocol: ${SMTP_PROTOCOL:smtp}
         username: ${SMTP_USERNAME}
         password: ${SMTP_PASSWORD}
         properties:
             mail:
                 smtp:
                     auth: true
+                    ssl.trust: "smtp.gmail.com"
                     starttls:
                         enable: true
                     ssl.protocols: TLSv1.2
 app:
-    version: @project.version@
-    mail.info.recipient: ${INFO_RECIPIENT}
+    notifications:
+        mail:
+#            sendingSchedule: "0 0 12 * * *"
+#            sendingSchedule: "*/10 * * * * *"
+            info.recipient: ${INFO_RECIPIENT}
+            host: http://localhost:4200
+            dry-run: true
 logging:
     level:
         pl.sztyro: DEBUG
+        pl.sztyro.core.service.RestService: INFO

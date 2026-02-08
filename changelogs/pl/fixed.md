@@ -1,0 +1,1 @@
+- Wylogowanie przekierowuje do strony głównej

@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 @Secure(read = "", write = "")
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public class RepairEvent extends CarEvent implements MenuItem {
+public class RepairEvent extends NotifiableCarEvent implements MenuItem {
 
     public static MenuNode getNode() {
         return CarEvent.getNode().pushChildren(

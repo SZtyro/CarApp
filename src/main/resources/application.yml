@@ -48,18 +48,21 @@ spring:
             resource:
                 user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
     mail:
-        host: sztyro.com
-        port: 587
-        protocol: smtp
+        host: ${SMTP_HOST}
+        port: ${SMTP_PORT:587}
+        protocol: ${SMTP_PROTOCOL:smtp}
         username: ${SMTP_USERNAME}
         password: ${SMTP_PASSWORD}
         properties:
             mail:
                 smtp:
-                    auth: true
-                    ssl.trust: sztyro.com
+                    auth: ${SMTP_AUTH}
+                    ssl.trust: "${SMTP_SSL_TRUST:sztyro.com}"
                     starttls:
                         enable: true
 app:
-    version: @project.version@
-    mail.info.recipient: ${INFO_RECIPIENT}
+    notifications:
+        mail:
+            sendingSchedule: "0 0 12 * * *"
+            info.recipient: ${INFO_RECIPIENT}
+            host: https://carapp.sztyro.com

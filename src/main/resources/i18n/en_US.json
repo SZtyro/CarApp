@@ -1,8 +1,20 @@
 {
   "pl_PL": "Polish",
   "en_US": "English",
+  "1_day_before": "1 day before",
+  "3_days_before": "3 days before",
+  "7_days_before": "7 days before",
+  "14_days_before": "14 days before",
+  "30_days_before": "30 days before",
   "TIPS": {
     "REFUELING": "Refueling must always be completed at the same point so that the system can correctly calculate statistics (e.g., “full tank,” until the first nozzle shutoff)."
+  },
+  "NOTIFICATIONS": {
+    "INCOMING_EVENT": {
+      "subject": "Incoming event",
+      "message": "The event:",
+      "message_1": "is about to happen."
+    }
   },
   "WELCOME": {
     "DESCRIPTION": "It's a simple and convenient tool for tracking all costs related to your car.",

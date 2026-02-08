@@ -17,7 +17,7 @@ import java.util.Set;
 @SuperBuilder(toBuilder = true)
 @Secure(read = "", write = "")
 @NoArgsConstructor
-public class TireChangeEvent extends CarEvent implements MenuItem {
+public class TireChangeEvent extends NotifiableCarEvent implements MenuItem {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
