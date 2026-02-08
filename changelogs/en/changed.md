@@ -1,1 +1,0 @@
-- Incoming events include those with a date more than 30 days in the future (max. 3)
