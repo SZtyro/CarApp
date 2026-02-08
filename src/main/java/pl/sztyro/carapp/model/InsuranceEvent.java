@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @Setter
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public class InsuranceEvent extends CarEvent implements MenuItem {
+public class InsuranceEvent extends NotifiableCarEvent implements MenuItem{
 
     @ManyToOne
     private InsuranceCompany company;

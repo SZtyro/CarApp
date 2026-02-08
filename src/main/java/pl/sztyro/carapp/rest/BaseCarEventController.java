@@ -8,12 +8,10 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.*;
 import pl.sztyro.carapp.service.CarService;
 import pl.sztyro.core.rest.BaseController;
-import pl.sztyro.core.rest.FilteredResult;
 
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public abstract class BaseCarEventController<T extends  CarEvent> extends BaseController<T> {

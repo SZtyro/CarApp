@@ -50,7 +50,7 @@ spring:
     mail:
         host: ${SMTP_HOST}
         port: ${SMTP_PORT:587}
-        protocol: ${SMTP_PROTOCOL}
+        protocol: ${SMTP_PROTOCOL:smtp}
         username: ${SMTP_USERNAME}
         password: ${SMTP_PASSWORD}
         properties:
@@ -61,5 +61,8 @@ spring:
                     starttls:
                         enable: true
 app:
-    version: @project.version@
-    mail.info.recipient: ${INFO_RECIPIENT}
+    notifications:
+        mail:
+            sendingSchedule: "0 0 12 * * *"
+            info.recipient: ${INFO_RECIPIENT}
+            host: https://carapp.sztyro.com

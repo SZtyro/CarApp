@@ -33,15 +33,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       "size": 3,
       'date:From': this.today.getTime()
     }).pipe(map(response => {
-      let ret: DashboardEventSection = {sooner: [], later: []};
+      let ret: DashboardEventSection = {sooner: [], later: []};     
       response.results.forEach((event) => {
         let grouped = event.date <= this.monthLater.getTime() ? ret.sooner : ret.later;
         let elem = grouped.find(e => e.car?.id === event.car?.id);
         if(elem != null) elem.events.push(event)
         else grouped.push({car: event.car, events: [event]}); 
       })
-      if(this.isMoreThanOneEvent(ret)) return ret;
-      else return null;
+      return ret;
     }))
 
     this.mainCar$ = this.cars.getAll().pipe(
@@ -223,7 +222,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     else this.newsSwitch$.next(this.newsActions[next].action)
   }
 
-  isMoreThanOneEvent(incomingEvents: DashboardEventSection): boolean {
+  isMoreThanOneEvent(incomingEvents: DashboardEventSection): boolean { 
     return incomingEvents.sooner.length + incomingEvents.later.length > 1
   }
 

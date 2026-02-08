@@ -11,6 +11,9 @@ import pl.sztyro.core.service.DateService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,4 +39,32 @@ public class InsuranceService {
                 .setMaxResults(1)
                 .getSingleResult();
     }
+
+    public List<InsuranceEvent> getInsurancesByDate(Date date) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<InsuranceEvent> query = cb.createQuery(InsuranceEvent.class);
+        Root<InsuranceEvent> root = query.from(InsuranceEvent.class);
+
+        Calendar start = Calendar.getInstance();
+        start.setTime(date);
+        start.set(Calendar.HOUR_OF_DAY, 0);
+        start.set(Calendar.MINUTE, 0);
+        start.set(Calendar.SECOND, 0);
+        start.set(Calendar.MILLISECOND, 0);
+
+        Calendar end = (Calendar) start.clone();
+        end.add(Calendar.DAY_OF_MONTH, 1);
+
+        Predicate between = cb.between(
+                root.get(InsuranceEvent_.date),
+                start.getTime(),
+                end.getTime()
+        );
+
+        query.where(between);
+
+        return em.createQuery(query).getResultList();
+    }
+
 }
+
