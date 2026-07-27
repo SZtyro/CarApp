@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, Subscription, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, map, Observable, of, shareReplay, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
-import { ChartComponent, formImports, InfoService, RoleService, Utils } from '@sztyro/core'
+import { ChangelogService, ChartComponent, formImports, InfoService, RoleService, Utils } from '@sztyro/core'
 import { TranslateService } from '@ngx-translate/core';
 import { CarService } from './../../services/car.service';
 import { ChartConfiguration } from 'chart.js/auto';
@@ -26,34 +26,60 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private roles: RoleService,
     private translate: TranslateService,
     private cars: CarService,
-    private infoService: InfoService
-  ) { 
+    private changelogService: ChangelogService,
+  ) {
     this.incomingEvents$ = this.events.getAll({
       "sort": 'date:ASC',
       "size": 3,
       'date:From': this.today.getTime()
     }).pipe(map(response => {
-      let ret: DashboardEventSection = {sooner: [], later: []};     
+      let ret: DashboardEventSection = {sooner: [], later: []};
       response.results.forEach((event) => {
         let grouped = event.date <= this.monthLater.getTime() ? ret.sooner : ret.later;
         let elem = grouped.find(e => e.car?.id === event.car?.id);
         if(elem != null) elem.events.push(event)
-        else grouped.push({car: event.car, events: [event]}); 
+        else grouped.push({car: event.car, events: [event]});
       })
       return ret;
     }))
 
     this.mainCar$ = this.cars.getAll().pipe(
-      map(cars => cars.results?.[0])
+      map(cars => cars.results?.[0]),
+      shareReplay(1)
     )
+
+    this.storedYears$ = this.mainCar$.pipe(
+      switchMap(car => car ? this.events.getStoredCarYears(car.id) : of([])),
+      shareReplay(1)
+    );
+
+    this.selectedYear$ = combineLatest([
+      this.storedYears$,
+      this.selectedYearChange$.pipe(startWith<number | null>(null))
+    ]).pipe(
+      map(([years, selectedYear]) => {        
+        const fallbackYear = years?.[0] ?? this.today.getFullYear();
+        if (selectedYear == null) {
+          return fallbackYear;
+        }
+
+        return years.includes(selectedYear) ? selectedYear : fallbackYear;
+      }),
+      distinctUntilChanged(),
+      shareReplay(1)
+    );
+
    this.prepareChart();
 
   }
 
 
-  
+
   mainCar$: Observable<any>;
+  storedYears$: Observable<number[]>;
   langSubscritpion$: Subscription;
+  selectedYear$: Observable<number>;
+  selectedYearChange$: Subject<number> = new Subject<number>();
 
   today: Date = new Date();
   monthLater: Date = new Date(this.today.getFullYear(),this.today.getMonth() + 1, this.today.getDate());
@@ -76,28 +102,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
+
     this.langSubscritpion$ = combineLatest([
       this.translate.onLangChange.pipe(
         map(event => event.lang),
         startWith(this.translate.currentLang)
-      ), 
+      ),
       this.newsSwitch$
     ])
     .pipe(
       switchMap(([lang, type]) => {
-        this.changelog$ = this.infoService.getChangelog(lang);
+        this.changelog$ = this.changelogService.getChangelog(lang);
         return this.getNews(lang, type);
-      }  
+      }
     )).subscribe(news => this.news = news);
-
-
 
   }
 
   ngOnDestroy(): void {
     this.langSubscritpion$.unsubscribe();
-    
+
   }
 
 
@@ -106,25 +130,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   /**
    * Method fetches news from the server
-   * @param lang 
-   * @returns 
+   * @param lang
+   * @returns
    */
 
   getNews(lang: string, type:string): Observable<any[]>{
-    
+
     //Demo
     return of([
       {
-        lang: 'pl_PL', 
-        title: 'Demonstracyjne elementy aplikacji', 
+        lang: 'pl_PL',
+        title: 'Demonstracyjne elementy aplikacji',
         preview: 'Najnowsze aktualizacje będą zawierały elementy demonstracyjne. Będą one zawierały statyczne informacje pozwalając na zapoznanie się z koncepcją. Na priorytet wprowadzania tych elementów będzie można zagłosować w ankietach. ',
         date: new Date(2025, 2, 20),
         icon: 'star',
         type: 'Article'
       },
       {
-        lang: 'pl_PL', 
-        title: 'Nowy sposób przedstawiania statystyk', 
+        lang: 'pl_PL',
+        title: 'Nowy sposób przedstawiania statystyk',
         preview: 'W najnowszej aktualizacji dodano porównanie ostatniego wyniku konsumpcji paliwa do ogólnego średniego wyniku. Dzięki temu łatwiej jest zauważyć czy nasze osiągi są lepsze czy gorsze od przeciętnych.',
         date: new Date(2025, 2, 10),
         icon: 'star',
@@ -132,16 +156,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       },
 
       {
-        lang: 'en_US', 
-        title: 'Demonstration elements of the application', 
+        lang: 'en_US',
+        title: 'Demonstration elements of the application',
         preview: 'The latest updates will include demonstration elements. They will contain static information allowing you to get acquainted with the concept. You will be able to vote on the priority of introducing these elements in the surveys.',
         date: new Date(2025, 2, 20),
         icon: 'star',
         type: 'Article'
       },
       {
-        lang: 'en_US', 
-        title: 'New way of presenting statistics', 
+        lang: 'en_US',
+        title: 'New way of presenting statistics',
         preview: 'In the latest update, a comparison of the last fuel consumption result to the overall average result has been added. This makes it easier to see if our performance is better or worse than average.',
         date: new Date(2025, 2, 10),
         icon: 'star',
@@ -154,9 +178,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   prepareChart(): void {
 
-    this.summaryChartConfig$ = this.mainCar$.pipe(
-      switchMap(car => car ? this.events.getSummary(car.id) : of({})),
+    this.summaryChartConfig$ = combineLatest([
+      this.mainCar$,
+      this.selectedYear$
+    ]).pipe(
+      switchMap(([car, year]) => {
+        return car ? this.events.getSummary(year, car.id) : of({});
+      }),
       map(summary => {
+        
         const keys = Object.keys(summary);
         const months = keys.map(key => this.translate.instant(key[0].toUpperCase() + key.slice(1)));
 
@@ -187,16 +217,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
           },
           options: {
           responsive: true,
-          maintainAspectRatio: false, 
+          maintainAspectRatio: false,
           scales: {
             y: { beginAtZero: true }
           },
           plugins: {
             tooltip: {
-              enabled: true, 
-              backgroundColor: Utils.Style.getCssVariable('--sys-surface-dim'), 
-              titleColor: Utils.Style.getCssVariable('--sys-on-surface') , 
-              bodyColor: Utils.Style.getCssVariable('--sys-on-surface'), 
+              enabled: true,
+              backgroundColor: Utils.Style.getCssVariable('--sys-surface-dim'),
+              titleColor: Utils.Style.getCssVariable('--sys-on-surface') ,
+              bodyColor: Utils.Style.getCssVariable('--sys-on-surface'),
               usePointStyle: true,
               caretSize: 0,
               cornerRadius: 8,
@@ -204,7 +234,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
               displayColors: false,
               callbacks: {
                 label: function (context) {
-                  return `${context.dataset.label}: ${Number(context.raw).toFixed(2)} zł`; 
+                  return `${context.dataset.label}: ${Number(context.raw).toFixed(2)} zł`;
                 }
               }
             }
@@ -213,7 +243,55 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       })
     )
-    
+
+  }
+
+  selectYear(year: number): void {
+    this.selectedYearChange$.next(year);
+  }
+
+  selectPreviousYear(years: number[], currentYear: number): void {
+    this.selectAdjacentYear(years, currentYear, -1);
+  }
+
+  selectNextYear(years: number[], currentYear: number): void {
+    this.selectAdjacentYear(years, currentYear, 1);
+  }
+
+  hasPreviousYear(years: number[], currentYear: number): boolean {
+    return this.hasAdjacentYear(years, currentYear, -1);
+  }
+
+  hasNextYear(years: number[], currentYear: number): boolean {
+    return this.hasAdjacentYear(years, currentYear, 1);
+  }
+
+  selectAdjacentYear(years: number[], currentYear: number, direction: -1 | 1): void {
+    const orderedYears = [...years].sort((a, b) => a - b);
+    const currentIndex = orderedYears.indexOf(currentYear);
+    if (currentIndex < 0) {
+      return;
+    }
+
+    const targetIndex = currentIndex + direction;
+    if (targetIndex >= 0 && targetIndex < orderedYears.length) {
+      this.selectYear(orderedYears[targetIndex]);
+    }
+  }
+
+  hasAdjacentYear(years: number[], currentYear: number, direction: -1 | 1): boolean {
+    if (years.length === 0) {
+      return false;
+    }
+
+    const orderedYears = [...years].sort((a, b) => a - b);
+    const currentIndex = orderedYears.indexOf(currentYear);
+    if (currentIndex < 0) {
+      return false;
+    }
+
+    const targetIndex = currentIndex + direction;
+    return targetIndex >= 0 && targetIndex < orderedYears.length;
   }
 
   switchAction(index: number): void {
@@ -222,7 +300,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     else this.newsSwitch$.next(this.newsActions[next].action)
   }
 
-  isMoreThanOneEvent(incomingEvents: DashboardEventSection): boolean { 
+  isMoreThanOneEvent(incomingEvents: DashboardEventSection): boolean {
     return incomingEvents.sooner.length + incomingEvents.later.length > 1
   }
 

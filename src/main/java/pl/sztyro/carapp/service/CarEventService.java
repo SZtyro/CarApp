@@ -3,6 +3,7 @@ package pl.sztyro.carapp.service;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.stereotype.Service;
+import pl.sztyro.carapp.model.Car;
 import pl.sztyro.carapp.model.CarEvent;
 import pl.sztyro.carapp.repository.CarEventRepository;
 import pl.sztyro.core.Utils;
@@ -17,9 +18,12 @@ public class CarEventService {
     private final CarEventRepository repository;
     private final DateService dateService;
 
-    public CarEventSummary getSummary(Long carId) {
+    public List<Integer> getStoredYears(Long carId){
+        return repository.findAvailableYears(carId);
+    }
 
-        int year = Utils.Date.extract(Calendar.YEAR, dateService.now());
+    public CarEventSummary getSummary(Long carId, Integer year) {
+
         List<CarEvent> eventsThisYear = repository.findAllByCarIdAndDateGreaterThan(carId, Utils.Date.from(year, 1, 1));
 
 

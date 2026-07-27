@@ -1,3 +1,13 @@
+# v0.10.0 - Past costs statistics - 2026-07-27
+
+## Added
+- Dodano przekierowanie na poprzednią stronę po udanym logowaniu
+- Dodano możliwość przeglądania statystyk kosztów poprzednich lat
+## Fixed
+- Naprawiono pole z liczbami zmiennoprzecinkowymi. Można używać przecinków.
+## Removed
+- Usunięto możliwość tworzenia kont tymczasowych
+
 # v0.9.3 - Fixes - 2026-02-08
 
 

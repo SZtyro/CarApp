@@ -17,9 +17,9 @@ export class FuelSummary extends FormElement{
   }
 
   events = inject(EventService)
-  
 
-  calculate?(){
+
+  calculate(){
     let object = this.getFormRef()?.object();
     let latestRefuelMileage = object.previousEvent?.mileage ?? 0;
     let distanceTraveled = object.mileage - latestRefuelMileage;

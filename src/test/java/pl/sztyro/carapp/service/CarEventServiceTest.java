@@ -57,7 +57,7 @@ class CarEventServiceTest {
         em.merge(RefuelEvent.builder().car(test).date(Utils.Date.from(2024,4,22)).price(15.0).build());
         em.merge(InsuranceEvent.builder().car(test).date(Utils.Date.from(2024,3,1)).price(800.0).build());
 
-        CarEventService.CarEventSummary summary = carEventService.getSummary(test.getId());
+        CarEventService.CarEventSummary summary = carEventService.getSummary(test.getId(), 2023);
         List<CarEventService.CarEventSummaryDetails> march = summary.getMarch();
         List<CarEventService.CarEventSummaryDetails> april = summary.getApril();
         assertEquals(2, march.size());

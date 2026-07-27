@@ -5,7 +5,7 @@ import { EventFormComponent } from './components/forms/event-form/event-form.com
 import { EventService } from './services/event.service';
 import { CarService } from './services/car.service';
 import { CarFormComponent } from './components/forms/car-form/car-form.component';
-import { MenuService, RESOURCE, RoleComponent, RoleService, ProfileService, LoginComponent, IssueService, IssueTypeService, IssueTypeComponent, IssueComponent} from '@sztyro/core';
+import { MenuService, RESOURCE, RoleComponent, RoleService, ProfileService, LoginComponent, IssueService, IssueTypeService, IssueTypeComponent, IssueComponent, AuthService, LoginSuccessComponent} from '@sztyro/core';
 import { EventComponent } from './components/forms/event-form/event.component';
 import { InsuranceCompanyService } from './services/insurance-company.service';
 import { InsuranceCompanyComponent } from './components/forms/insurance-company/insurance-company.component';
@@ -21,7 +21,8 @@ import { HomeService } from './services/home.service';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, resolve: {user: HomeService}},
-  { path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent, resolve: { config: AuthService } },
+  { path: 'loginSuccess', component: LoginSuccessComponent},
   {
     path: '',
     resolve: { profile: ProfileService },

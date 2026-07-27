@@ -59,6 +59,9 @@ spring:
                         enable: true
                     ssl.protocols: TLSv1.2
 app:
+    auth:
+        temporaryAccountEnabled: false
+        rememberMeEnabled: true
     notifications:
         mail:
 #            sendingSchedule: "0 0 12 * * *"
