@@ -1,0 +1,1 @@
+- Added redirect to previous page after successful login

@@ -1,0 +1,1 @@
+- Dodano przekierowanie na poprzednią stronę po udanym logowaniu
