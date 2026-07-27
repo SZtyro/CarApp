@@ -61,6 +61,9 @@ spring:
                     starttls:
                         enable: true
 app:
+    auth:
+        temporaryAccountEnabled: false
+        rememberMeEnabled: true
     notifications:
         mail:
             sendingSchedule: "0 0 12 * * *"
