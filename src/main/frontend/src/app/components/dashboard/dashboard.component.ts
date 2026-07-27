@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, Subscription, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, map, Observable, of, shareReplay, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
 import { ChangelogService, ChartComponent, formImports, InfoService, RoleService, Utils } from '@sztyro/core'
 import { TranslateService } from '@ngx-translate/core';
@@ -44,8 +44,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }))
 
     this.mainCar$ = this.cars.getAll().pipe(
-      map(cars => cars.results?.[0])
+      map(cars => cars.results?.[0]),
+      shareReplay(1)
     )
+
+    this.storedYears$ = this.mainCar$.pipe(
+      switchMap(car => car ? this.events.getStoredCarYears(car.id) : of([])),
+      shareReplay(1)
+    );
+
+    this.selectedYear$ = combineLatest([
+      this.storedYears$,
+      this.selectedYearChange$.pipe(startWith<number | null>(null))
+    ]).pipe(
+      map(([years, selectedYear]) => {        
+        const fallbackYear = years?.[0] ?? this.today.getFullYear();
+        if (selectedYear == null) {
+          return fallbackYear;
+        }
+
+        return years.includes(selectedYear) ? selectedYear : fallbackYear;
+      }),
+      distinctUntilChanged(),
+      shareReplay(1)
+    );
+
    this.prepareChart();
 
   }
@@ -53,7 +76,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
   mainCar$: Observable<any>;
+  storedYears$: Observable<number[]>;
   langSubscritpion$: Subscription;
+  selectedYear$: Observable<number>;
+  selectedYearChange$: Subject<number> = new Subject<number>();
 
   today: Date = new Date();
   monthLater: Date = new Date(this.today.getFullYear(),this.today.getMonth() + 1, this.today.getDate());
@@ -90,8 +116,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         return this.getNews(lang, type);
       }
     )).subscribe(news => this.news = news);
-
-
 
   }
 
@@ -154,9 +178,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   prepareChart(): void {
 
-    this.summaryChartConfig$ = this.mainCar$.pipe(
-      switchMap(car => car ? this.events.getSummary(car.id) : of({})),
+    this.summaryChartConfig$ = combineLatest([
+      this.mainCar$,
+      this.selectedYear$
+    ]).pipe(
+      switchMap(([car, year]) => {
+        return car ? this.events.getSummary(year, car.id) : of({});
+      }),
       map(summary => {
+        
         const keys = Object.keys(summary);
         const months = keys.map(key => this.translate.instant(key[0].toUpperCase() + key.slice(1)));
 
@@ -214,6 +244,54 @@ export class DashboardComponent implements OnInit, OnDestroy {
       })
     )
 
+  }
+
+  selectYear(year: number): void {
+    this.selectedYearChange$.next(year);
+  }
+
+  selectPreviousYear(years: number[], currentYear: number): void {
+    this.selectAdjacentYear(years, currentYear, -1);
+  }
+
+  selectNextYear(years: number[], currentYear: number): void {
+    this.selectAdjacentYear(years, currentYear, 1);
+  }
+
+  hasPreviousYear(years: number[], currentYear: number): boolean {
+    return this.hasAdjacentYear(years, currentYear, -1);
+  }
+
+  hasNextYear(years: number[], currentYear: number): boolean {
+    return this.hasAdjacentYear(years, currentYear, 1);
+  }
+
+  selectAdjacentYear(years: number[], currentYear: number, direction: -1 | 1): void {
+    const orderedYears = [...years].sort((a, b) => a - b);
+    const currentIndex = orderedYears.indexOf(currentYear);
+    if (currentIndex < 0) {
+      return;
+    }
+
+    const targetIndex = currentIndex + direction;
+    if (targetIndex >= 0 && targetIndex < orderedYears.length) {
+      this.selectYear(orderedYears[targetIndex]);
+    }
+  }
+
+  hasAdjacentYear(years: number[], currentYear: number, direction: -1 | 1): boolean {
+    if (years.length === 0) {
+      return false;
+    }
+
+    const orderedYears = [...years].sort((a, b) => a - b);
+    const currentIndex = orderedYears.indexOf(currentYear);
+    if (currentIndex < 0) {
+      return false;
+    }
+
+    const targetIndex = currentIndex + direction;
+    return targetIndex >= 0 && targetIndex < orderedYears.length;
   }
 
   switchAction(index: number): void {

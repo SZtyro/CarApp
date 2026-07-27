@@ -1,1 +1,2 @@
 - Dodano przekierowanie na poprzednią stronę po udanym logowaniu
+- Dodano możliwość przeglądania statystyk kosztów poprzednich lat

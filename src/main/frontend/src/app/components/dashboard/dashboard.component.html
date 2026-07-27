@@ -2,7 +2,7 @@
   <div class="row">
 
     <div class="col-md-6 h-100" *ngIf="(incomingEvents$ | async) as incomingEvents">
-      <div>
+      <div class="p-2">
         <div class="header">{{'Incoming events' | translate}}</div>
         <div class="content">
           <div *ngFor="let section of incomingEvents.sooner" >
@@ -43,8 +43,15 @@
     </div>
 
     <div class="col-12 cost-tile">
-      <div class="d-flex">
+      <div class="d-flex justify-content-between align-items-center p-2">
         <div class="header">{{'Costs' | translate}}</div>
+        <div class="stored-years" *ngIf="(storedYears$ | async) as years" >
+          <ng-container *ngIf="(selectedYear$ | async) as selectedYear">
+            <button mat-icon-button [disabled]="!hasPreviousYear(years, selectedYear)" (click)="selectPreviousYear(years, selectedYear)"><span class="material-symbols-rounded">arrow_back</span></button>
+            <span>{{selectedYear}}</span>
+            <button mat-icon-button [disabled]="!hasNextYear(years, selectedYear)" (click)="selectNextYear(years, selectedYear)"><span class="material-symbols-rounded">arrow_forward</span></button>
+          </ng-container>
+        </div>
       </div>
       <div class="content p-3">
         <lib-chart [chartConfig$]="summaryChartConfig$"></lib-chart>
