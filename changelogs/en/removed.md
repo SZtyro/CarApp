@@ -1,1 +1,0 @@
-- Removed ability to create a temporary account

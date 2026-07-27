@@ -1,2 +1,0 @@
-- Added redirect to previous page after successful login
-- Added an ability to browse costs statistics from past years 

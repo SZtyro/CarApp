@@ -1,3 +1,13 @@
+# v0.10.0 - Past costs statistics - 2026-07-27
+
+## Added
+- Added redirect to previous page after successful login
+- Added an ability to browse costs statistics from past years 
+## Fixed
+Fixed the floating-point number input field. Commas are now supported.
+## Removed
+- Removed ability to create a temporary account
+
 # v0.9.3 - Fixes - 2026-02-08
 
 

@@ -1,1 +1,0 @@
-- Naprawiono pole z liczbami zmiennoprzecinkowymi. Można używać przecinków.

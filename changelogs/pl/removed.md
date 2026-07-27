@@ -1,1 +1,0 @@
-- Usunięto możliwość tworzenia kont tymczasowych

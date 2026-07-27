@@ -1,1 +1,0 @@
-Fixed the floating-point number input field. Commas are now supported.
