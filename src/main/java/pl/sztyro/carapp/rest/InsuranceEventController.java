@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.sztyro.carapp.model.InsuranceEvent;
 import pl.sztyro.carapp.repository.InsuranceEventRepository;
 import pl.sztyro.carapp.service.InsuranceService;
-import pl.sztyro.core.service.UserService;
+import pl.sztyro.security.CurrentUserProvider;
 
 import javax.persistence.NoResultException;
 import java.io.IOException;
@@ -21,8 +21,7 @@ import java.util.*;
 @RequestMapping("/api/events/type/insurance")
 public class InsuranceEventController extends BaseCarEventController<InsuranceEvent> {
 
-    @Autowired
-    private UserService userService;
+    private final CurrentUserProvider userService;
 
     @Autowired
     private InsuranceEventRepository repository;
@@ -30,8 +29,9 @@ public class InsuranceEventController extends BaseCarEventController<InsuranceEv
     @Autowired
     private InsuranceService insuranceService;
 
-    public InsuranceEventController(){
+    public InsuranceEventController(CurrentUserProvider userProvider){
         super(InsuranceEventController.class, InsuranceEvent.class);
+        this.userService = userProvider;
     }
 
 

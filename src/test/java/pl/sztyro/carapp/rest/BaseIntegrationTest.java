@@ -77,7 +77,7 @@ public abstract class BaseIntegrationTest {
     }
 
     protected User getTester(){
-        return users.findById(testerMail).get();
+        return users.findByEmail(testerMail).get();
     }
 
     protected ResultActions mvcOAuth2(MockHttpServletRequestBuilder request) throws Exception {
